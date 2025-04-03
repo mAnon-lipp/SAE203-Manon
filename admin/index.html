@@ -8,14 +8,40 @@
   </head>
   <body>
     <section id="log"></section>
+    <section id="addMovie"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
+      import { MovieForm } from "./component/MovieForm/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
 
       window.C = {};
 
+      C.handlerAdd = async function () {
+        // Sélectionne l'élément possédant la classe `.addMovie__form`
+        // il s'agit de l'élément <form> du composant NewMovieForm
+        let form = document.querySelector(".addMovie__form");
+        /* 
+                Il faut comprendre l'instruction "new FormData(form)" ainsi : 
+                "créer un nouvel objet FormData à partir du formulaire form"
+                Les objets FormData sont des objets natifs du langage Javascript.
+                Très pratique, les créer revient à extraire automatiquement les données
+                du formulaire sous forme de paires clé/valeur ou la clé est le nom de
+                l'élément du formulaire et la valeur est la valeur de l'élément.
+                Par exemple : {jour: 'lundi', entree: 'salade', plat: 'steak', dessert: 'tarte'}
+                Surtout un FormData peut être placé tel quel dans le corps (body) d'une requête
+                HTTP pour être envoyé à un serveur.
+            */
+        let fd = new FormData(form);
+        // Attend la réponse de la fonction `DataMovie.update(fd)`
+        let res = await DataMovie.update(fd);
+        // Affiche le résultat de la mise à jour dans le journal
+        V.renderLog(res);
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
+        V.renderAddMovie("C.handlerAdd")
       };
 
       window.V = {};
@@ -23,6 +49,11 @@
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
+      };
+
+      V.renderAddMovie = function (handler) {
+        let content = document.querySelector("#addMovie");
+        content.innerHTML = MovieForm.format(handler);
       };
 
       C.start();
