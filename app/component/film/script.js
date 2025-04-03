@@ -4,6 +4,10 @@ let template = await templateFile.text();
 let Movie = {};
 
 Movie.format = function (movies) {
+  if (movies.length === 0) {
+    return "<p>Aucun film disponible pour le moment.</p>";
+  }
+
   let html = "";
   movies.forEach((movie) => {
     let movieHtml = template;

@@ -47,4 +47,26 @@ function getMovie() {
     }
 }
 
+function addMovie($name, $director, $year, $durée, $description,$id_category, $image, $trailer, $min_age) {
+    try {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $sql = "INSERT INTO Movie (name, director, year, durée, description, id_category, image, trailer, min_age) 
+                VALUES (:name, :director, :year, :durée, :description, :id_category, :image, :trailer, :min_age)";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':director', $director);
+        $stmt->bindParam(':year', $year);
+        $stmt->bindParam(':durée', $durée);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':id_category', $id_category);
+        $stmt->bindParam(':image', $image);
+        $stmt->bindParam(':trailer', $trailer);
+        $stmt->bindParam(':min_age', $min_age);
+        return $stmt->execute(); // Retourne true si l'insertion a réussi, false sinon
+        } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
+        return false;
+        }
+}
+
 

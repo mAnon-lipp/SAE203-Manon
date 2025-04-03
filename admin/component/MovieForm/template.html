@@ -1,17 +1,26 @@
 <div class="addMovie">
     <h4 class="addMovie__title"># Ajouter ou modifier un Movie</h4>
     <form class="addMovie__form">
-
-        
-        <input required type="text" name="name" placeholder="Saisir le titre du film" >
-        <input required type="text" name="director" placeholder="Saisir le réalisateur" pattern="[^0-9]*" title="Numbers are not allowed" >
-        <input required type="number" name="year" placeholder="Année de sortie" >
-        <input required type="number" name="length" placeholder="Durée en minutes" >
-        <input required type="text" name="description" placeholder="Saisir le synopsis" >
-        <input required type="text" name="category.name" placeholder="Saisir la catégorie" pattern="[^0-9]*" title="Numbers are not allowed">
-        <input required type="text" name="image" placeholder="Saisir le nom du fichier de l'affiche" >
-        <input required type="text" name="trailer" placeholder="Saisir l'url du trailer" >
-        <input required type="number" name="min_age" placeholder="Restrictions d'age" >
+        <input type="text" name="name" placeholder="Saisir le titre du film" required>
+        <input type="text" name="director" placeholder="Saisir le réalisateur" pattern="[^0-9]*" title="Numbers are not allowed"  required>
+        <input type="number" name="year" placeholder="Année de sortie"  required >
+        <input type="number" name="durée" placeholder="Durée en minutes"  required>
+        <input type="text" name="description" placeholder="Saisir le synopsis"  required>
+        <select name="id_category" required>
+            <option value="1">Action</option>
+            <option value="2">Comédie</option>
+            <option value="3">Drame</option>
+            <option value="4">Science-fiction</option>
+            <option value="5">Animation</option>
+            <option value="6">Thriller</option>
+            <option value="7">Horreur</option>
+            <option value="8">Aventure</option>
+            <option value="9">Fantasie</option>
+            <option value="10">Documentaire</option>
+        </select>
+        <input type="text" name="image" placeholder="Saisir le nom du fichier de l'affiche"  required>
+        <input type="text" name="trailer" placeholder="Saisir l'url du trailer"  required>
+        <input type="number" name="min_age" placeholder="Restrictions d'age"  required>
         <input onclick="{{handler}}" type="button" value="Ajouter" name="todo">
 
     </form>
