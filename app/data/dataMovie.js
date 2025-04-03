@@ -1,5 +1,5 @@
 // URL où se trouve le répertoire "server" sur mmi.unilim.fr
-let HOST_URL = "https://mmi.unilim.fr/~lippler1/SAE2.03-Manon";
+let HOST_URL = "https://mmi.unilim.fr/~lippler1/SAE203-Manon";
 
 let DataMovie = {};
 
