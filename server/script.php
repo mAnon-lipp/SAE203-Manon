@@ -57,21 +57,23 @@ if ( isset($_REQUEST['todo']) ){
 
   // en fonction de la valeur de 'todo', on appelle la fonction de contrôle appropriée
   // peut s'écrire aussi avec des if/else
-  switch($todo){
-
+  switch($todo) {
     case 'getMovie': // si la valeur de 'todo' est 'getMovie', on appelle la fonction readController()
-      $data = readController();
-      break;
+        $data = readController();
+        break;
 
     case 'addMovie':
-      $data = addController();
-      break;
+        $data = addController();
+        break;
 
+    case 'readMovieDetail': // Nouveau cas pour récupérer les détails d'un film
+        $data = readMovieDetailController();
+        break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
-      echo json_encode('[error] Unknown todo value');
-      http_response_code(400); // 400 == "Bad request"
-      exit();
+        echo json_encode('[error] Unknown todo value');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
   }
 
   /**

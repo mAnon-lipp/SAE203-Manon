@@ -11,6 +11,7 @@
     <header id="header"></header>
 
     <section class="cards" id="content"></section>
+    <section class="movie-detail" id="movie-detail"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -19,10 +20,9 @@
       // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/film/script.js";
+      import { MovieDetail } from "./component/movieDetail/script.js";
 
       // Controleur
-      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
-      // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
       C.handlerAbout = function () {
@@ -30,18 +30,41 @@
           "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
         );
       };
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-        C.getMovie(); // Appelle la fonction pour récupérer les films
+
+      /**
+       * C.handlerShowMovies
+       *
+       * Cette fonction ré-affiche la liste des films en appelant la fonction `C.getMovie`.
+       */
+      C.handlerShowMovies = function () {
+        C.getMovie(); // Ré-affiche la liste des films
       };
 
-      /* C.getMovie
+      C.start = function () {
+        V.renderNavBar("C.handlerAbout()", "C.handlerShowMovies()");
+        C.getMovie(); // Appelle la fonction pour récupérer les films
+        V.renderMovieDetail(); // Affiche les détails du film
+      };
 
-        La fonction affiche sur la page la collection de films par défaut
-      */
+      /**
+       * C.getMovie
+       *
+       * La fonction affiche sur la page la collection de films par défaut.
+       */
       C.getMovie = async function () {
         let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
         V.renderMovie(data); // Affiche les données
+      };
+
+      /**
+       * C.handlerDetail
+       *
+       * Cette fonction prend en paramètre l'identifiant d'un film, récupère ses détails
+       * depuis le serveur, et les affiche dans l'application à la place de la liste des films.
+       */
+      C.handlerDetail = async function (movieId) {
+          let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
+          V.renderMovieDetail(movieData); // Affiche les détails du film
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -54,9 +77,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+      V.renderNavBar = function (hAbout, hShowMovies) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        header.innerHTML = NavBar.format(hAbout, hShowMovies);
       };
 
       /**
@@ -71,8 +94,19 @@
         content.innerHTML = Movie.format(data);
       };
 
+      /**
+       * V.renderMovieDetail
+       *
+       * Cette fonction est responsable de l'affichage des détails d'un film.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant MovieDetail.
+       */
+      V.renderMovieDetail = function (movieData) {
+        let content = document.querySelector("#movie-detail");
+        content.innerHTML = MovieDetail.format(movieData);
+      };
+
       C.start(); // Démarre l'application
     </script>
   </body>
 </html>
-<script type="module"></script>
