@@ -18,10 +18,7 @@ DataMovie.requestMovies = async function () {
 
 DataMovie.requestMovieDetails = async function (movieId) {
   
-    let answer = await fetch(`${HOST_URL}/server/script.php?todo=getMovieDetails&id=${movieId}`);
-    if (!answer.ok) {
-      throw new Error(`Erreur HTTP : ${answer.status}`);
-    }
+    let answer = await fetch(HOST_URL + `/server/script.php?todo=readMovieDetail&id=${movieId}` );
     let movieDetails = await answer.json();
     return movieDetails;
   
