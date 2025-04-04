@@ -5,14 +5,14 @@ let MovieDetail = {};
 
 MovieDetail.format = function (movieData) {
   let html = template;
-  html = html.replace("{{movieTitle}}", movieData.name || "Unknown Title");
-  html = html.replace("{{image}}", movieData.image || "");
-  html = html.replace("{{movieSynopsis}}", movieData.description || "No description available.");
-  html = html.replace("{{movieDirector}}", movieData.director || "Unknown Director");
-  html = html.replace("{{movieYear}}", movieData.year || "Unknown Year");
-  html = html.replace("{{movieCategory}}", movieData.category || "Unknown Category");
-  html = html.replace("{{movieAgeRestriction}}", movieData.min_age || "N/A");
-  html = html.replace("{{movieTrailerUrl}}", movieData.trailer || "#");
+  html = html.replace("{{movieTitle}}", movieData.name);
+  html = html.replace("{{image}}", movieData.image);
+  html = html.replace("{{movieSynopsis}}", movieData.description);
+  html = html.replace("{{movieDirector}}", movieData.director);
+  html = html.replace("{{movieYear}}", movieData.year );
+  html = html.replace("{{movieCategory}}", movieData.category );
+  html = html.replace("{{movieAgeRestriction}}", movieData.min_age);
+  html = html.replace("{{movieTrailerUrl}}", movieData.trailer);
   return html;
 };
 
