@@ -68,5 +68,3 @@ function addMovie($name, $director, $year, $durée, $description,$id_category, $
         return false;
         }
 }
-
-
