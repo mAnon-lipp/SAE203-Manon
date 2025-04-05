@@ -74,4 +74,9 @@ function readMovieDetailController() {
     }
 }
 
+function readMoviesByCategoryController() {
+    $categories = getMoviesByCategory();
+    return $categories ? $categories : false;
+}
+
 

@@ -18,21 +18,6 @@ define("DBNAME", "lippler1");
 define("DBLOGIN", "lippler1");
 define("DBPWD", "lippler1");
 
-
-// function getMovie(){
-//     // Connexion à la base de données
-//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-//     // Requête SQL pour récupérer le nom, l'image et l'id du film
-//     $sql = "SELECT id, name, image FROM Movie";
-
-//     // exécution de la requête SQL via la connexion à la bdd et récupération de la réponse sur serveur MySQL
-//     $answer = $cnx->query($sql);
-//     // conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
-//     $res = $answer->fetchAll(PDO::FETCH_OBJ);
-//     // et on renvoie le tout.
-//     return $res; // Retourne les résultats
-// }
-
 function getMovie() {
     try {
         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
@@ -107,3 +92,47 @@ function getMovieDetail($id) {
         return false;
     }
 }
+
+function getMoviesByCategory() {
+    try {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+
+        // Requête SQL pour récupérer les films groupés par catégorie
+        $sql = "SELECT 
+                    Category.id AS category_id, 
+                    Category.name AS category_name, 
+                    Movie.id AS movie_id, 
+                    Movie.name AS movie_name, 
+                    Movie.image AS movie_image
+                FROM Movie
+                JOIN Category ON Movie.id_category = Category.id
+                ORDER BY Category.name, Movie.name";
+
+        $stmt = $cnx->query($sql);
+        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        // Regrouper les films par catégorie
+        $categories = [];
+        foreach ($rows as $row) {
+            if (!isset($categories[$row->category_id])) {
+                $categories[$row->category_id] = [
+                    "name" => $row->category_name,
+                    "movies" => []
+                ];
+            }
+            $categories[$row->category_id]["movies"][] = [
+                "id" => $row->movie_id,
+                "name" => $row->movie_name,
+                "image" => $row->movie_image
+            ];
+        }
+
+        return array_values($categories); // Retourne un tableau indexé
+    } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage());
+        return false;
+    }
+}
+

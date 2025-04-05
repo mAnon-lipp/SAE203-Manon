@@ -21,6 +21,7 @@
       import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/film/script.js";
       import { MovieDetail } from "./component/movieDetail/script.js";
+      import { MovieCategory } from "./component/movieCategory/script.js";
 
       // Controleur
       window.C = {};
@@ -49,11 +50,11 @@
       /**
        * C.getMovie
        *
-       * La fonction affiche sur la page la collection de films par défaut.
+       * La fonction affiche sur la page la collection de films par catégorie.
        */
       C.getMovie = async function () {
-        let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
-        V.renderMovie(data); // Affiche les données
+        let data = await DataMovie.requestMoviesByCategory(); // Récupère les films par catégorie
+        V.renderMoviesByCategory(data); // Affiche les films par catégorie
       };
 
       /**
@@ -92,6 +93,19 @@
       V.renderMovie = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data);
+      };
+
+      /**
+       * V.renderMoviesByCategory
+       *
+       * Cette fonction est responsable de l'affichage des films par catégorie.
+       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
+       * formaté par le composant MovieCategory.
+       */
+      V.renderMoviesByCategory = function (data) {
+        
+        let content = document.querySelector("#content");
+        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
       };
 
       /**
