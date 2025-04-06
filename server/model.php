@@ -72,6 +72,22 @@ function addProfile($name, $avatar, $min_age) {
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
 
+function getProfiles() {
+    try {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+
+        // Requête SQL pour récupérer les profils
+        $sql = "SELECT id, name, avatar, min_age FROM Profil";
+        $stmt = $cnx->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
+    } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage());
+        return false;
+    }
+}
+
 function getMovieDetail($id) {
     try {
         // Connexion à la base de données

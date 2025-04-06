@@ -2,5 +2,11 @@
   <ul class="navbar__list">
     <li class="navbar__item" onclick="{{hAbout}}">About</li>
     <li class="navbar__item" onclick="{{hShowMovies}}">Films</li>
+    <li class="navbar__item">
+      <select id="profile-selector" class="navbar__dropdown">
+        <option value="" disabled selected>Choisir un profil</option>
+        {{profileOptions}}
+      </select>
+    </li>
   </ul>
 </nav>

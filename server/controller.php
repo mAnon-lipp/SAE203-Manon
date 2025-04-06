@@ -96,4 +96,9 @@ function readMoviesByCategoryController() {
     return $categories ? $categories : false;
 }
 
+function readProfilesController() {
+    $profiles = getProfiles(); // Appel de la fonction du modèle
+    return $profiles ? $profiles : false;
+}
+
 
