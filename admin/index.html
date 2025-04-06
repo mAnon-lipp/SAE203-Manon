@@ -26,23 +26,20 @@
         let fd = new FormData(form);
         let res = await DataMovie.addMovie(fd);
         V.renderLog(res);
-
       };
 
       C.handlerAddProfile = async function () {
         let form = document.querySelector(".addProfile__form");
 
-        let fd = new FormData(form);
+        let fd = new FormData(form); // Declare and initialize the FormData object
         let res = await DataProfile.addProfile(fd);
         V.renderLog(res);
-
       };
-
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
-        V.renderAddMovie("C.handlerAddMovie()")
-        V.renderAddProfile("C.handlerAddProfile()")
+        V.renderAddMovie("C.handlerAddMovie()");
+        V.renderAddProfile("C.handlerAddProfile()");
       };
 
       window.V = {};

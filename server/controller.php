@@ -65,7 +65,7 @@ function addProfileController(){
     $min_age = $_REQUEST['min_age'];
 
     // Appel de la fonction addMovie déclarée dans model.php pour ajouter un film à la BDD
-    $ok = addMovie($name, $avatar, $min_age);
+    $ok = addProfile($name, $avatar, $min_age);
    
     if ($ok!=0){
         return "$name a été ajouté avec succès";
