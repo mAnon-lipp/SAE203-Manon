@@ -55,17 +55,20 @@ function addMovie($name, $director, $year, $length, $description,$id_category, $
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
 
-function addProfile($name, $avatar, $min_age) {
+function addProfile($id, $name, $avatar, $min_age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "INSERT INTO Profil (name, avatar, min_age) 
-            VALUES (:name, :avatar, :min_age)";
+    // Utilisation de REPLACE INTO pour insérer ou remplacer une ligne
+    $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
+            VALUES (:id, :name, :avatar, :min_age)";
 
     $stmt = $cnx->prepare($sql);
 
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':avatar', $avatar);
-    $stmt->bindParam(':min_age', $min_age);
+    // Liaison des paramètres
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+    $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
 
     $stmt->execute();
     $res = $stmt->rowCount();
@@ -187,6 +190,7 @@ function getMovieDetail($id) {
 //     }
 // }
 
+
 function getMoviesByCategory($age) {
     try {
         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
@@ -233,4 +237,4 @@ function getMoviesByCategory($age) {
         error_log("Erreur SQL : " . $e->getMessage());
         return false;
     }
-}
+};

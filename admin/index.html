@@ -69,9 +69,11 @@
         let content = document.querySelector("#addMovie");
         content.innerHTML = MovieForm.format(handler);
       };
-      V.renderAddProfile = function (handler) {
+      V.renderAddProfile = async function (handler) {
         let content = document.querySelector("#addProfile");
-        content.innerHTML = ProfileForm.format(handler);
+        let profiles = await DataProfile.getProfiles();
+        content.innerHTML = ProfileForm.format(profiles, handler);
+        ProfileForm.init();
       };
 
       V.renderUpdateProfile = async function (handler) {
