@@ -34,8 +34,13 @@
   font-size: 0.9rem;;
 }
 
-.navbar__profiles {
+.profile-menu {
   position: relative;
+  display: none;
+}
+
+.profile-menu:hover .profile-item  {
+  display: block;
 }
 
 .selected-profile {
@@ -68,6 +73,3 @@
   background-color: #f0f0f0;
 }
 
-.hidden {
-  display: none;
-}

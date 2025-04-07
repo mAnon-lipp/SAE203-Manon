@@ -24,34 +24,7 @@
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js"; // Importer DataProfile
 
-      // Controleur
       window.C = {};
-
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
-      };
-
-      window.toggleProfileMenu = function () {
-        const menu = document.querySelector(".profile-menu");
-        menu.classList.toggle("hidden");
-      };
-
-      C.selectProfile = async function (profileId) {
-        const profiles = await DataProfile.read();
-        const selectedProfile = profiles.find(profile => profile.id == profileId);
-
-        // Mettre à jour le profil sélectionné
-        const selectedProfileDiv = document.querySelector(".selected-profile");
-        selectedProfileDiv.innerHTML = `
-          <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${selectedProfile.avatar}" class="profile-avatar" />
-          <span class="profile-name">${selectedProfile.name}</span>
-        `;
-
-        // Masquer le menu après sélection
-        toggleProfileMenu();
-      };
 
       /**
        * C.handlerShowMovies
@@ -88,6 +61,23 @@
       C.handlerDetail = async function (movieId) {
         let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
         V.renderMovieDetail(movieData); // Affiche les détails du film
+      };
+
+      /**
+       * C.handleProfileChange
+       *
+       * Cette fonction met à jour l'image de profil en fonction de l'option sélectionnée.
+       */
+      C.handleProfileChange = function (selectElement) {
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
+        const profileImage = document.querySelector("#profile-image");
+        const defaultImage = "https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png"; // Chemin de l'image par défaut
+
+        // Construit l'URL complète de l'image ou utilise l'image par défaut si newImage est vide
+        profileImage.src = newImage
+          ? `https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${newImage}`
+          : defaultImage;
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)

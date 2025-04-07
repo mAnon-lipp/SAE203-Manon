@@ -1,39 +1,46 @@
-let navBarTemplateFile = await fetch("./component/NavBar/template.html");
-let navBarTemplate = await navBarTemplateFile.text();
-
-let profileOptionTemplateFile = await fetch("./component/NavBar/profileOptionTemplate.html");
-let profileOptionTemplate = await profileOptionTemplateFile.text();
-
-let selectedProfileTemplateFile = await fetch("./component/NavBar/selectedProfileTemplate.html");
-let selectedProfileTemplate = await selectedProfileTemplateFile.text();
+let templateFile = await fetch("./component/NavBar/template.html");
+let template = await templateFile.text();
 
 let NavBar = {};
 
+
 NavBar.format = function (hAbout, hShowMovies, profiles) {
-  let html = navBarTemplate;
+  let html = template;
   html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{hShowMovies}}", hShowMovies);
 
-  // Générer les options pour les profils
-  let profileOptions = profiles
-    .map(profile => {
-      let option = profileOptionTemplate;
-      option = option.replace("{{id}}", profile.id);
-      option = option.replace("{{avatar}}", profile.avatar);
-      option = option.replace("{{name}}", profile.name);
-      return option;
-    })
+  let options = profiles
+    .map(
+      (p) =>
+        `<option value="${p.id}" data-img="${p.avatar}">${p.name}</option>`
+    )
     .join("");
 
-  // Générer le profil sélectionné (par défaut, le premier profil)
-  let selectedProfile = selectedProfileTemplate;
-  selectedProfile = selectedProfile.replace("{{avatar}}", profiles[0].avatar);
-  selectedProfile = selectedProfile.replace("{{name}}", profiles[0].name);
+  let image = profiles[0]?.avatar|| "";
 
-  html = html.replace("{{selectedProfile}}", selectedProfile);
-  html = html.replace("{{profileOptions}}", profileOptions);
+  html = html.replace("{{options}}", options);
+  html = html.replace("{{image}}", image);
 
   return html;
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Sélectionne les éléments nécessaires avec querySelector
+  const profileSelect = document.querySelector("#profile-select");
+  const profileImage = document.querySelector("#profile-image");
+  const defaultImage = "./images/default-avatar.png"; // Chemin de l'image par défaut
+
+  if (profileSelect && profileImage) {
+    profileSelect.addEventListener("change", () => {
+      // Récupère l'option sélectionnée
+      const selectedOption = profileSelect.options[profileSelect.selectedIndex];
+      const newImage = selectedOption.dataset.img; // Utilisation de dataset pour accéder à data-img
+
+      // Si newImage est vide ou null, utiliser l'image par défaut
+      profileImage.src = newImage || defaultImage;
+    });
+  }
+});
+
 export { NavBar };
+

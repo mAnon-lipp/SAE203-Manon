@@ -2,13 +2,9 @@
   <ul class="navbar__list">
     <li class="navbar__item" onclick="{{hAbout}}">About</li>
     <li class="navbar__item" onclick="{{hShowMovies}}">Films</li>
-    <li class="navbar__item navbar__profiles">
-      <div class="selected-profile" onclick="toggleProfileMenu()">
-        {{selectedProfile}}
-      </div>
-      <div class="profile-menu hidden">
-        {{profileOptions}}
-      </div>
-    </li>
+    <select id="profile-select" class="navbar__select" onchange="C.handleProfileChange(this)">
+      {{options}}
+    </select>
+    <img id="profile-image" src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/{{image}}" alt="Profile Image" class="profile-image">
   </ul>
 </nav>
