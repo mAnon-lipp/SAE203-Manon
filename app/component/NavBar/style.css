@@ -73,3 +73,12 @@
   background-color: #f0f0f0;
 }
 
+/* Style pour les images de profil */
+.profile-image {
+  width: 50px; /* Ajustez la taille selon vos besoins */
+  height: 50px; /* Assurez-vous que la hauteur et la largeur sont égales */
+  border-radius: 50%; /* Rend l'image circulaire */
+  object-fit: cover; /* Assure que l'image s'adapte bien au cercle */
+  border: 2px solid #ccc; /* Optionnel : ajoute une bordure */
+}
+

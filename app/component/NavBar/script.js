@@ -9,7 +9,8 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
   html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{hShowMovies}}", hShowMovies);
 
-  let options = profiles
+  let options = `<option value="" data-img="" data-age="0">Choisir un profil</option>`; // Option par défaut
+  options += profiles
     .map(
       (p) =>
         `<option value="${p.id}" data-img="${p.avatar}" data-age="${p.min_age}">${p.name}</option>`

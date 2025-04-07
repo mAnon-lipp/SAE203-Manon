@@ -72,6 +72,24 @@ function addProfile($name, $avatar, $min_age) {
     return $res; // Retourne le nombre de lignes affectées par l'opération
 }
 
+function updateProfile($id, $name, $avatar, $min_age) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    $sql = "UPDATE Profil 
+            SET name = :name, avatar = :avatar, min_age = :min_age 
+            WHERE id = :id";
+
+    $stmt = $cnx->prepare($sql);
+
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':min_age', $min_age);
+
+    $stmt->execute();
+    return true; // Retourne true si la mise à jour a réussi
+}
+
 function getProfiles() {
     try {
         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [

@@ -75,6 +75,24 @@ function addProfileController(){
       }
 }
 
+function updateProfileController(){
+    
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $avatar = $_REQUEST['avatar'];
+    $min_age = $_REQUEST['min_age'];
+
+    // Appel de la fonction addMovie déclarée dans model.php pour ajouter un film à la BDD
+    $ok = updateProfile($id, $name, $avatar, $min_age);
+   
+    if ($ok!=0){
+        return "$name a été modifié avec succès";
+      }
+      else{
+        return "Le profile n'a pas pu être modifié";
+      }
+}
+
 function readMovieDetailController() {
 
     if (!isset($_REQUEST['id'])) {

@@ -10,11 +10,13 @@
     <section id="log"></section>
     <section id="addMovie"></section>
     <section id="addProfile"></section>
+    <section id="updateProfile"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
       import { ProfileForm } from "./component/ProfileForm/script.js";
+      import {UpdateMenuForm} from "./component/UpdateMenuForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
 
@@ -36,10 +38,24 @@
         V.renderLog(res);
       };
 
+      C.handlerUpdateProfile = async function () {
+        let form = document.querySelector(".updateProfile__form");
+
+        // Récupération des données du formulaire
+        let fd = new FormData(form);
+
+        // Appel à la méthode de mise à jour
+        let res = await DataProfile.updateProfile(fd);
+
+        // Affichage du résultat
+        V.renderLog(res);
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderAddMovie("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
+        V.renderUpdateProfile("C.handlerUpdateProfile()");
       };
 
       window.V = {};
@@ -56,6 +72,19 @@
       V.renderAddProfile = function (handler) {
         let content = document.querySelector("#addProfile");
         content.innerHTML = ProfileForm.format(handler);
+      };
+
+      V.renderUpdateProfile = async function (handler) {
+        let content = document.querySelector("#updateProfile");
+
+        // Récupérer les profils depuis le serveur
+        let profiles = await DataProfile.getProfiles();
+
+        // Générer le contenu HTML avec les profils
+        content.innerHTML = UpdateMenuForm.format(profiles, handler);
+
+        // Initialiser le gestionnaire pour remplir automatiquement les champs
+        UpdateMenuForm.init();
       };
 
       C.start();
