@@ -24,23 +24,7 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
   return html;
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Sélectionne les éléments nécessaires avec querySelector
-  const profileSelect = document.querySelector("#profile-select");
-  const profileImage = document.querySelector("#profile-image");
-  const defaultImage = "./images/default-avatar.png"; // Chemin de l'image par défaut
 
-  if (profileSelect && profileImage) {
-    profileSelect.addEventListener("change", () => {
-      // Récupère l'option sélectionnée
-      const selectedOption = profileSelect.options[profileSelect.selectedIndex];
-      const newImage = selectedOption.dataset.img; // Utilisation de dataset pour accéder à data-img
-
-      // Si newImage est vide ou null, utiliser l'image par défaut
-      profileImage.src = newImage || defaultImage;
-    });
-  }
-});
 
 export { NavBar };
 
