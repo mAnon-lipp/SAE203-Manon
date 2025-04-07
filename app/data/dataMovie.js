@@ -24,8 +24,10 @@ DataMovie.requestMovieDetails = async function (movieId) {
   
 };
 
-DataMovie.requestMoviesByCategory = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovies");
+DataMovie.requestMoviesByCategory = async function (age) {
+  const url = HOST_URL + "/server/script.php?todo=readMovies&age=" + age;
+  console.log("URL générée :", url); // Log pour vérifier l'URL
+  let answer = await fetch(url);
   let categories = await answer.json();
   return categories;
 };

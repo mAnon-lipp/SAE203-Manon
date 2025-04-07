@@ -12,11 +12,11 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
   let options = profiles
     .map(
       (p) =>
-        `<option value="${p.id}" data-img="${p.avatar}">${p.name}</option>`
+        `<option value="${p.id}" data-img="${p.avatar}" data-age="${p.min_age}">${p.name}</option>`
     )
     .join("");
 
-  let image = profiles[0]?.avatar|| "";
+  let image = profiles[0]?.avatar || "";
 
   html = html.replace("{{options}}", options);
   html = html.replace("{{image}}", image);
