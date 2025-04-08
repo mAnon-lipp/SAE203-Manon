@@ -26,13 +26,20 @@
       import { FeaturedMovies } from "./component/featuredMovies/script.js";
 
       window.C = {};
+      
 
+      C.handlerHome = function() {
+        document.querySelector("#featured-movies").style.display = "block"; // Afficher les films mis en avant
+        C.getMovie(); // Ré-affiche la liste des films
+      };
       /**
        * C.handlerShowMovies
        *
        * Cette fonction ré-affiche la liste des films en appelant la fonction `C.getMovie`.
        */
       C.handlerShowMovies = function () {
+        
+        document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
         C.getMovie(); // Ré-affiche la liste des films
       };
 
@@ -62,7 +69,8 @@
 
       C.start = async function () {
         let profiles = await DataProfile.read(); // Récupérer les profils
-        V.renderNavBar("C.handlerAbout()", "C.handlerShowMovies()", profiles); // Passer les profils
+        V.renderNavBar("C.handlerHome()", "C.handlerShowMovies()", profiles); // Passer les profils
+        document.querySelector("#featured-movies").style.display = "block"; // Afficher les films mis en avant
         C.getFeaturedMovies(); 
         C.getMovie(); // Appelle la fonction pour récupérer les films
         V.renderMovieDetail(); // Affiche les détails du film
@@ -92,6 +100,7 @@
        * depuis le serveur, et les affiche dans l'application à la place de la liste des films.
        */
       C.handlerDetail = async function (movieId) {
+        document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
         let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
         V.renderMovieDetail(movieData); // Affiche les détails du film
       };
@@ -132,6 +141,8 @@
       };
 
       C.showFavorites = async function (profileId) {
+        document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
+
         profileId = profileId || C.getSelectedProfileId();
 
         if (!profileId) {
@@ -144,6 +155,8 @@
       };
 
       C.removeFavorite = async function (profileId, movieId) {
+        document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
+
         profileId = profileId || C.getSelectedProfileId();
 
         if (!profileId) {

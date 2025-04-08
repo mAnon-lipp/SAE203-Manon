@@ -14,6 +14,7 @@ for (let movie of movies) {
     movieHtml = movieHtml.replace("{{image}}", movie.image);
     movieHtml = movieHtml.replace("{{title}}", movie.name);
     movieHtml = movieHtml.replace("{{description}}", movie.description);
+    movieHtml = movieHtml.replace("{{onclick}}", `C.handlerDetail(${movie.id})`);
     formattedMovies += movieHtml;
 }
 return formattedMovies;
