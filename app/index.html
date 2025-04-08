@@ -51,6 +51,14 @@
         return 0;
       };
 
+      C.getSelectedProfileId = function () {
+        const profileSelect = document.querySelector("#profile-select");
+        if (profileSelect) {
+          return profileSelect.value || null; // Retourne l'ID ou null si aucun profil n'est sélectionné
+        }
+        return null;
+      };
+
       C.start = async function () {
         let profiles = await DataProfile.read(); // Récupérer les profils
         V.renderNavBar("C.handlerAbout()", "C.handlerShowMovies()", profiles); // Passer les profils
@@ -102,6 +110,32 @@
         C.getMovie();
       };
 
+      C.addFavorite = async function (profileId, movieId) {
+        // Si aucun profilId n'est fourni, récupérez-le depuis la barre de navigation
+        profileId = profileId || C.getSelectedProfileId();
+
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil avant d'ajouter un favori.");
+          return;
+        }
+
+        let response = await DataMovie.addFavorite(profileId, movieId);
+        alert(response); // Affiche un message de confirmation
+        C.getMovie(); // Recharge la liste des films
+      };
+
+      C.showFavorites = async function (profileId) {
+        profileId = profileId || C.getSelectedProfileId();
+
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour voir les favoris.");
+          return;
+        }
+
+        let favorites = await DataMovie.getFavorites(profileId);
+        V.renderFavorites(favorites);
+      };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -151,6 +185,22 @@
       V.renderMovieDetail = function (movieData) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(movieData);
+      };
+
+      V.renderFavorites = function (favorites) {
+        let content = document.querySelector("#content");
+        content.innerHTML = "";
+        let favoritesHTML = "";
+        for (let i = 0; i < favorites.length; i++) {
+          let fav = favorites[i];
+          favoritesHTML += `
+        <div class="favorite">
+          <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${fav.image}" alt="${fav.name}" />
+          <h3>${fav.name}</h3>
+        </div>
+          `;
+        }
+        content.innerHTML = favoritesHTML;
       };
 
       C.start(); // Démarre l'application

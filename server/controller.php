@@ -102,4 +102,20 @@ function readProfilesController() {
     return $profiles ? $profiles : false;
 }
 
+function addFavoriteController() {
+    $profile_id = $_REQUEST['profile_id'];
+    $movie_id = $_REQUEST['movie_id'];
+
+    if (isFavorite($profile_id, $movie_id)) {
+        return "Le film est déjà dans vos favoris.";
+    }
+
+    $ok = addFavorite($profile_id, $movie_id);
+    return $ok ? "Le film a été ajouté à vos favoris." : "Erreur lors de l'ajout aux favoris.";
+}
+
+function getFavoritesController() {
+    $profile_id = $_REQUEST['profile_id'];
+    return getFavorites($profile_id);
+}
 

@@ -188,3 +188,35 @@ function getMoviesByCategory($age) {
 
     return array_values($categories); // Retourne un tableau indexé
 }
+
+function addFavorite($profile_id, $movie_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "INSERT INTO Favorites (profile_id, movie_id) VALUES (:profile_id, :movie_id)";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+
+function getFavorites($profile_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Movie.id, Movie.name, Movie.image 
+            FROM Favorites 
+            JOIN Movie ON Favorites.movie_id = Movie.id 
+            WHERE Favorites.profile_id = :profile_id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+function isFavorite($profile_id, $movie_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT COUNT(*) FROM Favorites WHERE profile_id = :profile_id AND movie_id = :movie_id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn() > 0;
+}

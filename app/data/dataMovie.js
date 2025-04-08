@@ -32,5 +32,23 @@ DataMovie.requestMoviesByCategory = async function (age) {
   return categories;
 };
 
+DataMovie.addFavorite = async function (profileId, movieId) {
+  const url = `${HOST_URL}/server/script.php?todo=addFavorite&profile_id=${profileId}&movie_id=${movieId}`;
+  console.log("URL générée pour l'ajout de favori :", url);
+
+  // Effectuer la requête fetch pour obtenir la réponse
+  let answer = await fetch(url); // Correction : ajout de fetch pour récupérer la réponse
+  let response = await answer.json(); // Convertir la réponse en JSON
+  return response; // Retourner la réponse
+};
+
+DataMovie.getFavorites = async function (profileId) {
+  let answer = await fetch(
+    `${HOST_URL}/server/script.php?todo=getFavorites&profile_id=${profileId}`
+  );
+  let favorites = await answer.json();
+  return favorites;
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
