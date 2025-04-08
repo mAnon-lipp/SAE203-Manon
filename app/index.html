@@ -10,8 +10,8 @@
   <body>
     <header id="header"></header>
 
+    <section class="featured-movies" id="featured-movies"></section>
     <section class="cards" id="content"></section>
-    <section class="movie-detail" id="movie-detail"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -23,6 +23,7 @@
       import { MovieDetail } from "./component/movieDetail/script.js";
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js"; // Importer DataProfile
+      import { FeaturedMovies } from "./component/featuredMovies/script.js";
 
       window.C = {};
 
@@ -62,6 +63,7 @@
       C.start = async function () {
         let profiles = await DataProfile.read(); // Récupérer les profils
         V.renderNavBar("C.handlerAbout()", "C.handlerShowMovies()", profiles); // Passer les profils
+        C.getFeaturedMovies(); 
         C.getMovie(); // Appelle la fonction pour récupérer les films
         V.renderMovieDetail(); // Affiche les détails du film
       };
@@ -76,6 +78,11 @@
         let data = await DataMovie.requestMoviesByCategory(age); // Passe l'âge en paramètre
         console.log("Données reçues :", data); // Vérifiez le format des données
         V.renderMoviesByCategory(data); // Affiche les films par catégorie
+      };
+
+      C.getFeaturedMovies = async function () {
+        let featuredMovies = await DataMovie.requestFeaturedMovies();
+        V.renderFeaturedMovies(featuredMovies);
       };
 
       /**
@@ -176,6 +183,11 @@
         content.innerHTML = Movie.format(data);
       };
 
+      V.renderFeaturedMovies = function (movies) {
+        let featuredSection = document.querySelector("#featured-movies");
+        featuredSection.innerHTML = FeaturedMovies.format(movies);
+      };
+
       /**
        * V.renderMoviesByCategory
        *
@@ -185,7 +197,11 @@
        */
       V.renderMoviesByCategory = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
+        let formattedContent = "";
+        for (let category of data) {
+          formattedContent += MovieCategory.format(category);
+        }
+        content.innerHTML = formattedContent;
       };
 
       /**

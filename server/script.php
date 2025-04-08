@@ -78,6 +78,10 @@ if ( isset($_REQUEST['todo']) ){
         $data = readMoviesByCategoryController();
         break;
 
+    case 'getFeaturedMovies':
+        $data = getFeaturedMoviesController();
+        break;
+
     case 'readProfiles': // Nouveau cas pour récupérer les profils
         $data = readProfilesController();
         break;
@@ -139,7 +143,5 @@ if ( isset($_REQUEST['todo']) ){
  * HTTP 404 (Not found), indiquant que la requête HTTP ne correspond à rien.
  */
 http_response_code(404); // 404 == "Not found"
-
-
 
 ?>

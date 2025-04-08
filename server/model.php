@@ -51,21 +51,50 @@ function addMovie($name, $director, $year, $length, $description,$id_category, $
 function addProfile($id, $name, $avatar, $min_age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
-            VALUES (:id, :name, :avatar, :min_age)";
+    try {
+        // Sauvegarder les favoris existants
+        $favoritesSql = "SELECT movie_id FROM Favorites WHERE profile_id = :id";
+        $favoritesStmt = $cnx->prepare($favoritesSql);
+        $favoritesStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $favoritesStmt->execute();
+        $favorites = $favoritesStmt->fetchAll(PDO::FETCH_COLUMN);
 
-    $stmt = $cnx->prepare($sql);
+        // Supprimer les entrées liées dans Favorites
+        $deleteSql = "DELETE FROM Favorites WHERE profile_id = :id";
+        $deleteStmt = $cnx->prepare($deleteSql);
+        $deleteStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $deleteStmt->execute();
 
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-    $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
-    $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
+        // Remplacer ou insérer le profil
+        $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
+                VALUES (:id, :name, :avatar, :min_age)";
+        $stmt = $cnx->prepare($sql);
 
-    error_log("Executing SQL: $sql with id=$id, name=$name, avatar=$avatar, min_age=$min_age");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+        $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $res = $stmt->rowCount();
-    return $res; // Retourne le nombre de lignes affectées par l'opération
+        $stmt->execute();
+
+        // Réinsérer les favoris sauvegardés
+        $insertFavoriteSql = "INSERT INTO Favorites (profile_id, movie_id) VALUES (:profile_id, :movie_id)";
+        $insertFavoriteStmt = $cnx->prepare($insertFavoriteSql);
+
+        $i = 0;
+        $favoritesCount = count($favorites);
+        while ($i < $favoritesCount) {
+            $insertFavoriteStmt->bindParam(':profile_id', $id, PDO::PARAM_INT);
+            $insertFavoriteStmt->bindParam(':movie_id', $favorites[$i], PDO::PARAM_INT);
+            $insertFavoriteStmt->execute();
+            $i++;
+        }
+
+        return $stmt->rowCount();
+    } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage());
+        return false;
+    }
 }
 
 function getProfiles() {
@@ -170,9 +199,12 @@ function getMoviesByCategory($age) {
 
     $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-    // Regrouper les films par catégorie
+    // Regrouper les films par catégorie sans forEach ou .map
     $categories = [];
-    foreach ($rows as $row) {
+    $i = 0;
+    $rowsCount = count($rows);
+    while ($i < $rowsCount) {
+        $row = $rows[$i];
         if (!isset($categories[$row->category_id])) {
             $categories[$row->category_id] = [
                 "name" => $row->category_name,
@@ -184,9 +216,17 @@ function getMoviesByCategory($age) {
             "name" => $row->movie_name,
             "image" => $row->movie_image
         ];
+        $i++;
     }
 
     return array_values($categories); // Retourne un tableau indexé
+}
+
+function getFeaturedMovies() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image, description FROM Movie WHERE is_featured = TRUE";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
 function addFavorite($profile_id, $movie_id) {
@@ -230,3 +270,5 @@ function removeFavorite($profile_id, $movie_id) {
     $stmt->execute();
     return $stmt->rowCount();
 }
+
+?>

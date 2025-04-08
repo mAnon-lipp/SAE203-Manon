@@ -10,7 +10,7 @@
     <section id="log"></section>
     <section id="addMovie"></section>
     <section id="addProfile"></section>
-  
+
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
@@ -30,8 +30,10 @@
 
       C.handlerAddProfile = async function () {
         let form = document.querySelector(".addProfile__form");
+        let fd = new FormData(form);
 
-        let fd = new FormData(form); // Declare and initialize the FormData object
+        console.log([...fd.entries()]); // Vérifie les données envoyées
+
         let res = await DataProfile.addProfile(fd);
         V.renderLog(res);
       };

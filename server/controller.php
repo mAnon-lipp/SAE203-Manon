@@ -58,13 +58,18 @@ function addController(){
       }
 }
 
-function addProfileController() {
-    $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null; // Récupère l'ID s'il est fourni
+function addProfileController(){
+    if (!isset($_REQUEST['name']) || !isset($_REQUEST['min_age'])) {
+        http_response_code(400); // Mauvaise requête
+        echo json_encode(["error" => "Paramètres manquants pour ajouter un profil"]);
+        return false;
+    }
+
+    $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
     $name = $_REQUEST['name'];
     $avatar = $_REQUEST['avatar'];
-    $min_age = $_REQUEST['min_age'];
+    $min_age = intval($_REQUEST['min_age']);
 
-    // Appel de la fonction addProfile déclarée dans model.php
     $ok = addProfile($id, $name, $avatar, $min_age);
 
     if ($ok != 0) {
@@ -95,6 +100,11 @@ function readMoviesByCategoryController() {
     $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Par défaut, âge = 0
     $categories = getMoviesByCategory($age); // Passe l'âge en paramètre
     return $categories ? $categories : false;
+}
+
+function getFeaturedMoviesController() {
+    $featuredMovies = getFeaturedMovies(); // Appel de la fonction du modèle
+    return $featuredMovies ? $featuredMovies : [];
 }
 
 function readProfilesController() {

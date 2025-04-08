@@ -1,0 +1,28 @@
+.featured-movies {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.featured-movie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.featured-movie img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.featured-movie h2 {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.featured-movie p {
+  font-size: 1em;
+  text-align: center;
+}

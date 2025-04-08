@@ -32,6 +32,12 @@ DataMovie.requestMoviesByCategory = async function (age) {
   return categories;
 };
 
+DataMovie.requestFeaturedMovies = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=getFeaturedMovies");
+  let featuredMovies = await answer.json();
+  return featuredMovies;
+};
+
 DataMovie.addFavorite = async function (profileId, movieId) {
   const url = `${HOST_URL}/server/script.php?todo=addFavorite&profile_id=${profileId}&movie_id=${movieId}`;
   console.log("URL générée pour l'ajout de favori :", url);
