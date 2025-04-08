@@ -51,39 +51,21 @@ function addMovie($name, $director, $year, $length, $description,$id_category, $
 function addProfile($id, $name, $avatar, $min_age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    // Utilisation de REPLACE INTO pour insérer ou remplacer une ligne
     $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
             VALUES (:id, :name, :avatar, :min_age)";
 
     $stmt = $cnx->prepare($sql);
 
-    // Liaison des paramètres
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
     $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
     $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
 
+    error_log("Executing SQL: $sql with id=$id, name=$name, avatar=$avatar, min_age=$min_age");
+
     $stmt->execute();
     $res = $stmt->rowCount();
     return $res; // Retourne le nombre de lignes affectées par l'opération
-}
-
-function updateProfile($id, $name, $avatar, $min_age) {
-    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-
-    $sql = "UPDATE Profil 
-            SET name = :name, avatar = :avatar, min_age = :min_age 
-            WHERE id = :id";
-
-    $stmt = $cnx->prepare($sql);
-
-    $stmt->bindParam(':id', $id);
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':avatar', $avatar);
-    $stmt->bindParam(':min_age', $min_age);
-
-    $stmt->execute();
-    return true; // Retourne true si la mise à jour a réussi
 }
 
 function getProfiles() {

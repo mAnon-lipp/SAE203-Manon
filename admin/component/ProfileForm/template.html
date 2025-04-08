@@ -5,6 +5,7 @@
             <option value=""  selected>Choisir un profil à modifier</option>
             {{options}} <!-- Les options seront générées dynamiquement -->
         </select>
+        <input id="profile-id" type="hidden" name="id" value=""> <!-- Champ caché pour l'ID -->
         <input id="profile-name" type="text" name="name" placeholder="Nom du profil" required>
         <input id="profile-avatar" type="text" name="avatar" placeholder="Avatar ou image associée (facultatif)" >
         <input id="profile-min-age" type="text" name="min_age" placeholder="Restrictions d'âge"  required >
