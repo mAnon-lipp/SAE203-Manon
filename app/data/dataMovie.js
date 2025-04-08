@@ -50,5 +50,14 @@ DataMovie.getFavorites = async function (profileId) {
   return favorites;
 };
 
+DataMovie.removeFavorite = async function (profileId, movieId) {
+  const url = `${HOST_URL}/server/script.php?todo=removeFavorite&profile_id=${profileId}&movie_id=${movieId}`;
+  console.log("URL générée pour la suppression de favori :", url);
+
+  let answer = await fetch(url);
+  let response = await answer.json();
+  return response;
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

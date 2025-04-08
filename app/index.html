@@ -136,6 +136,19 @@
         V.renderFavorites(favorites);
       };
 
+      C.removeFavorite = async function (profileId, movieId) {
+        profileId = profileId || C.getSelectedProfileId();
+
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour retirer un favori.");
+          return;
+        }
+
+        let response = await DataMovie.removeFavorite(profileId, movieId);
+        alert(response); // Affiche un message de confirmation
+        C.showFavorites(profileId); // Recharge la liste des favoris
+      };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -190,15 +203,22 @@
       V.renderFavorites = function (favorites) {
         let content = document.querySelector("#content");
         content.innerHTML = "";
+
+        if (favorites.length === 0) {
+          content.innerHTML = "<p>Votre liste de favoris est vide.</p>";
+          return;
+        }
+
         let favoritesHTML = "";
         for (let i = 0; i < favorites.length; i++) {
           let fav = favorites[i];
           favoritesHTML += `
-        <div class="favorite">
-          <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${fav.image}" alt="${fav.name}" />
-          <h3>${fav.name}</h3>
-        </div>
-          `;
+      <div class="favorite">
+        <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${fav.image}" alt="${fav.name}" onclick="C.handlerDetail(${fav.id})" />
+        <h3>${fav.name}</h3>
+        <button onclick="C.removeFavorite(C.getSelectedProfileId(), ${fav.id})">Retirer</button>
+      </div>
+    `;
         }
         content.innerHTML = favoritesHTML;
       };
