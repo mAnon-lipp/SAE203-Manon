@@ -19,17 +19,10 @@ define("DBLOGIN", "lippler1");
 define("DBPWD", "lippler1");
 
 function getMovie() {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-        $sql = "SELECT id, name, image FROM Movie";
-        $answer = $cnx->query($sql);
-        return $answer->fetchAll(PDO::FETCH_OBJ);
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
-        return false;
-    }
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image FROM Movie";
+    $answer = $cnx->query($sql);
+    return $answer->fetchAll(PDO::FETCH_OBJ);
 }
 
 function addMovie($name, $director, $year, $length, $description,$id_category, $image, $trailer, $min_age) {
@@ -94,61 +87,44 @@ function updateProfile($id, $name, $avatar, $min_age) {
 }
 
 function getProfiles() {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-
-        // Requête SQL pour récupérer les profils
-        $sql = "SELECT id, name, avatar, min_age FROM Profil";
-        $stmt = $cnx->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage());
-        return false;
-    }
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, avatar, min_age FROM Profil";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
 }
 
 function getMovieDetail($id) {
-    try {
-        // Connexion à la base de données
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-        // Requête SQL pour récupérer les détails du film
-        $sql = "SELECT 
-                    Movie.id, 
-                    Movie.name, 
-                    Movie.director, 
-                    Movie.year, 
-                    Movie.length, 
-                    Movie.description, 
-                    Movie.image, 
-                    Movie.trailer, 
-                    Movie.min_age, 
-                    Movie.id_category, 
-                    Category.name AS category
-                FROM Movie
-                JOIN Category ON Movie.id_category = Category.id
-                WHERE Movie.id = :id";
+    // Requête SQL pour récupérer les détails du film
+    $sql = "SELECT 
+                Movie.id, 
+                Movie.name, 
+                Movie.director, 
+                Movie.year, 
+                Movie.length, 
+                Movie.description, 
+                Movie.image, 
+                Movie.trailer, 
+                Movie.min_age, 
+                Movie.id_category, 
+                Category.name AS category
+            FROM Movie
+            JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.id = :id";
 
-        $stmt = $cnx->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-        // Récupère le résultat sous forme d'objet
-        $movieDetail = $stmt->fetch(PDO::FETCH_OBJ);
+    // Récupère le résultat sous forme d'objet
+    $movieDetail = $stmt->fetch(PDO::FETCH_OBJ);
 
-        return $movieDetail; // Retourne les détails du film
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage()); // Log dans les erreurs PHP
-        return false;
-    }
+    return $movieDetail; // Retourne les détails du film
 }
 
 // function getMoviesByCategory() {
-//     try {
 //         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
 //             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 //         ]);
@@ -184,57 +160,49 @@ function getMovieDetail($id) {
 //         }
 
 //         return array_values($categories); // Retourne un tableau indexé
-//     } catch (Exception $e) {
-//         error_log("Erreur SQL : " . $e->getMessage());
-//         return false;
 //     }
 // }
 
 
 function getMoviesByCategory($age) {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
-        // Requête SQL pour récupérer les films groupés par catégorie
-        // Si $age = 0, on ne filtre pas sur min_age
-        $sql = "SELECT 
-                    Category.id AS category_id, 
-                    Category.name AS category_name, 
-                    Movie.id AS movie_id, 
-                    Movie.name AS movie_name, 
-                    Movie.image AS movie_image
-                FROM Movie
-                JOIN Category ON Movie.id_category = Category.id
-                WHERE :age = 0 OR Movie.min_age < :age
-                ORDER BY Category.name, Movie.name";
+    // Requête SQL pour récupérer les films groupés par catégorie
+    // Si $age = 0, on ne filtre pas sur min_age
+    $sql = "SELECT 
+                Category.id AS category_id, 
+                Category.name AS category_name, 
+                Movie.id AS movie_id, 
+                Movie.name AS movie_name, 
+                Movie.image AS movie_image
+            FROM Movie
+            JOIN Category ON Movie.id_category = Category.id
+            WHERE :age = 0 OR Movie.min_age < :age
+            ORDER BY Category.name, Movie.name";
 
-        $stmt = $cnx->prepare($sql);
-        $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-        $stmt->execute();
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+    $stmt->execute();
 
-        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        // Regrouper les films par catégorie
-        $categories = [];
-        foreach ($rows as $row) {
-            if (!isset($categories[$row->category_id])) {
-                $categories[$row->category_id] = [
-                    "name" => $row->category_name,
-                    "movies" => []
-                ];
-            }
-            $categories[$row->category_id]["movies"][] = [
-                "id" => $row->movie_id,
-                "name" => $row->movie_name,
-                "image" => $row->movie_image
+    // Regrouper les films par catégorie
+    $categories = [];
+    foreach ($rows as $row) {
+        if (!isset($categories[$row->category_id])) {
+            $categories[$row->category_id] = [
+                "name" => $row->category_name,
+                "movies" => []
             ];
         }
-
-        return array_values($categories); // Retourne un tableau indexé
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage());
-        return false;
+        $categories[$row->category_id]["movies"][] = [
+            "id" => $row->movie_id,
+            "name" => $row->movie_name,
+            "image" => $row->movie_image
+        ];
     }
-};
+
+    return array_values($categories); // Retourne un tableau indexé
+}

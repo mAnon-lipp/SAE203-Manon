@@ -6,13 +6,16 @@ let Movie = {};
 Movie.format = function (movies) {
 
   let html = "";
-  movies.forEach((movie) => {
+  let i = 0;
+  while (i < movies.length) {
+    let movie = movies[i];
     let movieHtml = template;
     movieHtml = movieHtml.replace("{{titre}}", movie.name);
     movieHtml = movieHtml.replace("{{image}}", movie.image);
     movieHtml = movieHtml.replace("{{onclick}}", `C.handlerDetail(${movie.id})`);
     html += movieHtml;
-  });
+    i++;
+  }
   return html;
 };
 
