@@ -99,7 +99,7 @@ function readMovieDetailController() {
 function readMoviesByCategoryController() {
     $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Par défaut, âge = 0
     $categories = getMoviesByCategory($age); // Passe l'âge en paramètre
-    return $categories ? $categories : false;
+    return $categories ? $categories : [];
 }
 
 function getFeaturedMoviesController() {

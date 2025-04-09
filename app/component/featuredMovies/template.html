@@ -1,5 +1,9 @@
-<div class="featured-movie" onclick="{{onclick}}">
-    <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/{{image}}" alt="Affiche du film" />
-    <h2>{{title}}</h2>
-    <p>{{description}}</p>
+<div class="featured-movies">
+  <div class="featured-movie" onclick="{{onclick}}">
+    <img src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/{{image}}" alt="Affiche du film" class="featured-movie__image" />
+    <div class="featured-movie__content">
+      <h2 class="featured-movie__title">{{title}}</h2>
+      <p class="featured-movie__description">{{description}}</p>
+    </div>
   </div>
+</div>

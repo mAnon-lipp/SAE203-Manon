@@ -1,28 +1,58 @@
+/* Style pour un seul film */
+.featured-movie-single {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Prend toute la largeur */
+  background-color: #854023; /* Fire */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.featured-movie-single img {
+  width: 50%; /* Taille adaptée pour un seul film */
+  height: auto;
+  border-radius: 10px;
+}
+
+.featured-movie-single h2 {
+  font-size: 1.8em;
+  margin: 15px 0;
+  color: white;
+}
+
+.featured-movie-single p {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+/* Style pour plusieurs films */
 .featured-movies {
-  margin: 20px;
-  padding: 10px;
-  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background-color: #200c0c;
+  border-radius: 10px;
+  flex-wrap: nowrap; /* Empêche le retour à la ligne */
+  overflow-x: auto; /* Ajoute un défilement horizontal si nécessaire */
 }
 
 .featured-movie {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.featured-movie img {
-  width: 200px;
-  height: auto;
+  width: 250px;
+  background-color: #854023;
   border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
 }
 
-.featured-movie h2 {
-  font-size: 1.5em;
-  margin: 10px 0;
-}
-
-.featured-movie p {
-  font-size: 1em;
-  text-align: center;
+.featured-movie:hover {
+  transform: scale(1.05);
 }

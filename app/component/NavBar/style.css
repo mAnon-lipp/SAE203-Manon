@@ -1,84 +1,56 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Sépare les éléments */
   align-items: center;
-  padding: 1rem 3rem;
-  color: var(--color-fg);
-  background-color: var(--color-bg);
-
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
-    cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
-    &:hover {
-      --_offset: 0.5rem;
-    }
-  }
+  width: 100vw; /* Prend toute la largeur de la fenêtre */
+  padding: 0.5rem 2rem; /* Moins de hauteur */
+  margin: 0; /* Supprime toute marge */
+  color: white;
+  background-color: #854023;
 }
 
+.navbar__list {
+  display: flex;
+  justify-content: center; /* Centre les items */
+  flex-grow: 1; /* Permet aux menus de s'étendre pour occuper l'espace central */
+  gap: 2rem; /* Espacement entre les éléments */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
+.navbar__item {
+  padding: 0.5rem 1rem;
+  text-decoration: underline;
+  text-decoration-thickness: 0.1rem;
+  text-underline-offset: 0.2rem;
+  cursor: pointer;
+  transition: text-underline-offset 0.2s ease-in-out;
+}
 
+.navbar__item:hover {
+  text-underline-offset: 0.5rem;
+}
 
-.profile-avatar {
+/* Profil utilisateur à droite */
+.navbar__profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar__select {
+  padding: 10px;
+  border: 2px solid #550d08;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.profile-image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-bottom: 5px;
+  object-fit: cover;
 }
-
-.profile-name {
-  font-size: 0.9rem;;
-}
-
-.profile-menu {
-  position: relative;
-  display: none;
-}
-
-.profile-menu:hover .profile-item  {
-  display: block;
-}
-
-.selected-profile {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.profile-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: none;
-  flex-direction: column;
-  z-index: 10;
-}
-
-.profile-menu .profile-item {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.profile-menu .profile-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Style pour les images de profil */
-.profile-image {
-  width: 50px; /* Ajustez la taille selon vos besoins */
-  height: 50px; /* Assurez-vous que la hauteur et la largeur sont égales */
-  border-radius: 50%; /* Rend l'image circulaire */
-  object-fit: cover; /* Assure que l'image s'adapte bien au cercle */
-  border: 2px solid #ccc; /* Optionnel : ajoute une bordure */
-}
-

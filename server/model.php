@@ -199,6 +199,10 @@ function getMoviesByCategory($age) {
 
     $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+    if (empty($rows)) {
+        return [];
+    }
+
     // Regrouper les films par catégorie sans forEach ou .map
     $categories = [];
     $i = 0;

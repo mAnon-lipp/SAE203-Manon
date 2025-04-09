@@ -2,9 +2,11 @@
   <ul class="navbar__list">
     <li class="navbar__item" onclick="{{hAbout}}">Home</li>
     <li class="navbar__item" onclick="{{hShowMovies}}">Films</li>
+  </ul>
+  <div class="navbar__profile">
     <select id="profile-select" class="navbar__select" onchange="C.handleProfileChange(this)">
       {{options}}
     </select>
     <img id="profile-image" src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png" alt="Profile Image" class="profile-image" onclick="C.showFavorites(C.getSelectedProfileId())">
-  </ul>
+  </div>
 </nav>

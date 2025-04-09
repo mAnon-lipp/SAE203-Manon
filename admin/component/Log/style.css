@@ -1,3 +1,8 @@
+#log {
+  display: flex;
+  justify-content: center;
+}
+
 .log {
   display: flex;
   align-items: flex-end;
