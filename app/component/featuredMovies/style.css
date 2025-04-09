@@ -1,58 +1,90 @@
-/* Style pour un seul film */
-.featured-movie-single {
+/* Conteneur principal des films */
+.featured-movie__container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%; /* Prend toute la largeur */
-  background-color: #854023; /* Fire */
-  border-radius: 10px;
+  flex-direction: column; /* Empile le titre et les cartes verticalement */
+  align-items: center; /* Centre le contenu horizontalement */
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  text-align: center;
+  background-color: #200c0c; /* Couleur de fond */
+  width: 100%; /* Occupe toute la largeur disponible */
 }
 
-.featured-movie-single img {
-  width: 50%; /* Taille adaptée pour un seul film */
-  height: auto;
-  border-radius: 10px;
+/* Titre des films */
+.featured-movies__title {
+  font-size: 2em; /* Taille du titre */
+  margin-bottom: 20px; /* Espacement entre le titre et les cartes */
+  color: #fff; /* Couleur du texte */
+  text-align: center; /* Centre le texte */
+  width: 100%; /* Occupe toute la largeur du conteneur */
 }
 
-.featured-movie-single h2 {
-  font-size: 1.8em;
-  margin: 15px 0;
-  color: white;
-}
-
-.featured-movie-single p {
-  font-size: 1.2em;
-  color: #fff;
-}
-
-/* Style pour plusieurs films */
+/* Conteneur des cartes de films */
 .featured-movies {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 20px;
-  padding: 20px;
-  background-color: #200c0c;
-  border-radius: 10px;
-  flex-wrap: nowrap; /* Empêche le retour à la ligne */
-  overflow-x: auto; /* Ajoute un défilement horizontal si nécessaire */
+  display: flex; /* Aligne les cartes horizontalement */
+  flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+  justify-content: center; /* Centre les cartes */
+  gap: 20px; /* Espacement entre les cartes */
+  width: 100%; /* Occupe toute la largeur disponible */
 }
 
+/* Chaque carte de film */
 .featured-movie {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-  background-color: #854023;
+  display: flex; /* Aligne l'image et le contenu horizontalement */
+  flex-direction: row; /* Dispose les éléments en ligne */
+  align-items: center; /* Centre verticalement l'image et le contenu */
+  width: 500px; /* Taille fixe pour chaque carte */
+  background-color: #854023; /* Couleur de fond */
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
+  gap: 15px; /* Espacement entre l'image et le contenu */
 }
 
 .featured-movie:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+/* Affiche du film */
+.featured-movie__image {
+  width: 150px; /* Largeur fixe pour l'image */
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Conteneur du contenu (titre et description) */
+.featured-movie__content {
+  display: flex;
+  flex-direction: column; /* Aligne le titre et la description verticalement */
+  justify-content: center; /* Centre le contenu verticalement */
+  flex-grow: 1; /* Permet au contenu de s'étendre pour occuper l'espace disponible */
+}
+
+/* Titre du film */
+.featured-movie__title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: white; /* Texte bien lisible */
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+/* Description du film */
+.featured-movie__description {
+  font-size: 1em;
+  color: #fff;
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+/* Bouton pour voir les détails */
+.featured-movie__button {
+  padding: 10px 20px;
+  background-color: #ff5722; /* Couleur du bouton */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.featured-movie__button:hover {
+  background-color: #e64a19; /* Couleur au survol */
 }

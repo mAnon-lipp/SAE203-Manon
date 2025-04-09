@@ -1,0 +1,83 @@
+/* Conteneur principal de la catégorie */
+.category-container {
+  display: flex;
+  flex-direction: column; /* Empile le titre et les films verticalement */
+  align-items: center; /* Centre le contenu horizontalement */
+  padding: 20px;
+  width: 100%; /* Occupe toute la largeur disponible */
+}
+
+.category-header {
+  font-size: 2.5em; /* Taille du titre */
+  margin-bottom: 30px; /* Espacement entre le titre et la liste des films */
+  color: black; /* Couleur du texte */
+  text-align: center; /* Centre le texte */
+  width: 100%; /* Occupe toute la largeur du conteneur */
+  text-transform: uppercase; /* Met le texte en majuscules */
+}
+
+/* Titre de la catégorie */
+.category-title {
+  font-size: 2.5em; /* Taille du titre */
+  margin-bottom: 30px; /* Espacement entre le titre et la liste des films */
+  color: black; /* Couleur du texte */
+  width: 100%; /* Occupe toute la largeur du conteneur */
+  text-transform: uppercase; /* Met le texte en majuscules */
+}
+
+/* Liste des films */
+.movies-list {
+  display: flex; /* Aligne les films horizontalement */
+  flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+  gap: 20px; /* Espacement entre les films */
+  width: 100%; /* Occupe toute la largeur disponible */
+}
+
+/* Carte de film dans la catégorie */
+.movie-card {
+  display: flex; /* Aligne l'image et le contenu horizontalement */
+  flex-direction: column; /* Dispose les éléments verticalement */
+  align-items: center; /* Centre le contenu horizontalement */
+  width: 300px; /* Taille fixe pour chaque carte */
+  background-color: #854023; /* Couleur de fond similaire */
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover {
+  transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+/* Image du film */
+.movie-card__image {
+  width: 100%; /* Largeur de l'image adaptée à la carte */
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px; /* Espacement entre l'image et le contenu */
+}
+
+/* Titre du film */
+.movie-card__title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: white; /* Texte bien lisible */
+  text-align: center; /* Centre le texte */
+}
+
+/* Bouton pour voir les détails */
+.movie-card__button {
+  padding: 10px 20px;
+  background-color: #ff5722; /* Couleur du bouton */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 10px; /* Espacement au-dessus du bouton */
+}
+
+.movie-card__button:hover {
+  background-color: #e64a19; /* Couleur au survol */
+}
