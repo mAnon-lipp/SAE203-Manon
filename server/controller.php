@@ -149,3 +149,15 @@ function searchMoviesController() {
     $movies = searchMovies($keyword, $category, $year);
     return $movies ? $movies : [];
 }
+
+function updateFeaturedStatusController() {
+    if (!isset($_REQUEST['movie_id']) || !isset($_REQUEST['is_featured'])) {
+        return false;
+    }
+
+    $movie_id = intval($_REQUEST['movie_id']);
+    $is_featured = filter_var($_REQUEST['is_featured'], FILTER_VALIDATE_BOOLEAN);
+
+    $result = updateFeaturedStatus($movie_id, $is_featured);
+    return $result ? "Le statut du film a été mis à jour avec succès." : "Erreur lors de la mise à jour du statut.";
+}

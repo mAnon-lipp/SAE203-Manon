@@ -1,0 +1,92 @@
+#searchMovies {
+    background-color: #200c0c; /* Asphalt */
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.movieSearch__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#searchKeyword {
+    padding: 10px;
+    border: 2px solid #854023; /* Fire */
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #550d08; /* Earth Brown */
+    background-color: #ffffff;
+}
+
+.movieSearch__form input::placeholder {
+    color: #854023; /* Fire */
+}
+
+.movieSearch__form input:focus {
+    outline: none;
+    border-color: #200c0c; /* Asphalt */
+    box-shadow: 0 0 5px #200c0c;
+}
+
+#searchMovies button {
+    background-color: #854023; /* Fire */
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchMovies button:hover {
+    background-color: #550d08; /* Earth Brown */
+}
+
+.movieSearch__results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.movieSearch__card {
+    border: 2px solid #854023; /* Fire */
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    color: #550d08; /* Earth Brown */
+}
+
+.movieSearch__card h3 {
+    margin: 0 0 10px;
+    color: #854023; /* Fire */
+}
+
+.movieSearch__card p {
+    margin: 5px 0;
+    color: #550d08; /* Earth Brown */
+}
+
+.movieSearch__card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #854023; /* Fire */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movieSearch__card button:hover {
+    background-color: #550d08; /* Earth Brown */
+}

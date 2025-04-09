@@ -172,6 +172,7 @@
       };
 
       C.searchMovies = async function () {
+        document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
         const keyword = document.querySelector("#search-input").value.trim();
 
         if (!keyword) {

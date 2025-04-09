@@ -10,6 +10,7 @@
     <section id="log"></section>
     <section id="addMovie"></section>
     <section id="addProfile"></section>
+    <section id="searchMovies"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -17,7 +18,7 @@
       import { ProfileForm } from "./component/ProfileForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
-
+      import { MovieSearch } from "./component/MovieSearch/script.js";
       window.C = {};
 
       C.handlerAddMovie = async function () {
@@ -38,10 +39,35 @@
         V.renderLog(res);
       };
 
+      C.handlerSearchMovies = async function () {
+        let keyword = document.querySelector("#searchKeyword").value;
+        let content = document.querySelector(
+          "#searchMovies .movieSearch__results"
+        );
+
+        if (!content) {
+          console.error("Le conteneur .movieSearch__results est introuvable.");
+          return;
+        }
+
+        let movies = await DataMovie.searchMovies(keyword);
+        content.innerHTML = MovieSearch.formatResults(
+          movies,
+          "C.handlerUpdateFeaturedStatus"
+        );
+      };
+
+      C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
+        let res = await DataMovie.updateFeaturedStatus(movieId, isFeatured);
+        V.renderLog(res);
+        C.handlerSearchMovies(); // Rafraîchir les résultats
+      };
+
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderAddMovie("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
+        V.renderSearchMovies(); // Ajout de l'affichage du composant de recherche
       };
 
       window.V = {};
@@ -60,6 +86,15 @@
         let profiles = await DataProfile.getProfiles();
         content.innerHTML = ProfileForm.format(profiles, handler);
         ProfileForm.init();
+      };
+      V.renderSearchMovies = function () {
+        let content = document.querySelector("#searchMovies");
+        content.innerHTML = `
+          <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
+          <button onclick="C.handlerSearchMovies()">Rechercher</button>
+          <div class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
+        `;
+        MovieSearch.init(); // Initialise les événements du composant
       };
 
       C.start();

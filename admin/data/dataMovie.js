@@ -35,4 +35,18 @@ DataMovie.addMovie = async function (fdata) {
   return data;
 };
 
+DataMovie.searchMovies = async function (keyword) {
+  const url = `${HOST_URL}/server/script.php?todo=searchMovies&keyword=${encodeURIComponent(keyword)}`;
+  let answer = await fetch(url);
+  let movies = await answer.json();
+  return movies;
+};
+
+DataMovie.updateFeaturedStatus = async function (movieId, isFeatured) {
+  const url = `${HOST_URL}/server/script.php?todo=updateFeaturedStatus&movie_id=${movieId}&is_featured=${isFeatured}`;
+  let answer = await fetch(url);
+  let response = await answer.json();
+  return response;
+};
+
 export { DataMovie };

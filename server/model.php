@@ -278,14 +278,22 @@ function removeFavorite($profile_id, $movie_id) {
 function searchMovies($keyword, $category = null, $year = null) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
     
-    $sql = "SELECT id, name, image FROM Movie WHERE name LIKE :keyword";
+    $sql = "SELECT 
+                Movie.id, 
+                Movie.name, 
+                Movie.image, 
+                Movie.is_featured, 
+                Category.name AS category 
+            FROM Movie
+            LEFT JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.name LIKE :keyword";
     
     // Ajout de filtres optionnels
     if ($category) {
-        $sql .= " AND id_category = :category";
+        $sql .= " AND Movie.id_category = :category";
     }
     if ($year) {
-        $sql .= " AND year = :year";
+        $sql .= " AND Movie.year = :year";
     }
 
     $stmt = $cnx->prepare($sql);
@@ -300,6 +308,16 @@ function searchMovies($keyword, $category = null, $year = null) {
 
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+function updateFeaturedStatus($movie_id, $is_featured) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "UPDATE Movie SET is_featured = :is_featured WHERE id = :movie_id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':is_featured', $is_featured, PDO::PARAM_BOOL);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->rowCount();
 }
 
 ?>
