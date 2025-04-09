@@ -4,7 +4,6 @@ let template = await templateFile.text();
 let Favorite = {};
 
 Favorite.format = function (favoriteData) {
-    console.log("favoriteData:", favoriteData); // Log pour inspecter les données passées
     let html = template;
     // Remplace les balises dans le template
     html = html.replace("{{image}}", favoriteData.image || "default-image.png");

@@ -65,5 +65,11 @@ DataMovie.removeFavorite = async function (profileId, movieId) {
   return response;
 };
 
+DataMovie.searchMovies = async function (keyword) {
+  const url = `${HOST_URL}/server/script.php?todo=searchMovies&keyword=${encodeURIComponent(keyword)}`;
+  let answer = await fetch(url);
+  let movies = await answer.json();
+  return movies;
+};
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

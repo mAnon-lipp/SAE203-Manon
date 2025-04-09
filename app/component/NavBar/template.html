@@ -3,6 +3,14 @@
     <li class="navbar__item" onclick="{{hAbout}}">Home</li>
     <li class="navbar__item" onclick="{{hShowMovies}}">Films</li>
   </ul>
+  <div class="navbar__search">
+    <input 
+      type="text" 
+      id="search-input" 
+      placeholder="Rechercher un film par titre..." 
+    />
+    <button onclick="C.searchMovies()">Rechercher</button>
+  </div>
   <div class="navbar__profile">
     <select id="profile-select" class="navbar__select" onchange="C.handleProfileChange(this)">
       {{options}}

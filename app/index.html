@@ -25,6 +25,7 @@
       import { DataProfile } from "./data/dataProfile.js"; // Importer DataProfile
       import { FeaturedMovies } from "./component/featuredMovies/script.js";
       import { Favorite } from "./component/Favorite/script.js";
+      // import { BarreDeRecherche } from "./component/barreDeRecherche/script.js";
 
       window.C = {};
 
@@ -69,6 +70,8 @@
       C.start = async function () {
         let profiles = await DataProfile.read(); // Récupérer les profils
         V.renderNavBar("C.handlerHome()", "C.handlerShowMovies()", profiles); // Passer les profils
+        // document.querySelector("#header").innerHTML +=
+        // BarreDeRecherche.format(); // Ajouter la barre de recherche
         document.querySelector("#featured-movies").style.display = "block"; // Afficher les films mis en avant
         C.getFeaturedMovies();
         C.getMovie(); // Appelle la fonction pour récupérer les films
@@ -166,6 +169,24 @@
         let response = await DataMovie.removeFavorite(profileId, movieId);
         alert(response); // Affiche un message de confirmation
         C.showFavorites(profileId); // Recharge la liste des favoris
+      };
+
+      C.searchMovies = async function () {
+        const keyword = document.querySelector("#search-input").value.trim();
+
+        if (!keyword) {
+          alert("Veuillez saisir un mot-clé pour effectuer une recherche.");
+          return;
+        }
+
+        let movies = await DataMovie.searchMovies(keyword);
+
+        if (movies.length === 0) {
+          document.querySelector("#content").innerHTML =
+            "<p>Aucun film ne correspond à votre recherche.</p>";
+        } else {
+          V.renderMovie(movies); // Réutilisation de la fonction existante pour afficher les films
+        }
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)

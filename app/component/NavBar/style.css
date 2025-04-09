@@ -11,9 +11,8 @@
 
 .navbar__list {
   display: flex;
-  justify-content: center; /* Centre les items */
+  justify-content: flex-start; /* Aligne les items à gauche */
   flex-grow: 1; /* Permet aux menus de s'étendre pour occuper l'espace central */
-  gap: 2rem; /* Espacement entre les éléments */
   list-style: none;
   padding: 0;
   margin: 0;
@@ -54,3 +53,34 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.navbar__search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1rem; /* Ajoute un espace à droite */
+}
+
+.navbar__search input {
+  padding: 0.5rem 1rem;
+  border: 2px solid #550d08;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.navbar__search button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #550d08;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar__search button:hover {
+  background-color: #6a1a0e;
+}
+
+

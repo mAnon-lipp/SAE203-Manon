@@ -275,4 +275,31 @@ function removeFavorite($profile_id, $movie_id) {
     return $stmt->rowCount();
 }
 
+function searchMovies($keyword, $category = null, $year = null) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    
+    $sql = "SELECT id, name, image FROM Movie WHERE name LIKE :keyword";
+    
+    // Ajout de filtres optionnels
+    if ($category) {
+        $sql .= " AND id_category = :category";
+    }
+    if ($year) {
+        $sql .= " AND year = :year";
+    }
+
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+
+    if ($category) {
+        $stmt->bindValue(':category', $category, PDO::PARAM_INT);
+    }
+    if ($year) {
+        $stmt->bindValue(':year', $year, PDO::PARAM_INT);
+    }
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 ?>

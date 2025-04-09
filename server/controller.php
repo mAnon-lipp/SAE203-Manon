@@ -136,3 +136,16 @@ function removeFavoriteController() {
     $ok = removeFavorite($profile_id, $movie_id);
     return $ok ? "Le film a été retiré de vos favoris." : "Erreur lors de la suppression du favori.";
 }
+
+function searchMoviesController() {
+    $keyword = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
+    $category = isset($_REQUEST['category']) ? intval($_REQUEST['category']) : null;
+    $year = isset($_REQUEST['year']) ? intval($_REQUEST['year']) : null;
+
+    if (empty($keyword)) {
+        return []; // Retourne une liste vide si aucun mot-clé n'est fourni
+    }
+
+    $movies = searchMovies($keyword, $category, $year);
+    return $movies ? $movies : [];
+}
