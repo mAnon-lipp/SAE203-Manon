@@ -11,6 +11,7 @@
     <section id="addMovie"></section>
     <section id="addProfile"></section>
     <section id="searchMovies"></section>
+    <section id="moderateComments"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -19,6 +20,8 @@
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
       import { MovieSearch } from "./component/MovieSearch/script.js";
+      import { Comment } from "./component/moderateComments/script.js";
+
       window.C = {};
 
       C.handlerAddMovie = async function () {
@@ -67,7 +70,8 @@
         V.renderLog("Démarrage de l'application");
         V.renderAddMovie("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
-        V.renderSearchMovies(); // Ajout de l'affichage du composant de recherche
+        V.renderSearchMovies();
+        V.renderModerateComments(); // Ajout de la modération des commentaires
       };
 
       window.V = {};
@@ -95,6 +99,12 @@
           <div class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
         `;
         MovieSearch.init(); // Initialise les événements du composant
+      };
+
+      V.renderModerateComments = function () {
+        let content = document.querySelector("#moderateComments");
+        content.innerHTML = Comment.format();
+        Comment.loadPendingComments(); // Charge les commentaires en attente
       };
 
       C.start();

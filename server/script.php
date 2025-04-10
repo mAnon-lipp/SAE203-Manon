@@ -122,6 +122,18 @@ if ( isset($_REQUEST['todo']) ){
     case 'getComments':
         $data = getCommentsController();
         break;
+    
+    case 'getPendingComments':
+        $data = getPendingCommentsController();
+        break;
+        
+    case 'approveComment':
+        $data = approveCommentController();
+        break;
+        
+    case 'deleteComment':
+        $data = deleteCommentController();
+        break;
 
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée

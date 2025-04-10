@@ -187,45 +187,6 @@ function getMovieDetail($id) {
     return $movieDetail; // Retourne les détails du film
 }
 
-// function getMoviesByCategory() {
-//         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-//             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-//         ]);
-
-//         // Requête SQL pour récupérer les films groupés par catégorie
-//         $sql = "SELECT 
-//                     Category.id AS category_id, 
-//                     Category.name AS category_name, 
-//                     Movie.id AS movie_id, 
-//                     Movie.name AS movie_name, 
-//                     Movie.image AS movie_image
-//                 FROM Movie
-//                 JOIN Category ON Movie.id_category = Category.id
-//                 ORDER BY Category.name, Movie.name";
-
-//         $stmt = $cnx->query($sql);
-//         $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-//         // Regrouper les films par catégorie
-//         $categories = [];
-//         foreach ($rows as $row) {
-//             if (!isset($categories[$row->category_id])) {
-//                 $categories[$row->category_id] = [
-//                     "name" => $row->category_name,
-//                     "movies" => []
-//                 ];
-//             }
-//             $categories[$row->category_id]["movies"][] = [
-//                 "id" => $row->movie_id,
-//                 "name" => $row->movie_name,
-//                 "image" => $row->movie_image
-//             ];
-//         }
-
-//         return array_values($categories); // Retourne un tableau indexé
-//     }
-// }
-
 
 function getMoviesByCategory($age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
@@ -422,12 +383,39 @@ function getComments($movie_id) {
     $sql = "SELECT Comments.comment, Comments.created_at, Profil.name AS profile_name 
             FROM Comments 
             JOIN Profil ON Comments.profile_id = Profil.id 
-            WHERE Comments.movie_id = :movie_id 
+            WHERE Comments.movie_id = :movie_id AND Comments.status = 'approved'
             ORDER BY Comments.created_at DESC";
     $stmt = $cnx->prepare($sql);
     $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+function getPendingComments() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Comments.id, Comments.comment, Comments.created_at, Profil.name AS profile_name 
+            FROM Comments 
+            JOIN Profil ON Comments.profile_id = Profil.id 
+            WHERE Comments.status = 'pending'
+            ORDER BY Comments.created_at DESC";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+function approveComment($commentId) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "UPDATE Comments SET status = 'approved' WHERE id = :commentId";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':commentId', $commentId, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+function deleteComment($commentId) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "UPDATE Comments SET status = 'deleted' WHERE id = :commentId";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':commentId', $commentId, PDO::PARAM_INT);
+    return $stmt->execute();
 }
 
 ?>
