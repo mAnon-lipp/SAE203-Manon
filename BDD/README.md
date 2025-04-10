@@ -12,3 +12,6 @@ Pour permettre un système de notation, j'ai créé une table 'Ratings' avec les
 
 Itération 15 : Ajout de la table 'Comments'. 
 Pour permettre un système de commentaires, j'ai créé une table 'Comments' avec les colonnes suivantes : id en INT avec auto-incrémentation, profile_id, qui est une clé étrangère pointant vers l'id de la table 'Profil', movie_id, qui est une clé étrangère pointant vers l'id de la table 'Movie', comment en TEXTE, qui permet de stocker le commentaire envoyé, et created_at en DATETIME, afin d'enregistrer l'heure et la date auxquelles le commentaire a été posté.
+
+Itération 16 : Ajout de la colonne "status". 
+Pour permettre une modération des commentaires, j'ai créé la colonne status dans la table "Comments" avec l'énumération enum('pending', 'approved', 'deleted'), qui me permet de contrôler le statut des commentaires. J'ai défini "pending" comme valeur par défaut afin de m'assurer que les commentaires n'apparaissent pas tant qu'ils n'ont pas été modérés.
