@@ -91,5 +91,17 @@ DataMovie.searchMovies = async function (keyword) {
   let movies = await answer.json();
   return movies;
 };
+
+DataMovie.addComment = async function (movieId, profileId, comment) {
+  const url = `${HOST_URL}/server/script.php?todo=addComment&movie_id=${movieId}&profile_id=${profileId}&comment=${encodeURIComponent(comment)}`;
+  let response = await fetch(url);
+  return await response.json();
+};
+
+DataMovie.getComments = async function (movieId) {
+  const url = `${HOST_URL}/server/script.php?todo=getComments&movie_id=${movieId}`;
+  let response = await fetch(url);
+  return await response.json();
+};
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

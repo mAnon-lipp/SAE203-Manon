@@ -179,3 +179,25 @@ function getAverageRatingController() {
     $movie_id = $_REQUEST['movie_id'];
     return getAverageRating($movie_id);
 }
+
+function addCommentController() {
+    if (!isset($_REQUEST['movie_id']) || !isset($_REQUEST['profile_id']) || !isset($_REQUEST['comment'])) {
+        return false;
+    }
+
+    $movie_id = intval($_REQUEST['movie_id']);
+    $profile_id = intval($_REQUEST['profile_id']);
+    $comment = $_REQUEST['comment'];
+
+    $ok = addComment($movie_id, $profile_id, $comment);
+    return $ok ? "Commentaire ajouté avec succès." : "Erreur lors de l'ajout du commentaire.";
+}
+
+function getCommentsController() {
+    if (!isset($_REQUEST['movie_id'])) {
+        return false;
+    }
+
+    $movie_id = intval($_REQUEST['movie_id']);
+    return getComments($movie_id);
+}

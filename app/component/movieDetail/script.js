@@ -1,3 +1,6 @@
+import { Comment } from "../Comment/script.js";
+
+
 let templateFile = await fetch("./component/movieDetail/template.html");
 let template = await templateFile.text();
 
@@ -18,9 +21,17 @@ MovieDetail.format = function (movieData) {
   // Récupérer la note moyenne
   let averageRating = movieData.average_rating || 0;
   html = html.replace("{{averageRating}}", averageRating);
-
+  html += Comment.format(movieData.id); // Passe l'ID du film à Comment.format
 
   return html;
+};
+
+MovieDetail.loadComments = function (movieId) {
+  Comment.loadComments(movieId);
+};
+
+MovieDetail.addComment = function (movieId) {
+  Comment.addComment(movieId);
 };
 
 export { MovieDetail };

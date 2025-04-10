@@ -355,4 +355,27 @@ function hasRated($profile_id, $movie_id) {
     return $stmt->fetchColumn() > 0;
 }
 
+function addComment($movie_id, $profile_id, $comment) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "INSERT INTO Comments (movie_id, profile_id, comment) VALUES (:movie_id, :profile_id, :comment)";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->bindParam(':profile_id', $profile_id, PDO::PARAM_INT);
+    $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+function getComments($movie_id) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Comments.comment, Comments.created_at, Profil.name AS profile_name 
+            FROM Comments 
+            JOIN Profil ON Comments.profile_id = Profil.id 
+            WHERE Comments.movie_id = :movie_id 
+            ORDER BY Comments.created_at DESC";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 ?>
