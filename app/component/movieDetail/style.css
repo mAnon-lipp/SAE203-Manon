@@ -60,3 +60,52 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
+
+/* Section de notation moyenne */
+.movie-rating {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.movie-rating h3 {
+  font-size: 1.5em;
+  color: #9F6920;
+  margin-bottom: 15px;
+}
+
+/* Interface de notation */
+#rating-interface {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#rating-interface label {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+#rating-interface select {
+  padding: 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#rating-interface button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #9F6920;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#rating-interface button:hover {
+  background-color: #7e4f18;
+}

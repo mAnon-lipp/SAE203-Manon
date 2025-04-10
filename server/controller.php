@@ -161,3 +161,21 @@ function updateFeaturedStatusController() {
     $result = updateFeaturedStatus($movie_id, $is_featured);
     return $result ? "Le statut du film a été mis à jour avec succès." : "Erreur lors de la mise à jour du statut.";
 }
+
+function addRatingController() {
+    $profile_id = $_REQUEST['profile_id'];
+    $movie_id = $_REQUEST['movie_id'];
+    $rating = intval($_REQUEST['rating']);
+
+    if (hasRated($profile_id, $movie_id)) {
+        return "Vous avez déjà noté ce film.";
+    }
+
+    $ok = addRating($profile_id, $movie_id, $rating);
+    return $ok ? "Votre note a été enregistrée." : "Erreur lors de l'enregistrement de la note.";
+}
+
+function getAverageRatingController() {
+    $movie_id = $_REQUEST['movie_id'];
+    return getAverageRating($movie_id);
+}

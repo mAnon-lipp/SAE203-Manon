@@ -69,7 +69,11 @@
 
       C.start = async function () {
         let profiles = await DataProfile.read(); // Récupérer les profils
-        V.renderNavBar("C.handlerHome()", "C.handlerShowMovies()", profiles); // Passer les profils
+        await V.renderNavBar(
+          "C.handlerHome()",
+          "C.handlerShowMovies()",
+          profiles
+        ); // Passer les profils
         // document.querySelector("#header").innerHTML +=
         // BarreDeRecherche.format(); // Ajouter la barre de recherche
         document.querySelector("#featured-movies").style.display = "block"; // Afficher les films mis en avant
@@ -187,6 +191,24 @@
             "<p>Aucun film ne correspond à votre recherche.</p>";
         } else {
           V.renderMovie(movies); // Réutilisation de la fonction existante pour afficher les films
+        }
+      };
+
+      C.addRating = async function (movieId) {
+        const profileId = C.getSelectedProfileId();
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour noter un film.");
+          return;
+        }
+
+        const rating = document.querySelector("#rating").value;
+        try {
+          let message = await DataMovie.addRating(profileId, movieId, rating); // Appel à la méthode centralisée
+          alert(message); // Affiche le message de confirmation ou d'erreur
+          C.handlerDetail(movieId); // Recharge les détails du film
+        } catch (error) {
+          console.error("Erreur lors de l'ajout de la note :", error);
+          alert("Une erreur est survenue lors de l'ajout de la note.");
         }
       };
 
