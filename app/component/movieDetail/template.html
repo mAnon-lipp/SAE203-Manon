@@ -1,5 +1,8 @@
 <div class="movie-detail">
-  <h1 class="movie-title">{{movieTitle}}</h1>
+  <h1 class="movie-title">
+    {{movieTitle}}
+    {{#is_new}}{{/is_new}}
+    </h1>
   <img class="movie-poster" src="https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/{{image}}" alt="Affiche du film" />
   <p class="movie-synopsis">{{movieSynopsis}}</p>
   <p><strong>Réalisateur :</strong> <span class="movie-director">{{movieDirector}}</span></p>
@@ -14,7 +17,7 @@
     <h3>Note moyenne : <span id="average-rating">{{averageRating}}</span>/10</h3>
     <div id="rating-interface">
       <label for="rating">Votre note :</label>
-      <select id="rating" >
+      <select id="rating">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

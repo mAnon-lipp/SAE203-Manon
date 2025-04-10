@@ -1,6 +1,5 @@
 import { Comment } from "../Comment/script.js";
 
-
 let templateFile = await fetch("./component/movieDetail/template.html");
 let template = await templateFile.text();
 
@@ -18,6 +17,13 @@ MovieDetail.format = function (movieData) {
   html = html.replace("{{movieTrailerUrl}}", movieData.trailer);
   html = html.replace("{{onclick}}", `C.addRating(${movieData.id})`);
 
+  // Ajouter ou supprimer le tag "new"
+  if (movieData.is_new) {
+    html = html.replace("{{#is_new}}", "").replace("{{/is_new}}", '<span class="tag-new">New</span>');
+  } else {
+    html = html.replace("{{#is_new}}", "").replace("{{/is_new}}", "");
+  }
+
   // Récupérer la note moyenne
   let averageRating = movieData.average_rating || 0;
   html = html.replace("{{averageRating}}", averageRating);
@@ -25,13 +31,4 @@ MovieDetail.format = function (movieData) {
 
   return html;
 };
-
-MovieDetail.loadComments = function (movieId) {
-  Comment.loadComments(movieId);
-};
-
-MovieDetail.addComment = function (movieId) {
-  Comment.addComment(movieId);
-};
-
 export { MovieDetail };

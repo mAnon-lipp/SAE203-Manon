@@ -45,6 +45,7 @@ DataMovie.requestMoviesByCategory = async function (age) {
   console.log("URL générée :", url); // Log pour vérifier l'URL
   let answer = await fetch(url);
   let categories = await answer.json();
+  console.log("Données reçues par catégorie :", categories); // Vérifiez si is_new est présent
   return categories;
 };
 

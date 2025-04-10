@@ -157,10 +157,7 @@ function getProfiles() {
 }
 
 function getMovieDetail($id) {
-    // Connexion à la base de données
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-
-    // Requête SQL pour récupérer les détails du film
     $sql = "SELECT 
                 Movie.id, 
                 Movie.name, 
@@ -172,19 +169,15 @@ function getMovieDetail($id) {
                 Movie.trailer, 
                 Movie.min_age, 
                 Movie.id_category, 
-                Category.name AS category
+                Category.name AS category,
+                (Movie.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)) AS is_new
             FROM Movie
             JOIN Category ON Movie.id_category = Category.id
             WHERE Movie.id = :id";
-
     $stmt = $cnx->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
-
-    // Récupère le résultat sous forme d'objet
-    $movieDetail = $stmt->fetch(PDO::FETCH_OBJ);
-
-    return $movieDetail; // Retourne les détails du film
+    return $stmt->fetch(PDO::FETCH_OBJ);
 }
 
 
@@ -194,16 +187,17 @@ function getMoviesByCategory($age) {
     ]);
 
     // Requête SQL pour récupérer les films groupés par catégorie
-    // Si $age = 0, on ne filtre pas sur min_age
+    // Ajout de la colonne is_new pour indiquer si le film est récent
     $sql = "SELECT 
                 Category.id AS category_id, 
                 Category.name AS category_name, 
                 Movie.id AS movie_id, 
                 Movie.name AS movie_name, 
-                Movie.image AS movie_image
+                Movie.image AS movie_image,
+                (Movie.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)) AS is_new
             FROM Movie
             JOIN Category ON Movie.id_category = Category.id
-            WHERE :age = 0 OR Movie.min_age < :age
+            WHERE :age = 0 OR Movie.min_age <= :age
             ORDER BY Category.name, Movie.name";
 
     $stmt = $cnx->prepare($sql);
@@ -216,12 +210,9 @@ function getMoviesByCategory($age) {
         return [];
     }
 
-    // Regrouper les films par catégorie sans forEach ou .map
+    // Regrouper les films par catégorie
     $categories = [];
-    $i = 0;
-    $rowsCount = count($rows);
-    while ($i < $rowsCount) {
-        $row = $rows[$i];
+    foreach ($rows as $row) {
         if (!isset($categories[$row->category_id])) {
             $categories[$row->category_id] = [
                 "name" => $row->category_name,
@@ -231,9 +222,9 @@ function getMoviesByCategory($age) {
         $categories[$row->category_id]["movies"][] = [
             "id" => $row->movie_id,
             "name" => $row->movie_name,
-            "image" => $row->movie_image
+            "image" => $row->movie_image,
+            "is_new" => (bool)$row->is_new // Convertir en booléen pour le client
         ];
-        $i++;
     }
 
     return array_values($categories); // Retourne un tableau indexé

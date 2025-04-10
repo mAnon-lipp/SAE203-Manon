@@ -4,6 +4,8 @@
     alt="Affiche du film"
     class="card__image"
   />
-  <h2 class="card__title">{{titre}}</h2>
+  <h2 class="card__title">
+    {{titre}}
+    {{#is_new}}{{/is_new}}  </h2>
   <div class="card__button-container">{{button}}</div>
 </div>

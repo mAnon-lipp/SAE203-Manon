@@ -15,6 +15,9 @@
   margin-bottom: 20px;
   color: #9F6920;
   text-align: center;
+  display: flex; /* Permet d'aligner le titre et le tag sur la même ligne */
+  align-items: center; /* Centre verticalement le tag par rapport au titre */
+  justify-content: center; /* Centre horizontalement dans le conteneur */
 }
 
 /* Affiche du film */
@@ -108,4 +111,18 @@
 
 #rating-interface button:hover {
   background-color: #7e4f18;
+}
+
+.tag-new {
+  background-color: #550d08;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem; /* Réduction de la taille du texte */
+  margin-left: 10px; /* Espacement entre le titre et le tag */
+  width: 30px; /* Taille réduite pour s'adapter au titre */
+  height: 30px; /* Hauteur égale à la largeur pour un cercle parfait */
+  display: inline-flex; /* Aligne le contenu horizontalement et verticalement */
+  align-items: center; /* Centre verticalement le texte */
+  justify-content: center; /* Centre horizontalement le texte */
+  text-align: center; /* Assure un bon alignement du texte */
 }
