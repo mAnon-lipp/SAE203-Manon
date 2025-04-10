@@ -59,11 +59,35 @@ function addProfile($id, $name, $avatar, $min_age) {
         $favoritesStmt->execute();
         $favorites = $favoritesStmt->fetchAll(PDO::FETCH_COLUMN);
 
-        // Supprimer les entrées liées dans Favorites
-        $deleteSql = "DELETE FROM Favorites WHERE profile_id = :id";
-        $deleteStmt = $cnx->prepare($deleteSql);
-        $deleteStmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $deleteStmt->execute();
+        // Sauvegarder les évaluations existantes
+        $ratingsSql = "SELECT movie_id, rating FROM Ratings WHERE profile_id = :id";
+        $ratingsStmt = $cnx->prepare($ratingsSql);
+        $ratingsStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $ratingsStmt->execute();
+        $ratings = $ratingsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Sauvegarder les commentaires existants
+        $commentsSql = "SELECT movie_id, comment FROM Comments WHERE profile_id = :id";
+        $commentsStmt = $cnx->prepare($commentsSql);
+        $commentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $commentsStmt->execute();
+        $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Supprimer les entrées liées dans Favorites, Ratings et Comments
+        $deleteFavoritesSql = "DELETE FROM Favorites WHERE profile_id = :id";
+        $deleteFavoritesStmt = $cnx->prepare($deleteFavoritesSql);
+        $deleteFavoritesStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $deleteFavoritesStmt->execute();
+
+        $deleteRatingsSql = "DELETE FROM Ratings WHERE profile_id = :id";
+        $deleteRatingsStmt = $cnx->prepare($deleteRatingsSql);
+        $deleteRatingsStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $deleteRatingsStmt->execute();
+
+        $deleteCommentsSql = "DELETE FROM Comments WHERE profile_id = :id";
+        $deleteCommentsStmt = $cnx->prepare($deleteCommentsSql);
+        $deleteCommentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $deleteCommentsStmt->execute();
 
         // Remplacer ou insérer le profil
         $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
@@ -87,6 +111,34 @@ function addProfile($id, $name, $avatar, $min_age) {
             $insertFavoriteStmt->bindParam(':profile_id', $id, PDO::PARAM_INT);
             $insertFavoriteStmt->bindParam(':movie_id', $favorites[$i], PDO::PARAM_INT);
             $insertFavoriteStmt->execute();
+            $i++;
+        }
+
+        // Réinsérer les évaluations sauvegardées
+        $insertRatingSql = "INSERT INTO Ratings (profile_id, movie_id, rating) VALUES (:profile_id, :movie_id, :rating)";
+        $insertRatingStmt = $cnx->prepare($insertRatingSql);
+
+        $i = 0;
+        $ratingsCount = count($ratings);
+        while ($i < $ratingsCount) {
+            $insertRatingStmt->bindParam(':profile_id', $id, PDO::PARAM_INT);
+            $insertRatingStmt->bindParam(':movie_id', $ratings[$i]['movie_id'], PDO::PARAM_INT);
+            $insertRatingStmt->bindParam(':rating', $ratings[$i]['rating'], PDO::PARAM_INT);
+            $insertRatingStmt->execute();
+            $i++;
+        }
+
+        // Réinsérer les commentaires sauvegardés
+        $insertCommentSql = "INSERT INTO Comments (profile_id, movie_id, comment) VALUES (:profile_id, :movie_id, :comment)";
+        $insertCommentStmt = $cnx->prepare($insertCommentSql);
+
+        $i = 0;
+        $commentsCount = count($comments);
+        while ($i < $commentsCount) {
+            $insertCommentStmt->bindParam(':profile_id', $id, PDO::PARAM_INT);
+            $insertCommentStmt->bindParam(':movie_id', $comments[$i]['movie_id'], PDO::PARAM_INT);
+            $insertCommentStmt->bindParam(':comment', $comments[$i]['comment'], PDO::PARAM_STR);
+            $insertCommentStmt->execute();
             $i++;
         }
 
