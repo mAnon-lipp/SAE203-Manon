@@ -26,7 +26,7 @@
       import { FeaturedMovies } from "./component/featuredMovies/script.js";
       import { Favorite } from "./component/Favorite/script.js";
       import { Comment } from "./component/Comment/script.js";
-      
+
       // import { BarreDeRecherche } from "./component/barreDeRecherche/script.js";
 
       window.C = {};
@@ -90,9 +90,10 @@
        */
       C.getMovie = async function () {
         const age = C.getSelectedProfileAge(); // Récupère l'âge du profil sélectionné
+        const profileId = C.getSelectedProfileId(); // Récupère l'ID du profil sélectionné
         let data = await DataMovie.requestMoviesByCategory(age); // Passe l'âge en paramètre
         console.log("Données reçues :", data); // Vérifiez le format des données
-        V.renderMoviesByCategory(data); // Affiche les films par catégorie
+        V.renderMoviesByCategory(data, profileId); // Passe également profileId
       };
 
       C.getFeaturedMovies = async function () {
@@ -275,7 +276,7 @@
        * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
        * formaté par le composant MovieCategory.
        */
-      V.renderMoviesByCategory = function (data) {
+      V.renderMoviesByCategory = function (data, profileId) {
         let content = document.querySelector("#content");
         if (!data || data.length === 0) {
           // Si aucune catégorie ou aucun film n'est disponible
@@ -284,7 +285,7 @@
         }
         let formattedContent = "";
         for (let category of data) {
-          formattedContent += MovieCategory.format(category);
+          formattedContent += MovieCategory.format(category, profileId); // Passe profileId
         }
         content.innerHTML = formattedContent;
       };

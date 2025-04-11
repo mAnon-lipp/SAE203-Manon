@@ -5,15 +5,12 @@ let template = await templateFile.text();
 
 let MovieCategory = {};
 
-MovieCategory.format = function (category) {
-    let categoryHtml = template;
-    categoryHtml = categoryHtml.replace("{{categoryName}}", category.name);
-
-    // Ensure category.movies is passed to Movie.format
-    let moviesListHtml = Movie.format(category.movies || []);
-    categoryHtml = categoryHtml.replace("{{moviesList}}", moviesListHtml);
-
-    return categoryHtml;
-};
+MovieCategory.format = function (category, profileId) {
+    let moviesHtml = Movie.format(category.movies, profileId, category.favorites);
+    return `<div class="category">
+              <h2>${category.name}</h2>
+              ${moviesHtml}
+            </div>`;
+  };
 
 export { MovieCategory };
