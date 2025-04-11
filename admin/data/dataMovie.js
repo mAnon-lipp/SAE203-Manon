@@ -35,6 +35,11 @@ DataMovie.addMovie = async function (fdata) {
   return data;
 };
 
+DataMovie.getCategories = async function () {
+  let response = await fetch(HOST_URL + "/server/script.php?todo=getCategories");
+  return response.json();
+};
+
 DataMovie.searchMovies = async function (keyword, category = null, year = null) {
   const params = new URLSearchParams();
   if (keyword) params.append("keyword", keyword);

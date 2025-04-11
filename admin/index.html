@@ -99,7 +99,9 @@
       V.renderAddMovie = function (handler) {
         let content = document.querySelector("#addMovie");
         content.innerHTML = MovieForm.format(handler);
+        MovieForm.loadCategories(); // Charge les catégories dynamiquement
       };
+      
       V.renderAddProfile = async function (handler) {
         let content = document.querySelector("#addProfile");
         let profiles = await DataProfile.getProfiles();

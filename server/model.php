@@ -180,6 +180,13 @@ function getMovieDetail($id) {
     return $stmt->fetch(PDO::FETCH_OBJ);
 }
 
+function getCategories() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name FROM Category";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 
 function getMoviesByCategory($age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
