@@ -25,6 +25,8 @@
       import { DataProfile } from "./data/dataProfile.js"; // Importer DataProfile
       import { FeaturedMovies } from "./component/featuredMovies/script.js";
       import { Favorite } from "./component/Favorite/script.js";
+      import { Comment } from "./component/Comment/script.js";
+      
       // import { BarreDeRecherche } from "./component/barreDeRecherche/script.js";
 
       window.C = {};
@@ -108,9 +110,8 @@
         document.querySelector("#featured-movies").style.display = "none";
         const movieData = await DataMovie.requestMovieDetails(movieId);
         V.renderMovieDetail(movieData);
-        MovieDetail.loadComments(movieId); // Charge les commentaires
+        Comment.loadComments(movieId); // Correction : Appel à Comment.loadComments
       };
-
       document.addEventListener("click", (event) => {
         if (event.target && event.target.id === "submit-comment") {
           const movieId = event.target.dataset.movieId; // Assurez-vous que l'élément a un attribut data-movie-id
@@ -132,12 +133,11 @@
           selectElement.options[selectElement.selectedIndex];
         const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
         const profileImage = document.querySelector(".profile-image");
-        const defaultImage =
-          "https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png"; // Chemin de l'image par défaut
+        const defaultImage = "../server/images/default-avatar.png"; // Chemin de l'image par défaut
 
         // Construit l'URL complète de l'image ou utilise l'image par défaut si newImage est vide
         profileImage.src = newImage
-          ? `https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${newImage}`
+          ? `../server/images/${newImage}`
           : defaultImage;
 
         C.getMovie();
@@ -188,14 +188,27 @@
 
       C.searchMovies = async function () {
         document.querySelector("#featured-movies").style.display = "none"; // Masquer les films mis en avant
-        const keyword = document.querySelector("#search-input").value.trim();
 
-        if (!keyword) {
-          alert("Veuillez saisir un mot-clé pour effectuer une recherche.");
+        const searchInput = document
+          .querySelector("#search-input")
+          .value.trim();
+
+        if (!searchInput) {
+          alert(
+            "Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche."
+          );
           return;
         }
 
-        let movies = await DataMovie.searchMovies(keyword);
+        // Vérifiez si l'entrée est une année (nombre à 4 chiffres)
+        const year = /^\d{4}$/.test(searchInput)
+          ? parseInt(searchInput, 10)
+          : null;
+
+        // Si ce n'est pas une année, traitez-le comme un mot-clé
+        const keyword = year ? null : searchInput;
+
+        let movies = await DataMovie.searchMovies(keyword, null, year);
 
         if (movies.length === 0) {
           document.querySelector("#content").innerHTML =

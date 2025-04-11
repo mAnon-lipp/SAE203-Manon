@@ -35,11 +35,14 @@ DataMovie.addMovie = async function (fdata) {
   return data;
 };
 
-DataMovie.searchMovies = async function (keyword) {
-  const url = `${HOST_URL}/server/script.php?todo=searchMovies&keyword=${encodeURIComponent(keyword)}`;
-  let answer = await fetch(url);
-  let movies = await answer.json();
-  return movies;
+DataMovie.searchMovies = async function (keyword, category = null, year = null) {
+  const params = new URLSearchParams();
+  if (keyword) params.append("keyword", keyword);
+  if (category) params.append("category", category);
+  if (year) params.append("year", year);
+
+  const response = await fetch(`${HOST_URL}/server/script.php?todo=searchMovies&${params.toString()}`);
+  return response.json();
 };
 
 DataMovie.updateFeaturedStatus = async function (movieId, isFeatured) {

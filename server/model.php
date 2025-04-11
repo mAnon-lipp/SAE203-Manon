@@ -290,29 +290,28 @@ function searchMovies($keyword, $category = null, $year = null) {
                 Category.name AS category 
             FROM Movie
             LEFT JOIN Category ON Movie.id_category = Category.id
-            WHERE Movie.name LIKE :keyword";
+            WHERE 1=1";
     
-    // Ajout de filtres optionnels
-    if ($category) {
-        $sql .= " AND Movie.id_category = :category";
+    if (!empty($keyword)) {
+        $sql .= " AND (Movie.name LIKE :keyword OR Category.name LIKE :keyword)";
     }
-    if ($year) {
+    if (!empty($year)) {
         $sql .= " AND Movie.year = :year";
     }
 
     $stmt = $cnx->prepare($sql);
-    $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
 
-    if ($category) {
-        $stmt->bindValue(':category', $category, PDO::PARAM_INT);
+    if (!empty($keyword)) {
+        $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
     }
-    if ($year) {
+    if (!empty($year)) {
         $stmt->bindValue(':year', $year, PDO::PARAM_INT);
     }
 
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
+
 
 function updateFeaturedStatus($movie_id, $is_featured) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);

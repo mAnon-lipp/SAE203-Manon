@@ -28,8 +28,6 @@ DataMovie.requestMovieDetails = async function (movieId) {
   );
   movieDetails.average_rating = await averageRating.json();
 
-  
-
   return movieDetails;
 };
 
@@ -84,17 +82,20 @@ DataMovie.removeFavorite = async function (profileId, movieId) {
   return response;
 };
 
-DataMovie.searchMovies = async function (keyword) {
-  const url = `${HOST_URL}/server/script.php?todo=searchMovies&keyword=${encodeURIComponent(
-    keyword
-  )}`;
-  let answer = await fetch(url);
-  let movies = await answer.json();
-  return movies;
+DataMovie.searchMovies = async function (keyword, category = null, year = null) {
+  const params = new URLSearchParams();
+  if (keyword) params.append("keyword", keyword);
+  if (category) params.append("category", category);
+  if (year) params.append("year", year);
+
+  const response = await fetch(`../server/script.php?todo=searchMovies&${params.toString()}`);
+  return response.json();
 };
 
 DataMovie.addComment = async function (movieId, profileId, comment) {
-  const url = `${HOST_URL}/server/script.php?todo=addComment&movie_id=${movieId}&profile_id=${profileId}&comment=${encodeURIComponent(comment)}`;
+  const url = `${HOST_URL}/server/script.php?todo=addComment&movie_id=${movieId}&profile_id=${profileId}&comment=${encodeURIComponent(
+    comment
+  )}`;
   let response = await fetch(url);
   return await response.json();
 };

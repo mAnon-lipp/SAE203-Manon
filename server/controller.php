@@ -142,8 +142,8 @@ function searchMoviesController() {
     $category = isset($_REQUEST['category']) ? intval($_REQUEST['category']) : null;
     $year = isset($_REQUEST['year']) ? intval($_REQUEST['year']) : null;
 
-    if (empty($keyword)) {
-        return []; // Retourne une liste vide si aucun mot-clé n'est fourni
+    if (empty($keyword) && !$category && !$year) {
+        return []; // Retourne une liste vide si aucun critère n'est fourni
     }
 
     $movies = searchMovies($keyword, $category, $year);

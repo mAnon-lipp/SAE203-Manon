@@ -43,21 +43,36 @@
       };
 
       C.handlerSearchMovies = async function () {
-        let keyword = document.querySelector("#searchKeyword").value;
-        let content = document.querySelector(
-          "#searchMovies .movieSearch__results"
-        );
+        let searchInput = document.querySelector("#searchKeyword").value.trim();
+        let content = document.querySelector("#searchResults");
 
-        if (!content) {
-          console.error("Le conteneur .movieSearch__results est introuvable.");
+        if (!searchInput) {
+          alert(
+            "Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche."
+          );
           return;
         }
 
-        let movies = await DataMovie.searchMovies(keyword);
-        content.innerHTML = MovieSearch.formatResults(
-          movies,
-          "C.handlerUpdateFeaturedStatus"
-        );
+        // Vérifiez si l'entrée est une année (nombre à 4 chiffres)
+        const year = /^\d{4}$/.test(searchInput)
+          ? parseInt(searchInput, 10)
+          : null;
+
+        // Si ce n'est pas une année, traitez-le comme un mot-clé ou une catégorie
+        const keyword = year ? null : searchInput;
+
+        let movies = await DataMovie.searchMovies(keyword, null, year);
+
+        if (movies.length === 0) {
+          content.innerHTML =
+            "<p>Aucun film ne correspond à votre recherche.</p>";
+        } else {
+          content.innerHTML = MovieSearch.formatResults(
+            movies,
+            (movieId, isFeatured) =>
+              C.handlerUpdateFeaturedStatus(movieId, isFeatured)
+          );
+        }
       };
 
       C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
@@ -94,10 +109,10 @@
       V.renderSearchMovies = function () {
         let content = document.querySelector("#searchMovies");
         content.innerHTML = `
-          <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
-          <button onclick="C.handlerSearchMovies()">Rechercher</button>
-          <div class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
-        `;
+    <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
+    <button onclick="C.handlerSearchMovies()">Rechercher</button>
+    <div id="searchResults" class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
+  `;
         MovieSearch.init(); // Initialise les événements du composant
       };
 
