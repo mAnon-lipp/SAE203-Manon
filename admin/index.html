@@ -101,7 +101,7 @@
         content.innerHTML = MovieForm.format(handler);
         MovieForm.loadCategories(); // Charge les catégories dynamiquement
       };
-      
+
       V.renderAddProfile = async function (handler) {
         let content = document.querySelector("#addProfile");
         let profiles = await DataProfile.getProfiles();
@@ -121,7 +121,7 @@
       V.renderModerateComments = function () {
         let content = document.querySelector("#moderateComments");
         content.innerHTML = Comment.format();
-        Comment.loadPendingComments(); // Charge les commentaires en attente
+        Comment.loadPendingComments(); // Load comments after rendering the template
       };
 
       C.start();

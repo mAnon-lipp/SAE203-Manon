@@ -1,4 +1,4 @@
-let HOST_URL = "https://mmi.unilim.fr/~lippler1/SAE203-Manon";
+let HOST_URL = "../server";
 
 let DataProfile = {};
 
@@ -13,7 +13,7 @@ DataProfile.addProfile = async function (fdata) {
     method: "POST", // méthode HTTP à utiliser
     body: fdata, // données à envoyer sous forme d'objet FormData
   };
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=addProfile", config);
+  let answer = await fetch(HOST_URL + "/script.php?todo=addProfile", config);
   let data = await answer.json();
   return data;
 };
@@ -40,7 +40,7 @@ DataProfile.updateProfile = async function (fdata) {
   };
 
   // Envoi de la requête au serveur avec le paramètre `todo=updateProfile`
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=updateProfile", config);
+  let answer = await fetch(HOST_URL + "/script.php?todo=updateProfile", config);
   let data = await answer.json(); // Conversion de la réponse en JSON
   return data; // Retourne la réponse du serveur
 };
@@ -52,7 +52,7 @@ DataProfile.updateProfile = async function (fdata) {
  * @returns {Array} Une liste de profils.
  */
 DataProfile.getProfiles = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfiles");
+  let answer = await fetch(HOST_URL + "/script.php?todo=readProfiles");
   let data = await answer.json();
   return data;
 };

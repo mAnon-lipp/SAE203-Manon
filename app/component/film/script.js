@@ -33,7 +33,7 @@ Movie.formatOne = function (movie, profileId, favorites) {
     }
 
     favoriteButton = isFavorite
-      ? `<button disabled>Favori</button>`
+      ? `<button disabled>Favori</button>` // Désactive le bouton si le film est déjà dans les favoris
       : `<button onclick="C.addFavorite(${profileId}, ${movie.id})">Ajouter aux favoris</button>`;
   }
 

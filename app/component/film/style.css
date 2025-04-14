@@ -16,7 +16,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  width: 200px; /* Largeur fixe pour chaque carte */
+  width: 250px; /* Largeur fixe pour chaque carte */
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -27,8 +27,9 @@
 }
 
 .card__image {
-  width: 100%;
-  height: auto;
+  width: 100%; /* Largeur de l'image égale à celle de la carte */
+  height: 300px; /* Hauteur fixe pour uniformiser les images */
+  object-fit: cover; /* Ajuste l'image pour remplir le conteneur sans déformation */
   border-bottom: 2px solid #550d08; /* Earth Brown */
 }
 

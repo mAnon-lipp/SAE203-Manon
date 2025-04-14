@@ -1,67 +1,102 @@
 .addMovie {
-    background-color: #200c0c; /* Asphalt */
+    /* Propriété display */
+    display: block;
+
+    /* Positionnement */
+    margin: 0 auto;
+    margin-bottom: 2rem; /* 32px */
+
+    /* Modèle de boîte */
+    max-width: 500px;
     padding: 20px;
     border-radius: 10px;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    max-width: 500px;
-    margin: 0 auto;
-    margin-bottom: 30px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    /* Typographie */
+    font-family: var(--ff-sans);
+    color: var(--color-fg);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-dark-red);
 }
 
 .addMovie__title {
-    color: white; /* Earth Brown */
+    /* Typographie */
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem; /* 20px */
     text-align: center;
+    color: var(--color-fg);
 }
 
 .addMovie__form {
+    /* Propriété display */
     display: flex;
     flex-direction: column;
+
+    /* Modèle de boîte */
     gap: 15px;
 }
 
 .addMovie__form-input {
+    /* Modèle de boîte */
     padding: 10px;
-    border: 2px solid #854023; /* Fire */
+    border: 2px solid var(--color-light-red);
     border-radius: 5px;
+
+    /* Typographie */
     font-size: 1rem;
-    color: #550d08; /* Earth Brown */
-    background-color: #ffffff;
+    color: var(--color-brown);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-white);
 }
 
 .addMovie__form-input::placeholder {
-    color: #854023; /* Fire */
+    /* Typographie */
+    color: var(--color-light-red);
 }
 
 .addMovie__form-input:focus {
+    /* Effets visuels & graphiques */
     outline: none;
-    border-color: #200c0c; /* Asphalt */
-    box-shadow: 0 0 5px #200c0c;
+    border-color: var(--color-dark-red);
+    box-shadow: 0 0 5px var(--color-dark-red);
 }
 
 .addMovie__form-select {
+    /* Modèle de boîte */
     padding: 10px;
-    border: 2px solid #854023; /* Fire */
+    border: 2px solid var(--color-light-red);
     border-radius: 5px;
+
+    /* Typographie */
     font-size: 1rem;
-    color: #550d08; /* Earth Brown */
-    background-color: #ffffff;
+    color: var(--color-brown);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-white);
     cursor: pointer;
 }
 
 .addMovie__form-button {
-    background-color: #854023; /* Fire */
-    color: #ffffff;
-    border: none;
+    /* Modèle de boîte */
     padding: 10px;
+    border: none;
     border-radius: 5px;
+
+    /* Typographie */
+    font-size: 1rem;
+    color: var(--color-fg);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-light-red);
     cursor: pointer;
+
+    /* Transformations et transitions */
     transition: background-color 0.3s ease;
 }
 
 .addMovie__form-button:hover {
-    background-color: #550d08; /* Earth Brown */
+    /* Effets visuels & graphiques */
+    background-color: var(--color-brown);
 }

@@ -1,5 +1,5 @@
 // URL où se trouve le répertoire "server" sur mmi.unilim.fr
-let HOST_URL = "https://mmi.unilim.fr/~lippler1/SAE203-Manon";
+let HOST_URL = "../server";
 
 let DataMovie = {};
 
@@ -30,13 +30,13 @@ DataMovie.addMovie = async function (fdata) {
     method: "POST", // méthode HTTP à utiliser
     body: fdata, // données à envoyer sous forme d'objet FormData
   };
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=addMovie", config);
+  let answer = await fetch(HOST_URL + "/script.php?todo=addMovie", config);
   let data = await answer.json();
   return data;
 };
 
 DataMovie.getCategories = async function () {
-  let response = await fetch(HOST_URL + "/server/script.php?todo=getCategories");
+  let response = await fetch(HOST_URL + "/script.php?todo=getCategories");
   return response.json();
 };
 
@@ -46,12 +46,12 @@ DataMovie.searchMovies = async function (keyword, category = null, year = null) 
   if (category) params.append("category", category);
   if (year) params.append("year", year);
 
-  const response = await fetch(`${HOST_URL}/server/script.php?todo=searchMovies&${params.toString()}`);
+  const response = await fetch(`${HOST_URL}/script.php?todo=searchMovies&${params.toString()}`);
   return response.json();
 };
 
 DataMovie.updateFeaturedStatus = async function (movieId, isFeatured) {
-  const url = `${HOST_URL}/server/script.php?todo=updateFeaturedStatus&movie_id=${movieId}&is_featured=${isFeatured}`;
+  const url = `${HOST_URL}/script.php?todo=updateFeaturedStatus&movie_id=${movieId}&is_featured=${isFeatured}`;
   let answer = await fetch(url);
   let response = await answer.json();
   return response;

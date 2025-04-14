@@ -47,7 +47,8 @@
 /* Affiche du film */
 .featured-movie__image {
   width: 150px; /* Largeur fixe pour l'image */
-  height: auto;
+  height: 200px;
+  object-fit: cover; /* Ajuste l'image pour remplir le conteneur sans déformation */
   border-radius: 10px;
 }
 

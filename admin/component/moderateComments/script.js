@@ -15,6 +15,11 @@ Comment.loadPendingComments = async function () {
   const comments = await DataComment.getPendingComments();
   const commentsList = document.querySelector("#comments-list");
 
+  if (!commentsList) {
+    console.error("Element with ID 'comments-list' not found in the DOM.");
+    return;
+  }
+
   if (comments.length === 0) {
     commentsList.innerHTML = "<p>Aucun commentaire à modérer pour le moment.</p>";
     return;

@@ -9,7 +9,13 @@
   --color-gray-dark: hsl(0, 0%, 20%);
   --color-green: hsl(120, 100%, 37%);
 
+  --color-dark-red: #200c0c;
+  --color-light-red: #854023;
+  --color-brown: #550d08;
+
   --ff-sans: "DM sans", sans-serif;
+
+
 
   /* Sementic Tokens */
   --color-fg: var(--color-white);

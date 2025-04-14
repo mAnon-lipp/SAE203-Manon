@@ -120,7 +120,7 @@
             alert("L'ID du film est manquant.");
             return;
           }
-          MovieDetail.addComment(movieId);
+          Comment.addComment(movieId);
         }
       });
 
@@ -279,10 +279,10 @@
       V.renderMoviesByCategory = function (data, profileId) {
         let content = document.querySelector("#content");
         if (!data || data.length === 0) {
-          // Si aucune catégorie ou aucun film n'est disponible
           content.innerHTML = "<p>Aucun film disponible pour ce profil.</p>";
           return;
         }
+
         let formattedContent = "";
         for (let category of data) {
           formattedContent += MovieCategory.format(category, profileId); // Passe profileId
