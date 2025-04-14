@@ -1,75 +1,73 @@
-@import "../../css/variables.css";
-@import "../../css/utilities.css";
-
+/* Styles par défaut (mobile) */
 .moderate-comments {
     display: block;
     margin: 0 auto;
-    margin-top: 1.88rem; /* 30px */
-    padding: 1.25rem; /* 20px */
-    max-width: 500px;
-    border-radius: 10px;
-    font-family: var(--ff-sans); /* Utilisation de la police définie */
+    margin-top: 1rem; /* Ajusté pour mobile */
+    padding: 1rem;
+    max-width: 100%; /* Prend toute la largeur sur mobile */
+    border-radius: 8px;
+    font-family: var(--ff-sans);
     color: var(--color-fg);
     background-color: var(--color-dark-red);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .moderate-comments__title {
     display: block;
-    margin-bottom: 1.25rem; /* 20px */
+    margin-bottom: 1rem;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Plus petit pour mobile */
     color: var(--color-fg);
 }
 
 .moderate-comments__list {
     display: flex;
     flex-direction: column;
-    gap: 0.94rem; /* 15px */
-    padding: 0.94rem; /* 15px */
-    border: 2px solid var(--color-light-red);
-    border-radius: 8px;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-light-red);
+    border-radius: 6px;
     color: var(--color-brown);
     background-color: var(--color-white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .moderate-comments__list-item {
     display: block;
     margin: 0;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.875rem; /* Plus petit pour mobile */
     color: var(--color-light-red);
 }
 
 .moderate-comments__card {
     display: block;
-    padding: 0.94rem; /* 15px */
-    border: 2px solid var(--color-light-red);
-    border-radius: 8px;
+    padding: 0.75rem;
+    border: 1px solid var(--color-light-red);
+    border-radius: 6px;
     color: var(--color-brown);
     background-color: var(--color-white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .moderate-comments__card-title {
     display: block;
-    margin: 0 0 0.63rem; /* 10px */
+    margin: 0 0 0.5rem;
     color: var(--color-light-red);
 }
 
 .moderate-comments__card-text {
     display: block;
-    margin: 0.31rem 0; /* 5px 0 */
+    margin: 0.25rem 0;
     color: var(--color-brown);
 }
 
 .moderate-comments__card-button {
     display: inline-block;
-    margin-top: 0.63rem; /* 10px */
-    padding: 0.50rem 0.75rem; /* 8px 12px */
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     color: var(--color-fg);
     background-color: var(--color-light-red);
     cursor: pointer;
@@ -78,4 +76,50 @@
 
 .moderate-comments__card-button:hover {
     background-color: var(--color-brown);
+}
+
+/* Media queries pour les écrans plus larges */
+@media (min-width: 768px) {
+    .moderate-comments {
+        margin-top: 1.88rem; /* 30px */
+        padding: 1.25rem; /* 20px */
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .moderate-comments__title {
+        font-size: 1.5rem;
+    }
+
+    .moderate-comments__list {
+        gap: 0.94rem; /* 15px */
+        padding: 0.94rem; /* 15px */
+        border: 2px solid var(--color-light-red);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .moderate-comments__list-item {
+        font-size: 1rem;
+    }
+
+    .moderate-comments__card {
+        padding: 0.94rem; /* 15px */
+        border: 2px solid var(--color-light-red);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .moderate-comments__card-title {
+        margin: 0 0 0.63rem; /* 10px */
+    }
+
+    .moderate-comments__card-text {
+        margin: 0.31rem 0; /* 5px 0 */
+    }
+
+    .moderate-comments__card-button {
+        margin-top: 0.63rem; /* 10px */
+    }
 }

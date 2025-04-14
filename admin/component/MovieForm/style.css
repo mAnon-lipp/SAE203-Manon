@@ -1,102 +1,99 @@
+/* Styles par défaut (mobile) */
 .addMovie {
-    /* Propriété display */
     display: block;
-
-    /* Positionnement */
     margin: 0 auto;
     margin-bottom: 2rem; /* 32px */
-
-    /* Modèle de boîte */
-    max-width: 500px;
+    max-width: 100%; /* Prend toute la largeur sur mobile */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-    /* Typographie */
     font-family: var(--ff-sans);
     color: var(--color-fg);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-dark-red);
 }
 
 .addMovie__title {
-    /* Typographie */
-    font-size: 1.5rem;
-    margin-bottom: 1.25rem; /* 20px */
+    font-size: 1.25rem; /* Plus petit pour mobile */
+    margin-bottom: 1rem; /* 16px */
     text-align: center;
     color: var(--color-fg);
 }
 
 .addMovie__form {
-    /* Propriété display */
     display: flex;
     flex-direction: column;
-
-    /* Modèle de boîte */
-    gap: 15px;
+    gap: 10px; /* Plus petit pour mobile */
 }
 
 .addMovie__form-input {
-    /* Modèle de boîte */
     padding: 10px;
     border: 2px solid var(--color-light-red);
     border-radius: 5px;
-
-    /* Typographie */
-    font-size: 1rem;
+    font-size: 0.875rem; /* Plus petit pour mobile */
     color: var(--color-brown);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-white);
 }
 
 .addMovie__form-input::placeholder {
-    /* Typographie */
     color: var(--color-light-red);
 }
 
 .addMovie__form-input:focus {
-    /* Effets visuels & graphiques */
     outline: none;
     border-color: var(--color-dark-red);
     box-shadow: 0 0 5px var(--color-dark-red);
 }
 
 .addMovie__form-select {
-    /* Modèle de boîte */
     padding: 10px;
     border: 2px solid var(--color-light-red);
     border-radius: 5px;
-
-    /* Typographie */
-    font-size: 1rem;
+    font-size: 0.875rem; /* Plus petit pour mobile */
     color: var(--color-brown);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-white);
     cursor: pointer;
 }
 
 .addMovie__form-button {
-    /* Modèle de boîte */
     padding: 10px;
     border: none;
     border-radius: 5px;
-
-    /* Typographie */
-    font-size: 1rem;
+    font-size: 0.875rem; /* Plus petit pour mobile */
     color: var(--color-fg);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-light-red);
     cursor: pointer;
-
-    /* Transformations et transitions */
     transition: background-color 0.3s ease;
 }
 
 .addMovie__form-button:hover {
-    /* Effets visuels & graphiques */
     background-color: var(--color-brown);
+}
+
+/* Media queries pour les écrans plus larges */
+@media (min-width: 768px) {
+    .addMovie {
+        max-width: 500px;
+        margin-bottom: 2rem; /* 32px */
+        padding: 25px; /* Plus grand pour les écrans larges */
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .addMovie__title {
+        font-size: 1.5rem; /* Plus grand pour les écrans larges */
+        margin-bottom: 1.25rem; /* 20px */
+    }
+
+    .addMovie__form {
+        gap: 15px; /* Plus grand pour les écrans larges */
+    }
+
+    .addMovie__form-input,
+    .addMovie__form-select {
+        font-size: 1rem; /* Taille normale pour les écrans larges */
+    }
+
+    .addMovie__form-button {
+        font-size: 1rem; /* Taille normale pour les écrans larges */
+    }
 }

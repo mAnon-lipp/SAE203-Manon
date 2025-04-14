@@ -1,92 +1,207 @@
+/* Styles par défaut (mobile) */
 #searchMovies {
-    background-color: #200c0c; /* Asphalt */
+    /* Propriété display */
+    display: block;
+
+    /* Positionnement */
+    margin: 0 auto;
+    margin-top: 1.25rem; /* 20px */
+
+    /* Modèle de boîte */
+    max-width: 100%;
     padding: 20px;
     border-radius: 10px;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    max-width: 500px;
-    margin: 0 auto;
-    margin-top: 30px;
+
+    /* Typographie */
+    font-family: var(--ff-sans);
+    color: var(--color-white);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-dark-red);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .movieSearch__form {
+    /* Propriété display */
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+
+    /* Positionnement */
+    margin-bottom: 15px;
+
+    /* Modèle de boîte */
+    gap: 10px;
 }
 
 #searchKeyword {
+    /* Propriété display */
+    display: block;
+
+    /* Modèle de boîte */
     padding: 10px;
-    border: 2px solid #854023; /* Fire */
+    border: 2px solid var(--color-light-red);
     border-radius: 5px;
-    font-size: 1rem;
-    color: #550d08; /* Earth Brown */
-    background-color: #ffffff;
+
+    /* Typographie */
+    font-size: 0.88rem; /* 14px */
+    color: var(--color-brown);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-white);
 }
 
 .movieSearch__form input::placeholder {
-    color: #854023; /* Fire */
+    /* Typographie */
+    color: var(--color-light-red);
 }
 
 .movieSearch__form input:focus {
+    /* Effets visuels & graphiques */
     outline: none;
-    border-color: #200c0c; /* Asphalt */
-    box-shadow: 0 0 5px #200c0c;
+    border-color: var(--color-dark-red);
+    box-shadow: 0 0 5px var(--color-dark-red);
 }
 
 #searchMovies button {
-    background-color: #854023; /* Fire */
-    color: #ffffff;
-    border: none;
+    /* Propriété display */
+    display: inline-block;
+
+    /* Modèle de boîte */
     padding: 10px;
+    border: none;
     border-radius: 5px;
+
+    /* Typographie */
+    font-size: 1rem;
+    color: var(--color-white);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-light-red);
     cursor: pointer;
+
+    /* Transformations et transitions */
     transition: background-color 0.3s ease;
 }
 
 #searchMovies button:hover {
-    background-color: #550d08; /* Earth Brown */
+    /* Effets visuels & graphiques */
+    background-color: var(--color-brown);
 }
 
 .movieSearch__results {
+    /* Propriété display */
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+
+    /* Modèle de boîte */
+    gap: 15px;
 }
 
 .movieSearch__card {
-    border: 2px solid #854023; /* Fire */
+    /* Propriété display */
+    display: block;
+
+    /* Modèle de boîte */
+    padding: 10px;
+    border: 2px solid var(--color-light-red);
     border-radius: 8px;
-    padding: 15px;
-    width: 250px;
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    color: #550d08; /* Earth Brown */
+
+    /* Typographie */
+    font-size: 1rem;
+    color: var(--color-brown);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-white);
 }
 
 .movieSearch__card h3 {
+    /* Positionnement */
     margin: 0 0 10px;
-    color: #854023; /* Fire */
+
+    /* Typographie */
+    font-size: 1.25rem;
+    color: var(--color-light-red);
 }
 
 .movieSearch__card p {
+    /* Positionnement */
     margin: 5px 0;
-    color: #550d08; /* Earth Brown */
+
+    /* Typographie */
+    font-size: 1rem;
+    color: var(--color-brown);
 }
 
 .movieSearch__card button {
+    /* Propriété display */
+    display: inline-block;
+
+    /* Positionnement */
     margin-top: 10px;
+
+    /* Modèle de boîte */
     padding: 8px 12px;
-    background-color: #854023; /* Fire */
-    color: #ffffff;
     border: none;
     border-radius: 5px;
+
+    /* Typographie */
+    font-size: 1rem;
+    color: var(--color-white);
+
+    /* Effets visuels & graphiques */
+    background-color: var(--color-light-red);
     cursor: pointer;
+
+    /* Transformations et transitions */
     transition: background-color 0.3s ease;
 }
 
 .movieSearch__card button:hover {
-    background-color: #550d08; /* Earth Brown */
+    /* Effets visuels & graphiques */
+    background-color: var(--color-brown);
+}
+
+/* Media queries pour les écrans plus larges */
+@media (min-width: 768px) {
+    #searchMovies {
+        /* Modèle de boîte */
+        max-width: 500px;
+        padding: 25px;
+        border-radius: 12px;
+
+        /* Positionnement */
+        margin-top: 30px;
+
+        /* Effets visuels & graphiques */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .movieSearch__form {
+        /* Modèle de boîte */
+        gap: 15px;
+
+        /* Positionnement */
+        margin-bottom: 20px;
+    }
+
+    #searchKeyword {
+        font-size: 1rem; /* Taille normale pour les écrans larges */
+    }
+
+    .movieSearch__results {
+        /* Propriété display */
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        /* Modèle de boîte */
+        gap: 20px;
+    }
+
+    .movieSearch__card {
+        /* Modèle de boîte */
+        width: 250px;
+        padding: 15px;
+    }
 }
