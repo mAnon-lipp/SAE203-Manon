@@ -17,7 +17,6 @@ ProfileForm.format = function (profiles, handler) {
   return html;
 };
 
-// Initialise les champs et les événements du formulaire
 ProfileForm.init = function () {
   const select = document.getElementById("profile-select");
   const idField = document.getElementById("profile-id");
@@ -25,7 +24,6 @@ ProfileForm.init = function () {
   const avatarField = document.getElementById("profile-avatar");
   const minAgeField = document.getElementById("profile-min-age");
 
-  // Remplit les champs en fonction du profil sélectionné
   select.addEventListener("change", (event) => {
       const selectedOption = event.target.selectedOptions[0];
       if (selectedOption) {

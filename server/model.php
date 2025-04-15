@@ -51,28 +51,28 @@ function addMovie($name, $director, $year, $length, $description,$id_category, $
 function addProfile($id, $name, $avatar, $min_age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    // Sauvegarder les favoris existants
+    
     $favoritesSql = "SELECT movie_id FROM Favorites WHERE profile_id = :id";
     $favoritesStmt = $cnx->prepare($favoritesSql);
     $favoritesStmt->bindParam(':id', $id, PDO::PARAM_INT);
     $favoritesStmt->execute();
     $favorites = $favoritesStmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Sauvegarder les évaluations existantes
+   
     $ratingsSql = "SELECT movie_id, rating FROM Ratings WHERE profile_id = :id";
     $ratingsStmt = $cnx->prepare($ratingsSql);
     $ratingsStmt->bindParam(':id', $id, PDO::PARAM_INT);
     $ratingsStmt->execute();
     $ratings = $ratingsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Sauvegarder les commentaires existants
+    
     $commentsSql = "SELECT movie_id, comment FROM Comments WHERE profile_id = :id";
     $commentsStmt = $cnx->prepare($commentsSql);
     $commentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
     $commentsStmt->execute();
     $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Supprimer les entrées liées dans Favorites, Ratings et Comments
+    
     $deleteFavoritesSql = "DELETE FROM Favorites WHERE profile_id = :id";
     $deleteFavoritesStmt = $cnx->prepare($deleteFavoritesSql);
     $deleteFavoritesStmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -88,7 +88,7 @@ function addProfile($id, $name, $avatar, $min_age) {
     $deleteCommentsStmt->bindParam(':id', $id, PDO::PARAM_INT);
     $deleteCommentsStmt->execute();
 
-    // Remplacer ou insérer le profil
+    
     $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
             VALUES (:id, :name, :avatar, :min_age)";
     $stmt = $cnx->prepare($sql);
@@ -100,7 +100,7 @@ function addProfile($id, $name, $avatar, $min_age) {
 
     $stmt->execute();
 
-    // Réinsérer les favoris sauvegardés
+    
     $insertFavoriteSql = "INSERT INTO Favorites (profile_id, movie_id) VALUES (:profile_id, :movie_id)";
     $insertFavoriteStmt = $cnx->prepare($insertFavoriteSql);
 
@@ -110,7 +110,7 @@ function addProfile($id, $name, $avatar, $min_age) {
         $insertFavoriteStmt->execute();
     }
 
-    // Réinsérer les évaluations sauvegardées
+    
     $insertRatingSql = "INSERT INTO Ratings (profile_id, movie_id, rating) VALUES (:profile_id, :movie_id, :rating)";
     $insertRatingStmt = $cnx->prepare($insertRatingSql);
 
@@ -121,7 +121,7 @@ function addProfile($id, $name, $avatar, $min_age) {
         $insertRatingStmt->execute();
     }
 
-    // Réinsérer les commentaires sauvegardés
+    
     $insertCommentSql = "INSERT INTO Comments (profile_id, movie_id, comment) VALUES (:profile_id, :movie_id, :comment)";
     $insertCommentStmt = $cnx->prepare($insertCommentSql);
 
@@ -139,7 +139,7 @@ function getProfiles() {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
     $sql = "SELECT id, name, avatar, min_age FROM Profil";
     $stmt = $cnx->query($sql);
-    return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
+    return $stmt->fetchAll(PDO::FETCH_OBJ); 
 }
 
 function getMovieDetail($id) {
@@ -179,8 +179,6 @@ function getMoviesByCategory($age) {
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
 
-    // Requête SQL pour récupérer les films groupés par catégorie
-    // Ajout de la colonne is_new pour indiquer si le film est récent
     $sql = "SELECT 
                 Category.id AS category_id, 
                 Category.name AS category_name, 
@@ -203,7 +201,7 @@ function getMoviesByCategory($age) {
         return [];
     }
 
-    // Regrouper les films par catégorie
+    
     $categories = [];
     foreach ($rows as $row) {
         if (!isset($categories[$row->category_id])) {
@@ -216,11 +214,11 @@ function getMoviesByCategory($age) {
             "id" => $row->movie_id,
             "name" => $row->movie_name,
             "image" => $row->movie_image,
-            "is_new" => (bool)$row->is_new // Convertir en booléen pour le client
+            "is_new" => (bool)$row->is_new 
         ];
     }
 
-    return array_values($categories); // Retourne un tableau indexé
+    return array_values($categories); 
 }
 
 function getFeaturedMovies() {
@@ -334,7 +332,7 @@ function getAverageRating($movie_id) {
     $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
     $stmt->execute();
     $average = $stmt->fetch(PDO::FETCH_OBJ)->average_rating ?? 0;
-    return round($average, 1); // Limite à 1 chiffre après la virgule
+    return round($average, 1); 
 }
 
 function hasRated($profile_id, $movie_id) {

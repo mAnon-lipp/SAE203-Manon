@@ -60,7 +60,7 @@ function addController(){
 
 function addProfileController(){
     if (!isset($_REQUEST['name']) || !isset($_REQUEST['min_age'])) {
-        http_response_code(400); // Mauvaise requête
+        http_response_code(400); 
         echo json_encode(["error" => "Paramètres manquants pour ajouter un profil"]);
         return false;
     }
@@ -102,18 +102,18 @@ function getCategoriesController() {
 }
 
 function readMoviesByCategoryController() {
-    $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Par défaut, âge = 0
-    $categories = getMoviesByCategory($age); // Passe l'âge en paramètre
+    $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; 
+    $categories = getMoviesByCategory($age); 
     return $categories ? $categories : [];
 }
 
 function getFeaturedMoviesController() {
-    $featuredMovies = getFeaturedMovies(); // Appel de la fonction du modèle
+    $featuredMovies = getFeaturedMovies(); 
     return $featuredMovies ? $featuredMovies : [];
 }
 
 function readProfilesController() {
-    $profiles = getProfiles(); // Appel de la fonction du modèle
+    $profiles = getProfiles(); 
     return $profiles ? $profiles : false;
 }
 
@@ -148,7 +148,7 @@ function searchMoviesController() {
     $year = isset($_REQUEST['year']) ? intval($_REQUEST['year']) : null;
 
     if (empty($keyword) && !$category && !$year) {
-        return []; // Retourne une liste vide si aucun critère n'est fourni
+        return []; 
     }
 
     $movies = searchMovies($keyword, $category, $year);

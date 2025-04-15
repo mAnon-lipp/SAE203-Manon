@@ -1,8 +1,6 @@
-
 let MovieSearch = {};
 
 MovieSearch.init = function () {
-  // Initialise le composant en ajoutant les gestionnaires d'événements si nécessaire
   document.querySelector("#searchKeyword").addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       C.handlerSearchMovies();

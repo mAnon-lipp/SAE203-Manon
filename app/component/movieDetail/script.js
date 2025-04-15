@@ -17,17 +17,15 @@ MovieDetail.format = function (movieData) {
   html = html.replace("{{movieTrailerUrl}}", movieData.trailer);
   html = html.replace("{{onclick}}", `C.addRating(${movieData.id})`);
 
-  // Ajouter ou supprimer le tag "new"
   if (movieData.is_new) {
     html = html.replace("{{#is_new}}", "").replace("{{/is_new}}", '<span class="tag-new">New</span>');
   } else {
     html = html.replace("{{#is_new}}", "").replace("{{/is_new}}", "");
   }
 
-  // Récupérer la note moyenne
   let averageRating = movieData.average_rating || 0;
   html = html.replace("{{averageRating}}", averageRating);
-  html += Comment.format(movieData.id); // Passe l'ID du film à Comment.format
+  html += Comment.format(movieData.id);
 
   return html;
 };

@@ -18,11 +18,9 @@ Movie.formatOne = function (movie, profileId, favorites) {
 
   let favoriteButton = "";
 
-  // Vérifiez si un profil est sélectionné
   if (profileId) {
     let isFavorite = false;
 
-    // Vérifiez si favorites est défini et est un tableau
     if (Array.isArray(favorites)) {
       for (let i = 0; i < favorites.length; i++) {
         if (favorites[i].id === movie.id) {
@@ -33,14 +31,12 @@ Movie.formatOne = function (movie, profileId, favorites) {
     }
 
     favoriteButton = isFavorite
-      ? `<button disabled>Favori</button>` // Désactive le bouton si le film est déjà dans les favoris
+      ? `<button disabled>Favori</button>` 
       : `<button onclick="C.addFavorite(${profileId}, ${movie.id})">Ajouter aux favoris</button>`;
   }
 
-  // Si aucun profil n'est sélectionné, ne remplacez pas {{button}} par un bouton
   movieHtml = movieHtml.replace("{{button}}", favoriteButton);
 
-  // Ajouter ou supprimer le tag "new"
   if (movie.is_new) {
     movieHtml = movieHtml.replace("{{#is_new}}", "").replace("{{/is_new}}", '<span class="tag-new">New</span>');
   } else {
@@ -58,7 +54,7 @@ Movie.format = function (movies, profileId, favorites) {
 
   let formattedMovies = "";
   for (let i = 0; i < movies.length; i++) {
-    formattedMovies += Movie.formatOne(movies[i], profileId, favorites || []); // Passe un tableau vide si favorites est undefined
+    formattedMovies += Movie.formatOne(movies[i], profileId, favorites || []); 
   }
 
   let allMoviesHtml = templateAll;

@@ -70,11 +70,11 @@ if ( isset($_REQUEST['todo']) ){
         $data = addProfileController();
         break;
 
-    case 'readMovieDetail': // Nouveau cas pour récupérer les détails d'un film
+    case 'readMovieDetail': 
         $data = readMovieDetailController();
         break;
 
-    case 'readMovies': // Nouveau cas pour récupérer les films groupés par catégorie
+    case 'readMovies': 
         $data = readMoviesByCategoryController();
         break;
 
@@ -86,7 +86,7 @@ if ( isset($_REQUEST['todo']) ){
         $data = getFeaturedMoviesController();
         break;
 
-    case 'readProfiles': // Nouveau cas pour récupérer les profils
+    case 'readProfiles': 
         $data = readProfilesController();
         break;
 

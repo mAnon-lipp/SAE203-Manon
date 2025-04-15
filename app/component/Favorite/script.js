@@ -5,11 +5,10 @@ let Favorite = {};
 
 Favorite.format = function (favoriteData) {
     let html = template;
-    // Remplace les balises dans le template
     html = html.replace("{{image}}", favoriteData.image || "default-image.png");
     html = html.replace("{{name}}", favoriteData.name || "Nom inconnu");
-    html = html.replace(/{{id}}/g, favoriteData.id); // Remplace toutes les occurrences de {{id}}
-    html = html.replace("{{handler}}", `C.handlerDetail(${favoriteData.id})`); // Assurez-vous que C.handlerDetail est défini dans votre contexte
+    html = html.replace("{{id}}", favoriteData.id); 
+    html = html.replace("{{handler}}", `C.handlerDetail(${favoriteData.id})`); 
     return html;
 };
 

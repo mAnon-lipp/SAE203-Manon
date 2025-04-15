@@ -26,7 +26,6 @@
 
       C.handlerAddMovie = async function () {
         let form = document.querySelector(".addMovie__form");
-
         let fd = new FormData(form);
         let res = await DataMovie.addMovie(fd);
         V.renderLog(res);
@@ -35,9 +34,6 @@
       C.handlerAddProfile = async function () {
         let form = document.querySelector(".addProfile__form");
         let fd = new FormData(form);
-
-        console.log([...fd.entries()]); // Vérifie les données envoyées
-
         let res = await DataProfile.addProfile(fd);
         V.renderLog(res);
       };
@@ -47,30 +43,21 @@
         let content = document.querySelector("#searchResults");
 
         if (!searchInput) {
-          alert(
-            "Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche."
-          );
+          alert("Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche.");
           return;
         }
 
-        // Vérifiez si l'entrée est une année (nombre à 4 chiffres)
-        const year = /^\d{4}$/.test(searchInput)
-          ? parseInt(searchInput, 10)
-          : null;
-
-        // Si ce n'est pas une année, traitez-le comme un mot-clé ou une catégorie
+        const year = /^\d{4}$/.test(searchInput) ? parseInt(searchInput, 10) : null;
         const keyword = year ? null : searchInput;
 
         let movies = await DataMovie.searchMovies(keyword, null, year);
 
         if (movies.length === 0) {
-          content.innerHTML =
-            "<p>Aucun film ne correspond à votre recherche.</p>";
+          content.innerHTML = "<p>Aucun film ne correspond à votre recherche.</p>";
         } else {
           content.innerHTML = MovieSearch.formatResults(
             movies,
-            (movieId, isFeatured) =>
-              C.handlerUpdateFeaturedStatus(movieId, isFeatured)
+            (movieId, isFeatured) => C.handlerUpdateFeaturedStatus(movieId, isFeatured)
           );
         }
       };
@@ -78,7 +65,7 @@
       C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
         let res = await DataMovie.updateFeaturedStatus(movieId, isFeatured);
         V.renderLog(res);
-        C.handlerSearchMovies(); // Rafraîchir les résultats
+        C.handlerSearchMovies();
       };
 
       C.start = function () {
@@ -86,7 +73,7 @@
         V.renderAddMovie("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
         V.renderSearchMovies();
-        V.renderModerateComments(); // Ajout de la modération des commentaires
+        V.renderModerateComments();
       };
 
       window.V = {};
@@ -99,7 +86,7 @@
       V.renderAddMovie = function (handler) {
         let content = document.querySelector("#addMovie");
         content.innerHTML = MovieForm.format(handler);
-        MovieForm.loadCategories(); // Charge les catégories dynamiquement
+        MovieForm.loadCategories();
       };
 
       V.renderAddProfile = async function (handler) {
@@ -108,20 +95,21 @@
         content.innerHTML = ProfileForm.format(profiles, handler);
         ProfileForm.init();
       };
+
       V.renderSearchMovies = function () {
         let content = document.querySelector("#searchMovies");
         content.innerHTML = `
-    <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
-    <button onclick="C.handlerSearchMovies()">Rechercher</button>
-    <div id="searchResults" class="movieSearch__results"></div> <!-- Conteneur pour les résultats -->
-  `;
-        MovieSearch.init(); // Initialise les événements du composant
+          <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
+          <button onclick="C.handlerSearchMovies()">Rechercher</button>
+          <div id="searchResults" class="movieSearch__results"></div>
+        `;
+        MovieSearch.init();
       };
 
       V.renderModerateComments = function () {
         let content = document.querySelector("#moderateComments");
         content.innerHTML = Comment.format();
-        Comment.loadPendingComments(); // Load comments after rendering the template
+        Comment.loadPendingComments();
       };
 
       C.start();

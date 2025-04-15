@@ -1,4 +1,4 @@
-import { DataMovie } from "../../data/dataMovie.js"; // Importation de DataMovie
+import { DataMovie } from "../../data/dataMovie.js";
 
 let commentTemplateFile = await fetch("./component/Comment/template.html");
 let commentTemplate = await commentTemplateFile.text();
@@ -7,7 +7,7 @@ let Comment = {};
 
 Comment.format = function (movieId) {
   let html = commentTemplate;
-  html = html.replace("{{movieId}}", movieId); // Remplace {{movieId}} dans le template
+  html = html.replace("{{movieId}}", movieId);
   return html;
 };
 
@@ -49,7 +49,7 @@ Comment.addComment = async function (movieId) {
 
   const response = await DataMovie.addComment(movieId, profileId, comment);
   alert(response);
-  Comment.loadComments(movieId); // Recharge les commentaires
+  Comment.loadComments(movieId);
 };
 
 export { Comment };
