@@ -6,11 +6,10 @@ let template = await templateFile.text();
 let MovieCategory = {};
 
 MovieCategory.format = function (category, profileId) {
-    let moviesHtml = Movie.format(category.movies, profileId, category.favorites);
-    return `<div class="category">
-              <h2>${category.name}</h2>
-              ${moviesHtml}
-            </div>`;
-  };
+  let moviesHtml = Movie.format(category.movies, profileId, category.favorites);
+  return template
+    .replace("{{categoryName}}", category.name)
+    .replace("{{moviesList}}", moviesHtml);
+};
 
 export { MovieCategory };

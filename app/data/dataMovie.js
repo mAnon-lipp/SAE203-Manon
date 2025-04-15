@@ -22,7 +22,6 @@ DataMovie.requestMovieDetails = async function (movieId) {
   );
   let movieDetails = await answer.json();
 
-  // Récupérer la note moyenne
   let averageRating = await fetch(
     HOST_URL + `/script.php?todo=getAverageRating&movie_id=${movieId}`
   );
@@ -35,15 +34,15 @@ DataMovie.addRating = async function (profileId, movieId, rating) {
   const url = `${HOST_URL}/script.php?todo=addRating&profile_id=${profileId}&movie_id=${movieId}&rating=${rating}`;
   let response = await fetch(url);
   let message = await response.json();
-  return message; // Retourne le message de confirmation ou d'erreur
+  return message; 
 };
 
 DataMovie.requestMoviesByCategory = async function (age) {
   const url = HOST_URL + "/script.php?todo=readMovies&age=" + age;
-  console.log("URL générée :", url); // Log pour vérifier l'URL
+  console.log("URL générée :", url); 
   let answer = await fetch(url);
   let categories = await answer.json();
-  console.log("Données reçues par catégorie :", categories); // Vérifiez si is_new est présent
+  console.log("Données reçues par catégorie :", categories); 
   return categories;
 };
 
@@ -59,10 +58,10 @@ DataMovie.addFavorite = async function (profileId, movieId) {
   const url = `${HOST_URL}/script.php?todo=addFavorite&profile_id=${profileId}&movie_id=${movieId}`;
   console.log("URL générée pour l'ajout de favori :", url);
 
-  // Effectuer la requête fetch pour obtenir la réponse
-  let answer = await fetch(url); // Correction : ajout de fetch pour récupérer la réponse
-  let response = await answer.json(); // Convertir la réponse en JSON
-  return response; // Retourner la réponse
+  
+  let answer = await fetch(url); 
+  let response = await answer.json(); 
+  return response; 
 };
 
 DataMovie.getFavorites = async function (profileId) {
@@ -88,7 +87,7 @@ DataMovie.searchMovies = async function (keyword, category = null, year = null) 
   if (category) params.append("category", category);
   if (year) params.append("year", year);
 
-  const response = await fetch(`/script.php?todo=searchMovies&${params.toString()}`);
+  const response = await fetch(`${HOST_URL}/script.php?todo=searchMovies&${params.toString()}`);
   return response.json();
 };
 
@@ -105,5 +104,5 @@ DataMovie.getComments = async function (movieId) {
   let response = await fetch(url);
   return await response.json();
 };
-// On exporte la fonction DataMovie.requestMovies
+
 export { DataMovie };

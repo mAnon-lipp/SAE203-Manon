@@ -85,11 +85,12 @@
       };
 
       document.addEventListener("click", (event) => {
-        if (event.target && event.target.id === "submit-comment") {
-          const movieId = event.target.dataset.movieId;
+        const submitButton = document.querySelector("#submit-comment");
+        if (event.target === submitButton) {
+          const movieId = submitButton.dataset.movieId;
           if (!movieId) {
-            alert("L'ID du film est manquant.");
-            return;
+        alert("L'ID du film est manquant.");
+        return;
           }
           Comment.addComment(movieId);
         }

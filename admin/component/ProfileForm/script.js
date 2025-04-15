@@ -18,11 +18,11 @@ ProfileForm.format = function (profiles, handler) {
 };
 
 ProfileForm.init = function () {
-  const select = document.getElementById("profile-select");
-  const idField = document.getElementById("profile-id");
-  const nameField = document.getElementById("profile-name");
-  const avatarField = document.getElementById("profile-avatar");
-  const minAgeField = document.getElementById("profile-min-age");
+  const select = document.querySelector("#profile-select");
+  const idField = document.querySelector("#profile-id");
+  const nameField = document.querySelector("#profile-name");
+  const avatarField = document.querySelector("#profile-avatar");
+  const minAgeField = document.querySelector("#profile-min-age");
 
   select.addEventListener("change", (event) => {
       const selectedOption = event.target.selectedOptions[0];
