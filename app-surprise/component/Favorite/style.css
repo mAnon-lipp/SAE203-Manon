@@ -1,0 +1,113 @@
+.cards {
+  background-color: var(--color-dark-blue);
+}
+
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 0.63rem;
+  padding: 0.63rem;
+  border-radius: 10px;
+  font-family: var(--ff-sans);
+}
+
+.favorite-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  min-height: 450px;
+  padding-bottom: 0.63rem;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  background-color: var(--color-dark-blue);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.favorite-card .card__image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  transition: opacity 0.3s ease;
+}
+
+.favorite-card:hover .card__image {
+  opacity: 0.8;
+}
+
+.favorite-card .card__title {
+  font-size: 1.1rem;
+  margin: 0.63rem 0;
+  color: var(--color-white);
+  padding: 0 0.31rem;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.favorite-card__remove {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.favorite-card:hover .favorite-card__remove {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.favorite-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.no-favorites {
+  height: 100vh;
+  text-align: center;
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  font-size: 1.2rem;
+  margin-block-start: 0;
+}
+
+@media (min-width: 768px) {
+  .favorites-container {
+      flex-direction: row;
+      gap: 1.25rem;
+      padding: 1.25rem;
+  }
+
+  .favorite-card {
+      width: 250px;
+      text-align: left;
+  }
+
+  .favorite-card .card__title {
+      font-size: 1.3rem;
+      text-align: left;
+  }
+
+  .favorite-card__remove {
+      padding: 0.63rem 1.25rem;
+      font-size: 1rem;
+  }
+}

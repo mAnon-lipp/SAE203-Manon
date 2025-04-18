@@ -203,9 +203,13 @@ function getMoviesByCategory($age) {
 
     
     $categories = [];
-    foreach ($rows as $row) {
+    $i = 0;
+    $rowCount = count($rows);
+    while ($i < $rowCount) {
+        $row = $rows[$i];
         if (!isset($categories[$row->category_id])) {
             $categories[$row->category_id] = [
+                "id" => $row->category_id,
                 "name" => $row->category_name,
                 "movies" => []
             ];
@@ -214,9 +218,11 @@ function getMoviesByCategory($age) {
             "id" => $row->movie_id,
             "name" => $row->movie_name,
             "image" => $row->movie_image,
-            "is_new" => (bool)$row->is_new 
+            "is_new" => (bool)$row->is_new
         ];
+        $i++;
     }
+    
 
     return array_values($categories); 
 }

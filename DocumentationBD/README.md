@@ -15,3 +15,12 @@ Pour permettre un système de commentaires, j'ai créé une table 'Comments' ave
 
 Itération 16 : Ajout de la colonne "status". 
 Pour permettre une modération des commentaires, j'ai créé la colonne status dans la table "Comments" avec l'énumération enum('pending', 'approved', 'deleted'), qui me permet de contrôler le statut des commentaires. J'ai défini "pending" comme valeur par défaut afin de m'assurer que les commentaires n'apparaissent pas tant qu'ils n'ont pas été modérés.
+
+Itération 17 : Ajout de la colonne "created_at". 
+Pour permettre l'affichage d'un tag 'new', j'ai créé la colonne "reated_at" avec un timestamp, afin de gérer l'affichage du tag 'new' lorsque le film a été ajouté il y a moins de 7 jours.
+
+Explication cardinalités :
+
+Une catégorie peut être associée à un ou plusieurs films, ce qui signifie qu’un film peut appartenir à zéro ou plusieurs catégories. Un film peut être ajouté à un ou plusieurs favoris par les utilisateurs, mais un profil peut ne jamais ajouter de film en favori ou en choisir un seul. 
+Pour la notation, un film peut être noté par un ou plusieurs profils, tandis qu’un profil peut ne jamais noter de film ou en noter un seul à la fois. 
+De même, un film peut recevoir un ou plusieurs commentaires, alors qu’un profil peut choisir de ne jamais commenter ou d’en publier un seul.

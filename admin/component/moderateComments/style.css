@@ -2,8 +2,8 @@
     display: block;
     margin: 0 auto;
     margin-top: 1rem;
-    padding: 1rem;
     max-width: 100%;
+    padding: 1rem;
     border-radius: 8px;
     font-family: var(--ff-sans);
     color: var(--color-fg);
@@ -35,7 +35,7 @@
     display: block;
     margin: 0;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.88rem;
     color: var(--color-light-red);
 }
 
@@ -80,8 +80,8 @@
 @media (min-width: 768px) {
     .moderate-comments {
         margin-top: 1.88rem;
-        padding: 1.25rem;
         max-width: 500px;
+        padding: 1.25rem;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }

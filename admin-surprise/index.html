@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>SAE2.03 ADMIN</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <section id="log"></section>
+    <section id="addMovie"></section>
+    <section id="addProfile"></section>
+    <section id="searchMovies"></section>
+    <section id="moderateComments"></section>
+
+    <script type="module">
+      import { Log } from "./component/Log/script.js";
+      import { MovieForm } from "./component/MovieForm/script.js";
+      import { ProfileForm } from "./component/ProfileForm/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
+      import { DataProfile } from "./data/dataProfile.js";
+      import { MovieSearch } from "./component/MovieSearch/script.js";
+      import { Comment } from "./component/moderateComments/script.js";
+
+      window.C = {};
+
+      C.handlerAddMovie = async function () {
+        let form = document.querySelector(".addMovie__form");
+        let fd = new FormData(form);
+        let res = await DataMovie.addMovie(fd);
+        V.renderLog(res);
+      };
+
+      C.handlerAddProfile = async function () {
+        let form = document.querySelector(".addProfile__form");
+        let fd = new FormData(form);
+        let res = await DataProfile.addProfile(fd);
+        V.renderLog(res);
+      };
+
+      C.handlerSearchMovies = async function () {
+        let searchInput = document.querySelector("#searchKeyword").value.trim();
+        let content = document.querySelector("#searchResults");
+
+        if (!searchInput) {
+          alert("Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche.");
+          return;
+        }
+
+        const year = /^\d{4}$/.test(searchInput) ? parseInt(searchInput, 10) : null;
+        const keyword = year ? null : searchInput;
+
+        let movies = await DataMovie.searchMovies(keyword, null, year);
+
+        if (movies.length === 0) {
+          content.innerHTML = "<p>Aucun film ne correspond à votre recherche.</p>";
+        } else {
+          content.innerHTML = MovieSearch.formatResults(
+            movies,
+            (movieId, isFeatured) => C.handlerUpdateFeaturedStatus(movieId, isFeatured)
+          );
+        }
+      };
+
+      C.handlerUpdateFeaturedStatus = async function (movieId, isFeatured) {
+        let res = await DataMovie.updateFeaturedStatus(movieId, isFeatured);
+        V.renderLog(res);
+        C.handlerSearchMovies();
+      };
+
+      C.start = function () {
+        V.renderLog("Démarrage de l'application");
+        V.renderAddMovie("C.handlerAddMovie()");
+        V.renderAddProfile("C.handlerAddProfile()");
+        V.renderSearchMovies();
+        V.renderModerateComments();
+      };
+
+      window.V = {};
+
+      V.renderLog = function (txt) {
+        let content = document.querySelector("#log");
+        content.innerHTML = Log.format(txt);
+      };
+
+      V.renderAddMovie = function (handler) {
+        let content = document.querySelector("#addMovie");
+        content.innerHTML = MovieForm.format(handler);
+        MovieForm.loadCategories();
+      };
+
+      V.renderAddProfile = async function (handler) {
+        let content = document.querySelector("#addProfile");
+        let profiles = await DataProfile.getProfiles();
+        content.innerHTML = ProfileForm.format(profiles, handler);
+        ProfileForm.init();
+      };
+
+      V.renderSearchMovies = function () {
+        let content = document.querySelector("#searchMovies");
+        content.innerHTML = `
+          <input type="text" id="searchKeyword" placeholder="Rechercher un film..." />
+          <button onclick="C.handlerSearchMovies()">Rechercher</button>
+          <div id="searchResults" class="movieSearch__results"></div>
+        `;
+        MovieSearch.init();
+      };
+
+      V.renderModerateComments = function () {
+        let content = document.querySelector("#moderateComments");
+        content.innerHTML = Comment.format();
+        Comment.loadPendingComments();
+      };
+
+      C.start();
+    </script>
+  </body>
+</html>

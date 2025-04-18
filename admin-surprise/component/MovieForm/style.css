@@ -1,0 +1,107 @@
+.addMovie {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+  padding: 0.94rem;
+  border-radius: 8px;
+  font-family: var(--ff-sans);
+  color: var(--color-fg);
+  background-color: var(--color-dark-blue);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.addMovie__title {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--color-blue);
+}
+
+.addMovie__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.addMovie__form-input,
+.addMovie__form-select {
+  padding: 0.5rem;
+  border: 2px solid var(--color-blue);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--color-gray-light);
+  background-color: var(--color-white);
+}
+
+.addMovie__form-input::placeholder {
+  color: var(--color-gray-light);
+}
+
+.addMovie__form-input:focus,
+.addMovie__form-select:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  box-shadow: 0 0 4px var(--color-blue);
+}
+
+.addMovie__form-button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--color-fg);
+  background-color: var(--color-blue);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addMovie__form-button:hover {
+  background-color: var(--color-pink);
+}
+
+@media (min-width: 768px) {
+  .addMovie {
+    display: block;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    padding: 1.25rem;
+    border-radius: 10px;
+    background-color: var(--color-dark-blue);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .addMovie__title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--color-blue);
+  }
+
+  .addMovie__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.63rem;
+  }
+
+  .addMovie__form-input,
+  .addMovie__form-select {
+    padding: 0.63rem;
+    border: 2px solid var(--color-blue);
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--color-gray-light);
+    background-color: var(--color-white);
+  }
+
+  .addMovie__form-button {
+    padding: 0.63rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--color-fg);
+    background-color: var(--color-blue);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}

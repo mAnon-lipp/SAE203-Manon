@@ -1,95 +1,94 @@
 .cards-container {
   display: flex;
-  flex-wrap: wrap; /* Permet de passer à la ligne si l'espace est insuffisant */
-  gap: 20px; /* Espacement entre les cartes */
-  padding: 20px;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1.25rem;
   border-radius: 10px;
 }
 
 .card {
   display: flex;
-  flex-direction: column; /* Aligne les éléments verticalement */
-  justify-content: space-between; /* Espace entre le contenu et le bouton */
-  align-items: center; /* Centre les éléments horizontalement */
-  padding-bottom: 10px; /* Ajoute un espace sous la carte */
-  background-color: #854023; /* Fire */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+  padding-bottom: 0.63rem;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  width: 250px; /* Largeur fixe pour chaque carte */
   text-align: center;
+  background-color: #854023;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-5px); /* Légère élévation au survol */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-}
-
 .card__image {
-  width: 100%; /* Largeur de l'image égale à celle de la carte */
-  height: 300px; /* Hauteur fixe pour uniformiser les images */
-  object-fit: cover; /* Ajuste l'image pour remplir le conteneur sans déformation */
-  border-bottom: 2px solid #550d08; /* Earth Brown */
+  width: 100%;
+  height: 300px;
+  border-bottom: 2px solid #550d08;
+  object-fit: cover;
 }
 
 .card__title {
-  font-size: 1.3em;
-  margin: 10px 0;
-  color: #ffffff; /* Texte blanc pour une meilleure lisibilité */
-  padding: 0 10px;
-  word-wrap: break-word; /* Permet de gérer les titres longs */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.63rem 0;
+  padding: 0 0.63rem;
+  font-size: 1.3rem;
   text-align: center;
-  display: flex; /* Permet d'aligner le titre et le tag sur la même ligne */
-  align-items: center; /* Centre verticalement le tag par rapport au titre */
-  justify-content: center; /* Centre horizontalement dans le conteneur */
+  color: #ffffff;
+  word-wrap: break-word;
 }
 
-/* Style pour le bouton "Ajouter aux favoris" ou "Favori" */
 .cards-container button {
-  background-color: #550d08; /* Earth Brown */
-  color: #ffffff; /* Texte blanc */
+  padding: 0.63rem 0.94rem;
+  margin: 0.63rem 0;
   border: none;
-  padding: 10px 15px;
-  margin: 10px 0;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 1rem;
+  color: #ffffff;
+  background-color: #550d08;
+  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.cards-container button:hover {
-  background-color: #200c0c; /* Asphalt pour le survol */
-  transform: scale(1.05); /* Légère mise en avant au survol */
-}
-
 .cards-container button:disabled {
-  background-color: #854023; /* Fire pour les boutons désactivés */
-  color: #cccccc; /* Texte grisé */
-  cursor: not-allowed;
   opacity: 0.7;
+  color: #cccccc;
+  background-color: #854023;
+  cursor: not-allowed;
 }
 
 .card__button-container {
-  margin-top: 10px; /* Ajoute un espace entre le contenu et le bouton */
-  width: 100%; /* Le bouton occupe toute la largeur disponible */
-  text-align: center; /* Centre le bouton horizontalement */
+  width: 100%;
+  margin-top: 0.63rem;
+  text-align: center;
 }
 
 .card__button-container button {
-  width: 90%; /* Ajuste la largeur du bouton pour qu'il soit bien centré */
+  width: 90%;
 }
 
 .tag-new {
-  background-color: #550d08;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.63rem;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  font-size: 0.8rem;
+  text-align: center;
   color: white;
-  font-size: 0.8rem; /* Réduction de la taille du texte */
-  margin-left: 10px; /* Espacement entre le titre et le tag */
-  width: 30px; /* Taille réduite pour s'adapter au titre */
-  height: 30px; /* Hauteur égale à la largeur pour un cercle parfait */
-  display: inline-flex; /* Aligne le contenu horizontalement et verticalement */
-  align-items: center; /* Centre verticalement le texte */
-  justify-content: center; /* Centre horizontalement le texte */
-  text-align: center; /* Assure un bon alignement du texte */
+  background-color: #550d08;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cards-container button:hover {
+  background-color: #200c0c;
+  transform: scale(1.05);
 }

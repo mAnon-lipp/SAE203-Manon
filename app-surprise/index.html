@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>SAE2.03 APP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+
+  <body>
+    <header id="header"></header>
+    <section class="featured-movies" id="featured-movies"></section>
+    <section class="cards" id="content"></section>
+
+    <script type="module">
+      import { NavBar } from "./component/NavBar/script.js";
+      import { DataMovie } from "./data/dataMovie.js";
+      import { Movie } from "./component/film/script.js";
+      import { MovieDetail } from "./component/movieDetail/script.js";
+      import { MovieCategory } from "./component/movieCategory/script.js";
+      import { DataProfile } from "./data/dataProfile.js";
+      import { FeaturedMovies } from "./component/featuredMovies/script.js";
+      import { Favorite } from "./component/Favorite/script.js";
+      import { Comment } from "./component/Comment/script.js";
+
+      window.C = {};
+
+      C.handlerHome = function () {
+        document.querySelector("#featured-movies").style.display = "block";
+        C.getMovie();
+        const menuToggle = document.querySelector("#menu-toggle");
+        if (menuToggle) {
+          menuToggle.checked = false; // Décoche le menu burger
+        }
+      };
+
+      C.handlerShowMovies = function () {
+        document.querySelector("#featured-movies").style.display = "none";
+        C.getMovie();
+        const menuToggle = document.querySelector("#menu-toggle");
+        if (menuToggle) {
+          menuToggle.checked = false; // Décoche le menu burger
+        }
+      };
+
+      C.getSelectedProfileAge = function () {
+        const profileSelect = document.querySelector("#profile-select");
+        if (profileSelect) {
+          const selectedOption =
+            profileSelect.options[profileSelect.selectedIndex];
+          return parseInt(selectedOption.dataset.age, 10) || 0;
+        }
+        return 0;
+      };
+
+      C.getSelectedProfileId = function () {
+        const profileSelect = document.querySelector("#profile-select");
+        if (profileSelect) {
+          return profileSelect.value || null;
+        }
+        return null;
+      };
+
+      C.start = async function () {
+        let profiles = await DataProfile.read();
+        await V.renderNavBar(
+          "C.handlerHome()",
+          "C.handlerShowMovies()",
+          profiles
+        );
+        document.querySelector("#featured-movies").style.display = "block";
+        C.getFeaturedMovieForCarousel(); // Charge le carrousel
+        // C.getFeaturedMovies();
+        C.getMovie();
+      };
+
+      C.getMovie = async function () {
+        const age = C.getSelectedProfileAge();
+        const profileId = C.getSelectedProfileId();
+        let data = await DataMovie.requestMoviesByCategory(age);
+
+        // Rendre les catégories
+        V.renderMoviesByCategory(data, profileId);
+
+        // Appeler renderInitialView pour chaque catégorie
+        if (data && data.length > 0) {
+          data.forEach((category) => {
+            MovieCategory.renderInitialView(category.name);
+          });
+        }
+      };
+
+      let currentSlideIndex = 0;
+
+      C.getFeaturedMovieForCarousel = async function () {
+        let featuredMovies = await DataMovie.requestFeaturedMovies();
+        if (featuredMovies.length > 0) {
+          FeaturedMovies.renderCarousel(featuredMovies); // Appel correct
+        } else {
+          document.querySelector("#featured-movies").innerHTML =
+            "<p>Aucun film mis en avant pour le moment.</p>";
+        }
+      };
+
+      C.nextSlide = function () {
+        const items = document.querySelectorAll(".carousel__item");
+        const totalSlides = items.length;
+        // Masquer l'élément actuel
+        items[currentSlideIndex].style.display = "none";
+        // Passer à l'élément suivant
+        currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+        // Afficher le nouvel élément
+        items[currentSlideIndex].style.display = "block";
+      };
+
+      C.prevSlide = function () {
+        const items = document.querySelectorAll(".carousel__item");
+        const totalSlides = items.length;
+        // Masquer l'élément actuel
+        items[currentSlideIndex].style.display = "none";
+        // Passer à l'élément précédent
+        currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+        // Afficher le nouvel élément
+        items[currentSlideIndex].style.display = "block";
+      };
+      C.goToSlide = function (index) {
+        const items = document.querySelectorAll(".carousel__item");
+        const indicators = document.querySelectorAll(".carousel__indicator");
+
+        items[currentSlideIndex].style.display = "none";
+        indicators[currentSlideIndex].classList.remove("active");
+
+        currentSlideIndex = index;
+
+        items[currentSlideIndex].style.display = "block";
+        indicators[currentSlideIndex].classList.add("active");
+      };
+
+      // Fonction pour afficher un sous-ensemble de films dans une catégorie
+      C.goToCategorySlide = function (categoryName, index) {
+        const categoryContainer = document.querySelector(
+          `.category-container[data-category="${categoryName}"]`
+        );
+
+        if (!categoryContainer) {
+          console.error(
+            `Category container not found for category: ${categoryName}`
+          );
+          return;
+        }
+
+        const movies = categoryContainer.querySelectorAll(".card");
+        const indicators = categoryContainer.querySelectorAll(
+          ".category__indicator"
+        );
+
+        // Masquer tous les films sauf celui correspondant à l'indicateur
+        for (let i = 0; i < movies.length; i++) {
+          movies[i].style.display = i === index ? "block" : "none";
+        }
+
+        // Mettre à jour les indicateurs actifs
+        for (let i = 0; i < indicators.length; i++) {
+          indicators[i].classList.toggle("active", i === index);
+        }
+      };
+
+      MovieCategory.renderInitialView = function (categoryName) {
+        const isDesktop = window.innerWidth >= 768; // Vérifie si on est en mode desktop
+        const categoryContainer = document.querySelector(
+          `.category-container[data-category="${categoryName}"]`
+        );
+        const cards = categoryContainer.querySelectorAll(".card");
+
+        for (let i = 0; i < cards.length; i++) {
+          if (isDesktop) {
+            // En mode desktop, afficher tous les films
+            cards[i].classList.add("active");
+          } else {
+            // En mode mobile, afficher uniquement le premier film
+            if (i === 0) {
+              cards[i].classList.add("active");
+            } else {
+              cards[i].classList.remove("active");
+            }
+          }
+        }
+      };
+
+      // C.getFeaturedMovies = async function () {
+      //   let featuredMovies = await DataMovie.requestFeaturedMovies();
+      //   V.renderFeaturedMovies(featuredMovies);
+      // };
+
+      C.handlerDetail = async function (movieId) {
+        document.querySelector("#featured-movies").style.display = "none";
+        const movieData = await DataMovie.requestMovieDetails(movieId);
+        V.renderMovieDetail(movieData);
+        Comment.loadComments(movieId);
+      };
+
+      document.addEventListener("click", (event) => {
+        const submitButton = document.querySelector("#submit-comment");
+        if (event.target === submitButton) {
+          const movieId = submitButton.dataset.movieId;
+          if (!movieId) {
+            alert("L'ID du film est manquant.");
+            return;
+          }
+          Comment.addComment(movieId);
+        }
+      });
+
+      window.toggleSearchSection = function () {
+        console.log("toggleSearchSection called"); // Vérifie si la fonction est appelée
+        const searchSection = document.getElementById("search-section"); // Utilise le bon ID
+        if (searchSection.classList.contains("hidden")) {
+          searchSection.classList.remove("hidden");
+          searchSection.classList.add("visible");
+        } else {
+          searchSection.classList.remove("visible");
+          searchSection.classList.add("hidden");
+        }
+      };
+
+      C.handleProfileChange = function (selectElement) {
+        const selectedOption =
+          selectElement.options[selectElement.selectedIndex];
+        const newImage = selectedOption.dataset.img;
+        const profileImage = document.querySelector(".profile-image");
+        const defaultImage = "../server/images/default-avatar.png";
+        profileImage.src = newImage
+          ? `../server/images/${newImage}`
+          : defaultImage;
+        C.getMovie();
+      };
+
+      C.addFavorite = async function (profileId, movieId, element) {
+        profileId = profileId || C.getSelectedProfileId();
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil avant d'ajouter un favori.");
+          return;
+        }
+
+        // Vérifie si le cœur est déjà actif
+        const isActive = element.classList.contains("active");
+
+        if (!isActive) {
+          await DataMovie.addFavorite(profileId, movieId);
+          element.classList.add("active");
+          element.querySelector(".heart-icon").setAttribute("fill", "#ff0000");
+          element
+            .querySelector(".heart-icon")
+            .setAttribute("stroke", "#ff0000");
+          alert("Le film a été ajouté aux favoris.");
+        }
+      };
+
+      C.showFavorites = async function (profileId) {
+        document.querySelector("#featured-movies").style.display = "none";
+        profileId = profileId || C.getSelectedProfileId();
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour voir les favoris.");
+          return;
+        }
+        let favorites = await DataMovie.getFavorites(profileId);
+        let favoritesHtml = Favorite.formatAll(favorites);
+        document.querySelector("#content").innerHTML = favoritesHtml; // Insère le contenu dans le DOM
+      };
+
+      C.removeFavorite = async function (profileId, movieId) {
+        document.querySelector("#featured-movies").style.display = "none";
+        profileId = profileId || C.getSelectedProfileId();
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour retirer un favori.");
+          return;
+        }
+        let response = await DataMovie.removeFavorite(profileId, movieId);
+        alert(response);
+        C.showFavorites(profileId);
+      };
+
+      C.searchMovies = async function () {
+        document.querySelector("#featured-movies").style.display = "none";
+
+        // Vérifie si on est en version mobile ou desktop
+        const searchInputMobile = document.querySelector(
+          "#search-input-mobile"
+        );
+        const searchInputDesktop = document.querySelector("#search-input");
+
+        // Récupère la valeur de l'input actif
+        const searchInputValue =
+          searchInputMobile?.value.trim() || searchInputDesktop?.value.trim();
+
+        if (!searchInputValue) {
+          alert(
+            "Veuillez saisir un mot-clé, une catégorie ou une année pour effectuer une recherche."
+          );
+          return;
+        }
+
+        const year = /^\d{4}$/.test(searchInputValue)
+          ? parseInt(searchInputValue, 10)
+          : null;
+        const keyword = year ? null : searchInputValue;
+        let movies = await DataMovie.searchMovies(keyword, null, year);
+
+        if (movies.length === 0) {
+          document.querySelector("#content").innerHTML =
+            "<p>Aucun film ne correspond à votre recherche.</p>";
+        } else {
+          V.renderMovie(movies);
+        }
+
+        // Masquer la section de recherche après la recherche (mobile et desktop)
+        const searchSection = document.getElementById("search-section");
+        if (searchSection) {
+          searchSection.classList.remove("visible");
+          searchSection.classList.add("hidden");
+        }
+
+        // Fermer le menu burger en version mobile
+        const menuToggle = document.querySelector("#menu-toggle");
+        if (menuToggle) {
+          menuToggle.checked = false; // Décoche le menu burger
+        }
+      };
+
+      C.addRating = async function (movieId) {
+        const profileId = C.getSelectedProfileId();
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour noter un film.");
+          return;
+        }
+        const rating = document.querySelector("#rating").value;
+        try {
+          let message = await DataMovie.addRating(profileId, movieId, rating);
+          alert(message);
+          C.handlerDetail(movieId);
+        } catch (error) {
+          console.error("Erreur lors de l'ajout de la note :", error);
+          alert("Une erreur est survenue lors de l'ajout de la note.");
+        }
+      };
+
+      window.V = {};
+
+      V.renderNavBar = function (hAbout, hShowMovies, profiles) {
+        let header = document.querySelector("#header");
+        header.innerHTML = NavBar.format(hAbout, hShowMovies, profiles);
+      };
+
+      V.renderMovie = function (data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movie.format(data);
+      };
+
+      // V.renderFeaturedMovies = function (movies) {
+      //   let featuredSection = document.querySelector("#featured-movies");
+      //   featuredSection.innerHTML = FeaturedMovies.format(movies);
+      // };
+
+      V.renderMoviesByCategory = function (data, profileId) {
+        let content = document.querySelector("#content");
+        if (!data || data.length === 0) {
+          content.innerHTML = "<p>Aucun film disponible pour ce profil.</p>";
+          return;
+        }
+
+        content.innerHTML = "";
+
+        for (let i = 0; i < data.length; i++) {
+          const categoryHtml = MovieCategory.format(data[i], profileId);
+          content.innerHTML += categoryHtml;
+
+          // Appeler renderInitialView pour chaque catégorie
+          MovieCategory.renderInitialView(data[i].name);
+        }
+      };
+
+      V.renderMovieDetail = function (movieData) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieDetail.format(movieData);
+      };
+
+      V.renderFavorites = function (favorites) {
+        let content = document.querySelector("#content");
+        content.innerHTML = "";
+        if (favorites.length === 0) {
+          content.innerHTML = "<p>Votre liste de favoris est vide.</p>";
+          return;
+        }
+        let favoritesHTML = "";
+        for (let fav of favorites) {
+          favoritesHTML += Favorite.format(fav);
+        }
+        content.innerHTML = favoritesHTML;
+      };
+
+      V.renderCarousel = function (movies) {
+        let carouselItems = document.querySelector("#carousel-items");
+        carouselItems.innerHTML = Carousel.format(movies);
+      };
+      C.start();
+    </script>
+  </body>
+</html>

@@ -1,91 +1,91 @@
 /* Conteneur principal des films */
 .featured-movie__container {
-  display: flex;
-  flex-direction: column; /* Empile le titre et les cartes verticalement */
-  align-items: center; /* Centre le contenu horizontalement */
-  padding: 20px;
-  background-color: #200c0c; /* Couleur de fond */
-  width: 100%; /* Occupe toute la largeur disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1.25rem;
+    background-color: #200c0c;
 }
 
 /* Titre des films */
 .featured-movies__title {
-  font-size: 2em; /* Taille du titre */
-  margin-bottom: 20px; /* Espacement entre le titre et les cartes */
-  color: #fff; /* Couleur du texte */
-  text-align: center; /* Centre le texte */
-  width: 100%; /* Occupe toute la largeur du conteneur */
+    width: 100%;
+    margin-bottom: 1.25rem;
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
 }
 
 /* Conteneur des cartes de films */
 .featured-movies {
-  display: flex; /* Aligne les cartes horizontalement */
-  flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
-  justify-content: center; /* Centre les cartes */
-  gap: 20px; /* Espacement entre les cartes */
-  width: 100%; /* Occupe toute la largeur disponible */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 1.25rem;
 }
 
 /* Chaque carte de film */
 .featured-movie {
-  display: flex; /* Aligne l'image et le contenu horizontalement */
-  flex-direction: row; /* Dispose les éléments en ligne */
-  align-items: center; /* Centre verticalement l'image et le contenu */
-  width: 500px; /* Taille fixe pour chaque carte */
-  background-color: #854023; /* Couleur de fond */
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
-  gap: 15px; /* Espacement entre l'image et le contenu */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.94rem;
+    width: 500px;
+    padding: 0.94rem;
+    border-radius: 10px;
+    background-color: #854023;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
 }
 
 .featured-movie:hover {
-  transform: scale(1.05); /* Effet de zoom au survol */
+    transform: scale(1.05);
 }
 
 /* Affiche du film */
 .featured-movie__image {
-  width: 150px; /* Largeur fixe pour l'image */
-  height: 200px;
-  object-fit: cover; /* Ajuste l'image pour remplir le conteneur sans déformation */
-  border-radius: 10px;
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 /* Conteneur du contenu (titre et description) */
 .featured-movie__content {
-  display: flex;
-  flex-direction: column; /* Aligne le titre et la description verticalement */
-  justify-content: center; /* Centre le contenu verticalement */
-  flex-grow: 1; /* Permet au contenu de s'étendre pour occuper l'espace disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
 }
 
 /* Titre du film */
 .featured-movie__title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: white; /* Texte bien lisible */
-  text-align: left; /* Aligne le texte à gauche */
+    margin-bottom: 0.63rem;
+    font-size: 1.5rem;
+    text-align: left;
+    color: white;
 }
 
 /* Description du film */
 .featured-movie__description {
-  font-size: 1em;
-  color: #fff;
-  text-align: left; /* Aligne le texte à gauche */
+    font-size: 1rem;
+    text-align: left;
+    color: #fff;
 }
 
 /* Bouton pour voir les détails */
 .featured-movie__button {
-  padding: 10px 20px;
-  background-color: #ff5722; /* Couleur du bouton */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+    padding: 0.63rem 1.25rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff5722;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .featured-movie__button:hover {
-  background-color: #e64a19; /* Couleur au survol */
+    background-color: #e64a19;
 }

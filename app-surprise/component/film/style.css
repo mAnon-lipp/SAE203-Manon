@@ -1,0 +1,151 @@
+/* Conteneur principal des cartes */
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.63rem;
+    padding: 0.63rem;
+    border-radius: 10px;
+    font-family: var(--ff-sans);
+}
+
+/* Conteneur de la carte */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    min-height: 450px;
+    width: 450px;
+    padding-bottom: 0.63rem;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Image de la carte */
+.card__image {
+    width: 100%;
+    height: 350px;
+    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+/* Ajout d'un filtre noir au hover */
+.card:hover .card__image {
+    opacity: 0.8;
+}
+
+/* Titre de la carte */
+.card__title {
+    font-size: 1.1rem;
+    margin: 0.63rem 0;
+    padding: 0 0.31rem;
+    text-align: center;
+    word-wrap: break-word;
+    color: var(--color-white);
+}
+
+.card.active {
+    height: 450px;
+}
+
+/* Style pour le bouton "Ajouter aux favoris" ou "Favori" */
+.cards-container button {
+    padding: 0.5rem 0.75rem;
+    margin: 0.63rem 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    background-color: #550d08;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Tag "New" */
+.tag-new {
+    position: absolute;
+    top: 0.63rem;
+    left: 0.63rem;
+    z-index: 10;
+    padding: 0.31rem 0.63rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background-color: var(--color-pink);
+    color: var(--color-white);
+    transition: opacity 0.3s ease;
+}
+
+/* Cache le tag au survol */
+.card:hover .tag-new {
+    opacity: 0;
+}
+
+/* Masque le cœur par défaut */
+.movie-card__favorite {
+    display: none;
+    position: absolute;
+    top: 0.63rem;
+    right: 0.63rem;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Affiche le cœur uniquement au survol de la carte */
+.card:hover .movie-card__favorite {
+    display: flex;
+}
+
+/* Style du cœur */
+.heart-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--color-white);
+    stroke-width: 2;
+    transition: fill 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+/* Cœur rempli lorsqu'il est actif */
+.movie-card__favorite.active .heart-icon {
+    fill: var(--color-blue);
+    stroke: var(--color-blue);
+}
+
+/* Styles pour les écrans plus larges */
+@media (min-width: 768px) {
+    .cards-container {
+        flex-direction: row;
+        gap: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card__title {
+        font-size: 1.3rem;
+        text-align: left;
+    }
+
+    .cards-container button {
+        padding: 0.63rem 0.94rem;
+        font-size: 1rem;
+    }
+}

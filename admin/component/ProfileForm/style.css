@@ -1,52 +1,34 @@
 .addProfile {
-    /* Propriété display */
     display: block;
-
-    /* Positionnement */
     margin: 0 auto;
-
-    /* Modèle de boîte */
-    max-width: 500px; /* Fixe */
-    padding: 20px; /* Fixe */
-    border-radius: 10px; /* Fixe */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Fixe */
-
-    /* Typographie */
+    max-width: 500px;
+    padding: 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: var(--ff-sans);
     color: var(--color-fg);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-dark-red);
 }
 
 .addProfile__title {
-    /* Typographie */
-    font-size: 1.5rem; /* Relatif */
-    margin-bottom: 1.25rem; /* Relatif */
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
     text-align: center;
     color: var(--color-fg);
 }
 
 .addProfile__form {
-    /* Propriété display */
     display: flex;
     flex-direction: column;
-
-    /* Modèle de boîte */
-    gap: 0.94rem; /* Relatif */
+    gap: 0.94rem;
 }
 
 #profile-select {
-    /* Modèle de boîte */
-    padding: 10px; /* Fixe */
-    border: 2px solid var(--color-light-red); /* Fixe */
-    border-radius: 5px; /* Fixe */
-
-    /* Typographie */
-    font-size: 1rem; /* Relatif */
+    padding: 0.63rem;
+    border: 2px solid var(--color-light-red);
+    border-radius: 5px;
+    font-size: 1rem;
     color: var(--color-brown);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-white);
     cursor: pointer;
 }
@@ -54,54 +36,39 @@
 #profile-name,
 #profile-avatar,
 #profile-min-age {
-    /* Modèle de boîte */
-    padding: 10px; /* Fixe */
-    border: 2px solid var(--color-light-red); /* Fixe */
-    border-radius: 5px; /* Fixe */
-
-    /* Typographie */
-    font-size: 1rem; /* Relatif */
+    padding: 0.63rem;
+    border: 2px solid var(--color-light-red);
+    border-radius: 5px;
+    font-size: 1rem;
     color: var(--color-brown);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-white);
 }
 
 #profile-name::placeholder,
 #profile-avatar::placeholder,
 #profile-min-age::placeholder {
-    /* Typographie */
     color: var(--color-light-red);
 }
 
 #profile-name:focus,
 #profile-avatar:focus,
 #profile-min-age:focus {
-    /* Effets visuels & graphiques */
     outline: none;
     border-color: var(--color-dark-red);
-    box-shadow: 0 0 5px var(--color-dark-red); /* Fixe */
+    box-shadow: 0 0 5px var(--color-dark-red);
 }
 
 .addProfile__form-button {
-    /* Modèle de boîte */
-    padding: 10px; /* Fixe */
+    padding: 0.63rem;
     border: none;
-    border-radius: 5px; /* Fixe */
-
-    /* Typographie */
-    font-size: 1rem; /* Relatif */
+    border-radius: 5px;
+    font-size: 1rem;
     color: var(--color-fg);
-
-    /* Effets visuels & graphiques */
     background-color: var(--color-light-red);
     cursor: pointer;
-
-    /* Transformations et transitions */
     transition: background-color 0.3s ease;
 }
 
 .addProfile__form-button:hover {
-    /* Effets visuels & graphiques */
     background-color: var(--color-brown);
 }

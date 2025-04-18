@@ -1,0 +1,311 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    margin: 0;
+    background-color: var(--color-dark-blue);
+    color: var(--color-fg);
+    font-family: var(--ff-sans);
+    font-weight: 700;
+}
+
+.navbar__list {
+    display: none;
+}
+
+.navbar__item {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.navbar__item:hover {
+    text-decoration: underline;
+}
+
+.navbar__profile {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 1rem;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.navbar__select {
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.navbar__select option {
+    padding: 0.5rem;
+    border: none;
+    background-color: var(--color-dark-blue);
+    font-size: 1rem;
+    color: var(--color-white);
+}
+
+/* Barre de recherche */
+.search-container-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.search-container-mobile input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-container-mobile button {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+}
+
+.navbar__item--mobile-only {
+    display: block;
+}
+
+.navbar__search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.navbar__search input {
+    width: 200px;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-dark-blue);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.navbar__search button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 80px;
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar__search button:hover {
+    background-color: var(--color-pink);
+}
+
+.navbar__search-icon {
+    display: none;
+}
+
+.navbar__search-icon-svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbar__search-icon-svg:hover {
+    color: var(--color-blue);
+}
+
+/* Section de recherche */
+.search-section {
+    display: none;
+}
+
+/* Styles pour le menu burger */
+.label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.burger,
+.close-icon {
+    width: 32px;
+    height: 32px;
+    fill: var(--color-white);
+    transition: transform 0.3s ease;
+}
+
+.close-icon {
+    display: none;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+#menu-toggle:checked + .label + .navbar__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-dark-blue);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+#menu-toggle:checked + .label .burger {
+    display: none;
+}
+
+#menu-toggle:checked + .label .close-icon {
+    display: block;
+}
+
+/* Version desktop */
+@media (min-width: 768px) {
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar__list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        gap: 1rem;
+        margin: 0;
+    }
+
+    .navbar__profile {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        gap: 1rem;
+    }
+
+    .navbar__item {
+        padding: 0.5rem 1rem;
+        text-align: center;
+        color: var(--color-blue);
+        cursor: pointer;
+        font-size: initial;
+    }
+
+    .navbar__item:hover {
+        text-decoration: underline var(--color-blue);
+        text-underline-offset: 0.5rem;
+        color: var(--color-white);
+    }
+
+    .label {
+        display: none;
+    }
+
+    .navbar__search-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        color: var(--color-white);
+    }
+
+    .navbar__search-icon-svg:hover {
+        color: var(--color-blue);
+    }
+
+    .search-section.visible {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        background-color: var(--color-black);
+        padding: 1rem;
+    }
+
+    .search-container {
+        font-family: var(--ff-sans);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .search-container button {
+        margin-left: auto;
+    }
+
+    .search-section input {
+        flex-grow: 1;
+        border: none;
+        box-shadow: none;
+        width: auto;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        color: var(--color-gray);
+        background-color: var(--color-black);
+    }
+
+    .search-button,
+    .close-button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 80px;
+        background-color: var(--color-blue);
+        color: var(--color-black);
+        cursor: pointer;
+    }
+
+    .search-button {
+        margin-left: 1rem;
+    }
+
+    .close-button {
+        margin-left: 0.5rem;
+        color: var(--color-white);
+        background-color: var(--color-back);
+        border: 1px solid var(--color-blue);
+    }
+
+    .search-button:hover,
+    .close-button:hover {
+        filter: brightness(0.7);
+    }
+
+    .search-container-mobile {
+        display: none;
+    }
+
+    .navbar__item--mobile-only {
+        display: none;
+    }
+}

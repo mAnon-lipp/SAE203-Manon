@@ -1,0 +1,106 @@
+<nav class="navbar font-sans">
+  <input type="checkbox" id="menu-toggle" class="sr-only" />
+<label for="menu-toggle" class="label">
+  <svg class="burger" viewBox="0 0 32 32" width="32" height="32">
+    <line
+      class="burger__line"
+      x1="2"
+      y1="7"
+      x2="30"
+      y2="7"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <line
+      class="burger__line"
+      x1="2"
+      y1="16"
+      x2="30"
+      y2="16"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <line
+      class="burger__line"
+      x1="2"
+      y1="25"
+      x2="30"
+      y2="25"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+  <svg class="close-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <line x1="2" y1="2" x2="30" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="30" y1="2" x2="2" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</label>
+  <ul class="navbar__list">
+    <li class="navbar__item navbar__item--mobile-only">
+      <!-- Barre de recherche pour mobile -->
+      <div class="search-container-mobile">
+        <input 
+          type="text" 
+          id="search-input-mobile" 
+          placeholder="Rechercher un film par titre..." 
+        />
+        <button onclick="C.searchMovies()" class="search-button">Rechercher</button>
+      </div>
+    </li>
+    <li class="navbar__item" onclick="{{hAbout}}">Home</li>
+    <li class="navbar__item" onclick="{{hShowMovies}}">Films</li>
+    <li class="navbar__item navbar__search-icon">
+      <!-- Icône de recherche pour desktop -->
+      <svg
+        class="navbar__search-icon-svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        onclick="toggleSearchSection()"
+        style="cursor: pointer"
+      >
+        <path
+          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </li>
+  </ul>
+  <div class="navbar__profile">
+    <img
+      id="profile-image"
+      src="../server/images/default-avatar.png"
+      alt="Profile Image"
+      class="profile-image"
+      onclick="C.showFavorites(C.getSelectedProfileId())"
+    />
+    <select
+      id="profile-select"
+      class="navbar__select"
+      onchange="C.handleProfileChange(this)"
+    >
+      {{options}}
+    </select>
+  </div>
+</nav>
+
+<!-- Barre de recherche pour desktop -->
+<section id="search-section" class="search-section hidden">
+  <div class="search-container">
+    <input 
+      type="text" 
+      id="search-input" 
+      placeholder="Rechercher un film par titre..." 
+    />
+    <button onclick="C.searchMovies()" class="search-button">Rechercher</button>
+    <button onclick="toggleSearchSection()" class="close-button">Fermer</button>
+  </div>
+</section>

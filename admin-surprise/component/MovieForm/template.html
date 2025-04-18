@@ -1,0 +1,16 @@
+<div class="addMovie">
+    <h4 class="addMovie__title"># Ajouter un film</h4>
+    <form class="addMovie__form">
+        <input class="addMovie__form-input" type="text" name="name" placeholder="Saisir le titre du film" required>
+        <input class="addMovie__form-input" type="text" name="director" placeholder="Saisir le réalisateur" pattern="[^0-9]*" title="Numbers are not allowed" required>
+        <input class="addMovie__form-input" type="number" name="year" placeholder="Année de sortie" required>
+        <input class="addMovie__form-input" type="number" name="length" placeholder="Durée en minutes" required>
+        <input class="addMovie__form-input" type="text" name="description" placeholder="Saisir le synopsis" required>
+        <select class="addMovie__form-select" name="id_category" required>
+        </select>
+        <input class="addMovie__form-input" type="text" name="image" placeholder="Saisir le nom du fichier de l'affiche" required>
+        <input class="addMovie__form-input" type="text" name="trailer" placeholder="Saisir l'url du trailer" required>
+        <input class="addMovie__form-input" type="number" name="min_age" placeholder="Restrictions d'age" required>
+        <input class="addMovie__form-button" onclick="{{handler}}" type="button" value="Ajouter" name="todo">
+    </form>
+</div>

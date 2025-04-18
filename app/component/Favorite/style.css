@@ -1,39 +1,39 @@
 /* filepath: /home/etudiants/lippler1/public_html/SAE203-Manon/app/component/favorite/style.css */
 .favorite {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #200c0c;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  color: white;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.63rem;
+    padding: 0.94rem;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    background-color: #200c0c;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .favorite img {
-  width: 150px;
-  height: auto;
-  border-radius: 10px;
-  cursor: pointer;
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .favorite h3 {
-  font-size: 1.2em;
-  margin: 10px 0;
+    margin: 0.63rem 0;
+    font-size: 1.2rem;
 }
 
 .favorite button {
-  padding: 10px 20px;
-  background-color: #ff5722;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+    padding: 0.63rem 1.25rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff5722;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .favorite button:hover {
-  background-color: #e64a19;
+    background-color: #e64a19;
 }
