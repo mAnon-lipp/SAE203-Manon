@@ -1,24 +1,42 @@
-## Installation et configuration du projet
+# SAE 203 – Développement d’un site web de streaming
 
-Rappel : Le sujet est [ici](https://docs.google.com/document/d/1MxM8H3PVpFOUG4-buM8BLXRv18PIHKrjf76EBzmINZs/edit?usp=sharing)
+## Présentation de la SAE
 
-### 1. Importation de la base de données
-Via phpMyAdmin, importez le fichier SAE2_03.sql dans votre BDD sur mmi.unilim.fr
-Deux tables sont présentes, Movie et Category. Assurez-vous au préalable qu'il n'y a
-pas de conflit de nommage avec vos autres tables.
+La SAE (Situation d’Apprentissage et d’Évaluation) est un projet pédagogique réalisé dans le cadre du BUT MMI (Métiers du Multimédia et de l’Internet). Elle permet aux étudiants de mobiliser leurs compétences en design, développement web, gestion de projet et communication à travers des cas concrets. Chaque SAE s’inscrit dans une logique d’apprentissage par la pratique, souvent en groupe, et vise à simuler des situations professionnelles.
 
-### 2. Mise à jour des identifiants de connexion à la base de donnnées
-Editez ensuite le fichier server/model.php pour changer les identifiants de connexion à la BDD
+## Objectif du projet
 
-### 3. Vérification
-Vérifiez que vous accédez bien à l'index.html de l'application utilisateur (app) et de l'application administrateur (admin). L'une et l'autre sont quasi vides et ne disposent encore d'aucune fonctionnalité.
-Mais chacune possède un composant que vous devez voir apparaître.
+La SAE 203 avait pour objectif de concevoir et développer un site web de streaming vidéo, en suivant une démarche itérative. Le projet s’est construit étape par étape, avec des versions successives du site intégrant progressivement de nouvelles fonctionnalités. L’enjeu était de proposer une plateforme fonctionnelle, ergonomique et adaptée à différents profils d’utilisateurs.
 
-### 4. Premier commit ?
-Vous avez modifié votre code (model.php). Vérifez votre configuration Git/Github en tentant un premier
-commit : 
--   git add .
--   git commit -m "update credentials"
--   git push
-  
-Si tout va bien, vous devez retrouver sur votre espace Github la modification que vous venez de réaliser.
+## Technologies utilisées
+
+- **HTML / CSS / JavaScript** : pour la structure, le style et l’interactivité du site
+- **PHP** : pour la logique serveur et le traitement des données
+- **SQL (MySQL)** : pour la gestion de la base de données
+- **Serveur local (XAMPP/WAMP)** : pour le développement et les tests en local
+
+## Fonctionnalités développées
+
+Au fil des itérations, nous avons mis en place :
+
+- Une barre de recherche pour filtrer les vidéos par titre ou catégorie
+- Un système de comptes utilisateurs (créés manuellement en base) avec attribution d’un âge, permettant un affichage adapté selon l’âge de l’utilisateur
+- La possibilité d’ajouter ou de retirer des vidéos des favoris
+- Une interface d’administration permettant :
+  - La gestion des films (ajout, suppression, modification)
+  - La modération des commentaires
+  - L’ajout et la suppression de comptes utilisateurs
+
+## Organisation du développement
+
+Le projet s’est déroulé en plusieurs phases :
+
+1. **Conception** : réalisation d'une maquette, modélisation de la base de données
+2. **Développement initial** : mise en place de la structure du site et des premières pages
+3. **Ajout des fonctionnalités** : chaque itération apportait une nouvelle fonctionnalité ou une amélioration
+4. **Tests et validation** : vérification du bon fonctionnement, correction des bugs
+5. **Documentation** : rédaction de ce README et commentaires dans le code
+
+## Remarques
+
+Ce projet est un prototype réalisé dans un cadre pédagogique. Il n’est pas destiné à une mise en production, mais illustre notre capacité à concevoir et développer une application web complète , en respectant une logique de développement itératif.
