@@ -44,7 +44,10 @@ jobs:
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
           protocol: ftps
           exclude: |
+            .git/**
+            .git*
             **/.git*
+            **/.git/**
             **/.github/**
             **/DocumentationBD/**
             **/.env*
