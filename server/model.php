@@ -8,15 +8,13 @@
 /**
  * Définition des constantes de connexion à la base de données.
  *
- * HOST : Nom d'hôte du serveur de base de données, ici "localhost".
- * DBNAME : Nom de la base de données
- * DBLOGIN : Nom d'utilisateur pour se connecter à la base de données.
- * DBPWD : Mot de passe pour se connecter à la base de données.
+ * Les valeurs sont lues dans les variables d'environnement afin de ne pas
+ * exposer les identifiants de la base dans le dépôt.
  */
-define("HOST", "localhost");
-define("DBNAME", "lippler1");
-define("DBLOGIN", "lippler1");
-define("DBPWD", "lippler1");
+define("HOST", getenv("DB_HOST") ?: "localhost");
+define("DBNAME", getenv("DB_NAME") ?: "lippler1");
+define("DBLOGIN", getenv("DB_USER") ?: "lippler1");
+define("DBPWD", getenv("DB_PASSWORD") ?: "");
 
 function getMovie() {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
