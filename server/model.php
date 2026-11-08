@@ -12,8 +12,9 @@
  * exposer les identifiants de la base dans le dépôt.
  */
 function loadEnvironmentFile($path) {
+    $values = [];
     if (!is_readable($path)) {
-        return;
+        return $values;
     }
 
     foreach (file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
@@ -27,19 +28,23 @@ function loadEnvironmentFile($path) {
         $value = trim($value);
         $value = trim($value, "\"'");
 
-        if ($name !== "" && getenv($name) === false) {
-            putenv($name . "=" . $value);
+        if ($name !== "") {
+            $values[$name] = $value;
         }
     }
+
+    return $values;
 }
 
-loadEnvironmentFile(__DIR__ . "/../.env");
-loadEnvironmentFile(__DIR__ . "/.env");
+$environment = loadEnvironmentFile(__DIR__ . "/../.env");
+if (count($environment) === 0) {
+    $environment = loadEnvironmentFile(__DIR__ . "/.env");
+}
 
-define("HOST", getenv("DB_HOST") ?: "localhost");
-define("DBNAME", getenv("DB_NAME") ?: "lippler1");
-define("DBLOGIN", getenv("DB_USER") ?: "lippler1");
-define("DBPWD", getenv("DB_PASSWORD") ?: "");
+define("HOST", $environment["DB_HOST"] ?? (getenv("DB_HOST") ?: "localhost"));
+define("DBNAME", $environment["DB_NAME"] ?? (getenv("DB_NAME") ?: "lippler1"));
+define("DBLOGIN", $environment["DB_USER"] ?? (getenv("DB_USER") ?: "lippler1"));
+define("DBPWD", $environment["DB_PASSWORD"] ?? (getenv("DB_PASSWORD") ?: ""));
 
 function getMovie() {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
