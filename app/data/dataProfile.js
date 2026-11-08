@@ -1,4 +1,4 @@
-let HOST_URL = "../server";
+let HOST_URL = "https://portfolio-manonlippler.alwaysdata.net/server";
 
 let DataProfile = {};
 

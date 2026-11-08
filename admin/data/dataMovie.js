@@ -1,5 +1,5 @@
 // URL où se trouve le répertoire "server" sur mmi.unilim.fr
-let HOST_URL = "../server";
+let HOST_URL = "https://portfolio-manonlippler.alwaysdata.net/server";
 
 let DataMovie = {};
 

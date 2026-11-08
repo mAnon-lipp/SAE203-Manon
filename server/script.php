@@ -22,6 +22,22 @@
  * Il contient les fonctions nécessaires pour traiter chaque type de requête
  * et définir la réponnse à renvoyer au client.
  */
+$allowedOrigins = [
+  "https://manon-lipp.github.io",
+  "http://localhost",
+  "http://127.0.0.1"
+];
+$origin = $_SERVER["HTTP_ORIGIN"] ?? "";
+if (in_array($origin, $allowedOrigins, true)) {
+  header("Access-Control-Allow-Origin: " . $origin);
+  header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+  header("Access-Control-Allow-Headers: Content-Type");
+}
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+  http_response_code(204);
+  exit();
+}
+
 require("controller.php");
 /**
  * Inclusion du fichier model.php.

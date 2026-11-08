@@ -11,6 +11,30 @@
  * Les valeurs sont lues dans les variables d'environnement afin de ne pas
  * exposer les identifiants de la base dans le dépôt.
  */
+function loadEnvironmentFile($path) {
+    if (!is_readable($path)) {
+        return;
+    }
+
+    foreach (file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        $line = trim($line);
+        if ($line === "" || strpos($line, "#") === 0 || strpos($line, "=") === false) {
+            continue;
+        }
+
+        [$name, $value] = explode("=", $line, 2);
+        $name = trim($name);
+        $value = trim($value);
+        $value = trim($value, "\"'");
+
+        if ($name !== "" && getenv($name) === false) {
+            putenv($name . "=" . $value);
+        }
+    }
+}
+
+loadEnvironmentFile(__DIR__ . "/../.env");
+
 define("HOST", getenv("DB_HOST") ?: "localhost");
 define("DBNAME", getenv("DB_NAME") ?: "lippler1");
 define("DBLOGIN", getenv("DB_USER") ?: "lippler1");
