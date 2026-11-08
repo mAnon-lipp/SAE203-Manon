@@ -34,6 +34,7 @@ function loadEnvironmentFile($path) {
 }
 
 loadEnvironmentFile(__DIR__ . "/../.env");
+loadEnvironmentFile(__DIR__ . "/.env");
 
 define("HOST", getenv("DB_HOST") ?: "localhost");
 define("DBNAME", getenv("DB_NAME") ?: "lippler1");

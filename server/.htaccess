@@ -4,3 +4,7 @@
     Header always set Access-Control-Allow-Headers "Content-Type"
     Header always set Vary "Origin"
 </IfModule>
+
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
